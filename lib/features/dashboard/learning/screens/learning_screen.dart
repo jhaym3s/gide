@@ -46,7 +46,7 @@ class _LearningScreenState extends State<LearningScreen> with SingleTickerProvid
             SpaceY(16.dy),
           Padding(
            padding:  EdgeInsets.symmetric(horizontal: 20.dx),
-            child: CustomTabBar(tabController: _tabController, label1: "Learning",label2: "Completed",label3: "Wishlist",),
+            child: CustomThreeTabBar(tabController: _tabController, label1: "Learning",label2: "Completed",label3: "Wishlist",),
           ),
                        Expanded(child: TabBarView(
                           controller: _tabController,
@@ -79,7 +79,8 @@ class _LearningScreenState extends State<LearningScreen> with SingleTickerProvid
                                Divider(height: 4.dy,color: kBlack.withOpacity(.4),),
                                SpaceY(10.dy),
                                Expanded(
-                                 child: ListView.builder(itemBuilder: (context,index){
+                                 child: ListView.builder(
+                                  itemBuilder: (context,index){
                                   return const CompletedCourses();
                                  }),
                                )

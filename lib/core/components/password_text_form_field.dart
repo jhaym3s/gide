@@ -66,6 +66,7 @@ class PasswordTextFormField extends StatelessWidget {
                         ? Icons.visibility_outlined
                         : Icons.visibility_off_outlined,
                     color: const Color(0xFF1C1C1E),
+                    size: 16,
                   ),
                 ),
             hintText: hintText,

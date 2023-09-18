@@ -39,7 +39,7 @@ class Courses extends StatelessWidget {
                   children: [
                     const ExplorePointsTile(points: "500",),
                   SpaceX(4.dx),
-                  const Icon(Icons.info_outline, color: Color(0xff292D32),)
+                  const Icon(Icons.info_outline, color: Color(0xff292D32),size: 16,)
                   ],
                 ),
             ],

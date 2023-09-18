@@ -34,7 +34,6 @@ class ExploreAppBar extends StatelessWidget {
           color: kTextColorsLight)),
           ],
         ),
-        const Icon(Icons.notifications),
       ],
     );
   }

@@ -70,8 +70,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 .bodyMedium!
                                 .copyWith(
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 12.sp,
-                                    color: const Color(0xff9E9E9E)),
+                                    fontSize: 16.sp,
+                                    color: kTextColorsLight),
                             children: [
                               TextSpan(
                                 text: 'Sign In',
@@ -79,8 +79,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                     .textTheme
                                     .bodyMedium!
                                     .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16.sp,
                                       color: const Color(0xff007BFF),
                                      // decoration: TextDecoration.underline,
                                     ),

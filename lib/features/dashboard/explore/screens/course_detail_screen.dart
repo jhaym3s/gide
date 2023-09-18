@@ -45,7 +45,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                     children: [
                       const DetailsPointsTile(points: "500"),
                       SpaceX(4.dx),
-                  const Icon(Icons.info_outline, color: Color(0xff292D32),)
+                  const Icon(Icons.info_outline, color: Color(0xff292D32),size: 16,)
                     ],
                   )
                     ],
@@ -179,12 +179,16 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                 moveToNextScreen(context: context, page: CheckoutScreen.routeName);
               }, buttonText: "Enroll Now for - \$20"),
               SpaceY(21.dy),
-              Text("Get 500 reward point at the end of the course.",
-                      softWrap: true,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: kTextColorsLight)),
+              Align(
+                alignment: Alignment.center,
+                child: Text("Get 500 reward point at the end of the course.",
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                                color: kTextColorsLight)),
+              ),
                             SpaceY(30.dy)
                 ],
               ),

@@ -15,4 +15,14 @@ class AssetsImages {
   static const checkoutBackground = "assets/images/checkout_background.png";
   static const emptyLearning = "assets/images/empty_learning.png";
   static const commentIcon = "assets/images/comment_icon.png";
+  static const edit = "assets/images/edit.png";
+  static const message = "assets/images/aboutUs.png";
+  static const phone = "assets/images/call.png";
+  static const info = "assets/images/information.png";
+  static const mail = "assets/images/mail.png";
+  static const tutor = "assets/images/teacher.png";
+  static const lock = "assets/images/lock.png";
+  static const videoLoop = "assets/images/video_loop.png";
+  static const videoSubtitle = "assets/images/video_subtitle.png";
+  static const logout = "assets/images/logout.png";
 }

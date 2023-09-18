@@ -7,6 +7,12 @@ import 'package:gide/features/authentication/screens/sign_up_screen.dart';
 import 'package:gide/features/authentication/screens/splash_screen.dart';
 import 'package:gide/features/dashboard/explore/screens/checkout_screen.dart';
 import 'package:gide/features/dashboard/explore/screens/course_detail_screen.dart';
+import 'package:gide/features/dashboard/explore/screens/pay_with_card.dart';
+import 'package:gide/features/dashboard/explore/screens/pay_with_earnings.dart';
+import 'package:gide/features/dashboard/profile/screens/add_number.dart';
+import 'package:gide/features/dashboard/profile/screens/change_password.dart';
+import 'package:gide/features/dashboard/profile/screens/edit_personal_details_screen.dart';
+import 'package:gide/features/dashboard/wallet/screens/fund_account_screen.dart';
 
 import '../../features/dashboard/custom_navigation_bar.dart';
 
@@ -32,6 +38,18 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const CourseDetailScreen());
         case CheckoutScreen.routeName:
         return MaterialPageRoute(builder: (_) => const CheckoutScreen());
+        case FundAccountScreen.routeName:
+        return MaterialPageRoute(builder: (_) => const FundAccountScreen());
+        case EditPersonalDetailsScreen.routeName:
+        return MaterialPageRoute(builder: (_) => const EditPersonalDetailsScreen());
+        case ChangePassword.routeName:
+        return MaterialPageRoute(builder: (_) => const ChangePassword());
+        case AddNumber.routeName:
+        return MaterialPageRoute(builder: (_) => const AddNumber());
+        case PayWithCard.routeName:
+        return MaterialPageRoute(builder: (_) => const PayWithCard());
+         case PayWithEarning.routeName:
+        return MaterialPageRoute(builder: (_) => const PayWithEarning());
       default:
         return onError();
     }
