@@ -25,4 +25,5 @@ class AssetsImages {
   static const videoLoop = "assets/images/video_loop.png";
   static const videoSubtitle = "assets/images/video_subtitle.png";
   static const logout = "assets/images/logout.png";
+  static const review_success = "assets/images/review_success.png";
 }

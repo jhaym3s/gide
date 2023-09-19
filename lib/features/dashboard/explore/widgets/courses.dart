@@ -11,10 +11,10 @@ class Courses extends StatelessWidget {
     return Container(
       height: 260.dy,
       width: 253.dx,
-      margin: EdgeInsets.only(left: 16.dx),
+      margin: EdgeInsets.only(right: 16.dx),
       decoration:  BoxDecoration(
         borderRadius:const  BorderRadius.only(bottomLeft: Radius.circular(8),bottomRight: Radius.circular(8)),
-        border: Border.all(color: Color(0xffEAECF0))
+        border: Border.all(color: const Color(0xffEAECF0))
       ),
       child:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,

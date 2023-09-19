@@ -53,10 +53,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   ],
                 ),
                 SpaceY(16.dy),
-                SizedBox(
+                Container(
                   height: 44.dy,
+                   margin: EdgeInsets.zero, // Remove margin
+                  padding: EdgeInsets.zero, // Remove padding
                   child: ListView.builder(
-                    padding: EdgeInsets.all(0),
+                   padding: EdgeInsets.zero, // Remove padding
                       scrollDirection: Axis.horizontal,
                       itemCount: interestList.length,
                       itemBuilder: (context, index) {
@@ -90,10 +92,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
               fontWeight: FontWeight.w500,
               color: kTextColorsLight)),
                 SpaceY(14.dy),
-                SizedBox(
+                Container(
                   height: 260.dy,
+                   margin: EdgeInsets.zero, // Remove margin
+                  padding: EdgeInsets.zero, // Remove padding
                   child: ListView.builder(
-                    padding: const EdgeInsets.all(0),
+                     padding: EdgeInsets.zero, // Remove padding
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index){
                     return Courses();
@@ -126,8 +130,7 @@ class ExploreCategories extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: 20.dx, vertical: 9.5.dy),
+        padding: EdgeInsets.symmetric(horizontal: 20.dx, vertical: 9.5.dy),
         child: Text(name,
             style: Theme.of(context)
                 .textTheme
