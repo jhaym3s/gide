@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gide/core/components/components.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
+import 'package:gide/features/dashboard/custom_navigation_bar.dart';
 import 'package:gide/features/dashboard/explore/screens/pay_with_card.dart';
 import 'package:gide/features/dashboard/explore/screens/pay_with_earnings.dart';
 
@@ -150,3 +152,43 @@ class PaymentListTile extends StatelessWidget {
   }
 }
 
+void showSuccessDialog({required BuildContext context, required VoidCallback onPressed,}){
+    generalDialog(context: context, 
+    children: Container(
+      decoration: BoxDecoration(
+          color: kWhite,
+          borderRadius: BorderRadius.circular(8)
+      ),
+      height: 369.dy, width: 350.dx,
+      child: Padding(
+        padding:  EdgeInsets.symmetric(horizontal: 20.dx),
+        child: Column(
+            children: [
+              SpaceY(45.dy),
+                Image.asset(AssetsImages.review_success, height: 120.dy, width: 120.dx,),
+                SpaceY(8.dy),
+                 Text("Submitted successfully",
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w700,
+                                color: kTextColorsLight)),
+                  SpaceY(8.dy),
+                  Text("We will get back to you shortly on the next steps to follow.",
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w400,
+                                color: kGrey)),
+                    SpaceY(24.dy),
+                    CustomElevatedButton(onPressed: (){
+                      moveAndClearStack(context: context, page: CustomNavigationBar.routeName);
+                    }, buttonText: "Back Home"),
+                 
+            ],
+        ),
+      ),
+    ));
+}

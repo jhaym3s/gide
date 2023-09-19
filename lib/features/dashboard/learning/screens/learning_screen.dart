@@ -24,6 +24,7 @@ class _LearningScreenState extends State<LearningScreen>
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
+  final commentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -117,41 +118,8 @@ class _LearningScreenState extends State<LearningScreen>
                                                       color: kTextColorsLight)),
                                         ),
                                         SpaceY(40.dy),
-                                        Text("Drop a message",
-                                            softWrap: true,
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .copyWith(
-                                                    fontSize: 16.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: kTextColorsLight)),
-                                        SpaceY(8.dy),
-                                        Container(
-                                          height: 114.dy,
-                                          width: kScreenWidth(context),
-                                          decoration: BoxDecoration(
-                                              color: const Color(0xffF9FAFB),
-                                              border: Border.all(
-                                                  color:
-                                                      const Color(0xffEAECF0))),
-                                          child: TextFormField(
-                                            maxLines: 4,
-                                            decoration: InputDecoration(
-                                                hintStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge!
-                                                    .copyWith(
-                                                        fontSize: 14.sp,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: kGrey),
-                                                hintText:
-                                                    'Your favorite thing about the course',
-                                                border: InputBorder.none),
-                                          ),
-                                        ),
+                                        
+                                        CommentTextFormField(commentController: commentController,hint: 'Your favorite thing about the course',labelText: "Drop a message",),
                                         SpaceY(24.dy),
                                         Text("How would you rate the course",
                                             softWrap: true,
@@ -244,6 +212,8 @@ class _LearningScreenState extends State<LearningScreen>
     );
   }
 }
+
+
 
 class EmptyLearningScreen extends StatelessWidget {
   const EmptyLearningScreen({

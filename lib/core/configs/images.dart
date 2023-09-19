@@ -26,4 +26,6 @@ class AssetsImages {
   static const videoSubtitle = "assets/images/video_subtitle.png";
   static const logout = "assets/images/logout.png";
   static const review_success = "assets/images/review_success.png";
+  static const docUpload = "assets/images/document_upload.png";
+  static const success = "assets/images/success.png";
 }
