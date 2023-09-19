@@ -25,6 +25,16 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
              Container(
               height: 224.dy, width: kScreenWidth(context),
               color: kBlack,
+              child: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                 IconButton(icon: const Icon(Icons.arrow_back_ios, color: kWhite,),onPressed: (){
+                  moveToOldScreen(context: context);
+                 },),
+                  ],
+                ),
+              ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.dx),

@@ -17,7 +17,7 @@ class TransactionListTile extends StatelessWidget {
         children: [
           Row(
             children: [
-               Icon(Icons.abc),
+        const Icon(Icons.arrow_outward_rounded,color: kError,),
         SpaceX(8.dx),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

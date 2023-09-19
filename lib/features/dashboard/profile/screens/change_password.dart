@@ -16,8 +16,8 @@ class _ChangePasswordState extends State<ChangePassword> {
   final oldPassWord = TextEditingController();
   final newPassWord = TextEditingController();
   final confirmPassWord = TextEditingController();
-  bool showPassword = false;
-  bool showNewPassWord = false;
+  bool showPassword = true;
+  bool showNewPassWord = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

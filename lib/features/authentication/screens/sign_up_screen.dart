@@ -218,8 +218,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 .bodyMedium!
                                 .copyWith(
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 12.sp,
-                                    color: const Color(0xff9E9E9E)),
+                                    fontSize: 16.sp,
+                                    color: kTextColorsLight),
                             children: [
                               TextSpan(
                                 text: 'Sign In',
@@ -227,9 +227,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     .textTheme
                                     .bodyMedium!
                                     .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14.sp,
-                                      color: const Color(0xff007BFF),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16.sp,
+                                      color: kPrimaryColor,
                                      // decoration: TextDecoration.underline,
                                     ),
                                 recognizer: TapGestureRecognizer()

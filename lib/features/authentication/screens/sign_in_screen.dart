@@ -6,6 +6,7 @@ import 'package:gide/core/helpers/regex_validation.dart';
 import 'package:gide/features/authentication/screens/forgot_password_screen.dart';
 import 'package:gide/features/authentication/screens/onboarding.dart';
 import 'package:gide/features/authentication/screens/sign_up_screen.dart';
+import 'package:gide/features/dashboard/custom_navigation_bar.dart';
 
 import '../../../core/components/components.dart';
 import '../../../core/router/router.dart';
@@ -179,14 +180,14 @@ class _SignInScreenState extends State<SignInScreen> {
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
-                            color: const Color(0xff007BFF))),
+                            color: kPrimaryColor)),
                    ),
                   SpaceY(40.dy),
                   CustomElevatedButton(
                       onPressed: emailIsValidated && passwordIsValid
                           ? () {
-                            //_formKey.currentState!.validate()?
-                           //   Navigator.of(context).pushNamed(ConfirmEmailScreen.routeName):null;
+                            _formKey.currentState!.validate()?
+                              moveAndClearStack(context: context,page: CustomNavigationBar.routeName)   :null;
                             }
                           : null,
                       buttonText: "Sign Up"),
@@ -199,8 +200,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                   .bodyMedium!
                                   .copyWith(
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 12.sp,
-                                      color: const Color(0xff9E9E9E)),
+                                      fontSize: 16.sp,
+                                      color: kTextColorsLight),
                               children: [
                                 TextSpan(
                                   text: 'Sign Up',
@@ -208,9 +209,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.sp,
-                                        color: const Color(0xff007BFF),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16.sp,
+                                        color: kPrimaryColor,
                                        // decoration: TextDecoration.underline,
                                       ),
                                   recognizer: TapGestureRecognizer()
