@@ -3,6 +3,7 @@ import 'package:gide/core/router/router.dart';
 
 import '../../../../core/components/components.dart';
 import '../../../../core/configs/configs.dart';
+import 'payment_success_screen.dart';
 
 class PayWithCard extends StatefulWidget {
   static const routeName = "payWithCard";
@@ -83,7 +84,9 @@ class _PayWithCardState extends State<PayWithCard> {
              ],
            ),
            SpaceY(40.dy),
-           CustomElevatedButton(onPressed: saveCard?(){}:null, buttonText: "Proceed To Payment"),
+           CustomElevatedButton(onPressed: saveCard?(){
+            moveToNextScreen(context: context, page: PaymentSuccessScreen.routeName);
+           }:null, buttonText: "Proceed To Payment"),
           ],
         ),
       ),

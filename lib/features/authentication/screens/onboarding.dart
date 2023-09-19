@@ -31,7 +31,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 fit: BoxFit.cover,
               ),
               ),
-              child: Center(child: Image.asset(AssetsImages.logo,width: 140.dx,height: 140.dy,)),
+              child: Center(child: CircleAvatar(
+                radius: 71,
+                backgroundColor: kBlack,
+                child: Image.asset(AssetsImages.logo,width: 140.dx,height: 140.dy,))),
           ),
           SpaceY(49.dy),
             Padding(

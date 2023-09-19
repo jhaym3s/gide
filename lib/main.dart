@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
       theme: AppTheme().lightTheme,
       darkTheme: AppTheme().lightTheme,
       home: 
-      const CustomNavigationBar(),
-       //const SplashScreen(),
+      //const CustomNavigationBar(),
+       const SplashScreen(),
       onGenerateRoute: AppRouter.onGenerated,
       builder: (context, widget){
         final media = MediaQuery.of(context);

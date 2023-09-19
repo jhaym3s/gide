@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/components/components.dart';
 import '../../../../core/configs/configs.dart';
 import '../../../../core/router/router.dart';
+import 'payment_success_screen.dart';
 
 class PayWithEarning extends StatefulWidget {
   static const routeName = "pay_with_earning";
@@ -128,7 +129,9 @@ class _PayWithEarningState extends State<PayWithEarning> {
                       return null;
                     },),
             SpaceY(40.dy),
-            CustomElevatedButton(onPressed: (){}, buttonText: "Proceed to payment")
+            CustomElevatedButton(onPressed: (){
+              moveToNextScreen(context: context, page: PaymentSuccessScreen.routeName);
+            }, buttonText: "Proceed to payment")
             
           ],
         ),
