@@ -5,6 +5,7 @@ import 'package:gide/core/router/router.dart';
 import 'package:gide/features/dashboard/custom_navigation_bar.dart';
 import 'package:gide/features/dashboard/explore/screens/pay_with_card.dart';
 import 'package:gide/features/dashboard/explore/screens/pay_with_earnings.dart';
+import 'package:gide/features/dashboard/explore/screens/pay_with_saving.dart';
 
 
 void generalDialog(
@@ -84,7 +85,7 @@ void showPaymentOption({required BuildContext context, required VoidCallback onP
                   child: const PaymentListTile(option: "Pay with earnings",)),
                 GestureDetector(
                   onTap: () {
-                    moveToNextScreen(context: context, page: PayWithEarning.routeName);
+                    moveToNextScreen(context: context, page: PayWithSaving.routeName);
                   },
                   child: const PaymentListTile(option: "Pay with savings",))
           ],
@@ -165,7 +166,7 @@ void showSuccessDialog({required BuildContext context, required VoidCallback onP
         child: Column(
             children: [
               SpaceY(45.dy),
-                Image.asset(AssetsImages.review_success, height: 120.dy, width: 120.dx,),
+                Image.asset(AssetsImages.success, height: 120.dy, width: 120.dx,),
                 SpaceY(8.dy),
                  Text("Submitted successfully",
                         softWrap: true,

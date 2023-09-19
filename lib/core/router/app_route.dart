@@ -9,6 +9,7 @@ import 'package:gide/features/dashboard/explore/screens/checkout_screen.dart';
 import 'package:gide/features/dashboard/explore/screens/course_detail_screen.dart';
 import 'package:gide/features/dashboard/explore/screens/pay_with_card.dart';
 import 'package:gide/features/dashboard/explore/screens/pay_with_earnings.dart';
+import 'package:gide/features/dashboard/explore/screens/pay_with_saving.dart';
 import 'package:gide/features/dashboard/profile/screens/add_number.dart';
 import 'package:gide/features/dashboard/profile/screens/become_an_instructor.dart';
 import 'package:gide/features/dashboard/profile/screens/change_password.dart';
@@ -53,6 +54,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const PayWithEarning());
         case BecomeAnInstructor.routeName:
         return MaterialPageRoute(builder: (_) => const BecomeAnInstructor());
+        case PayWithSaving.routeName:
+        return MaterialPageRoute(builder: (_) => const PayWithSaving());
       default:
         return onError();
     }

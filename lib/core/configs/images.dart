@@ -28,4 +28,5 @@ class AssetsImages {
   static const review_success = "assets/images/review_success.png";
   static const docUpload = "assets/images/document_upload.png";
   static const success = "assets/images/success.png";
+  static const swap = "assets/images/swap.png";
 }

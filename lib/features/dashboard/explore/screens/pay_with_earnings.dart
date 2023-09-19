@@ -13,6 +13,8 @@ class PayWithEarning extends StatefulWidget {
 }
 
 class _PayWithEarningState extends State<PayWithEarning> {
+  final amountController = TextEditingController();
+  final processAmountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,13 +74,62 @@ class _PayWithEarningState extends State<PayWithEarning> {
           ),
               ],
             ),
-            SpaceY(60),
-            Text("Development has been paused",
+            SpaceY(16.dy),
+            CustomTextFieldWithoutLabel(
+              suffixIcon: Padding(
+                 padding:  EdgeInsets.symmetric(horizontal: 20.dx,vertical: 19.dy),
+                child: Text("Points",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xffD0D5DD))),
+              ), 
+              hintText: "Enter the amount", controller: amountController,validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter an amount';
+                      }
+                      return null;
+                    },),
+             SpaceY(6.dy),
+             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset(AssetsImages.swap,height: 20.dy, width: 20.dx,),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10.dx,vertical: 7.5.dy),
+                  color: const Color(0xffF2F4F7),
+                  child: Text("500 points = \$5 ",
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-                color: kTextColorsLight)),
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w700,
+                color: kPrimaryColor)),
+                )
+              ],
+             ),
+             SpaceY(18.dy),
+             CustomTextFieldWithoutLabel(
+              suffixIcon: Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 20.dx,vertical: 19.dy),
+                child: Text("\$0",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xffD0D5DD))),
+              ), 
+              hintText: "Processed amount", 
+              controller: processAmountController,
+              validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter an amount';
+                      }
+                      return null;
+                    },),
+            SpaceY(40.dy),
+            CustomElevatedButton(onPressed: (){}, buttonText: "Proceed to payment")
+            
           ],
         ),
       ),
