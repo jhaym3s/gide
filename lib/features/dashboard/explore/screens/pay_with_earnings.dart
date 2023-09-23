@@ -20,6 +20,7 @@ class _PayWithEarningState extends State<PayWithEarning> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         centerTitle: true,
         backgroundColor: kTransparent,
         title: Text("Pay with earnings",
             textAlign: TextAlign.center,

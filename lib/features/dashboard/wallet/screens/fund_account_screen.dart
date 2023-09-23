@@ -19,6 +19,7 @@ class _FundAccountScreenState extends State<FundAccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         centerTitle: true,
         backgroundColor: kTransparent,
         title: Text("Fund Account",
             textAlign: TextAlign.center,

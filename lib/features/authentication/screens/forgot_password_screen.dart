@@ -23,6 +23,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: kTransparent,
         leading: CustomBackButton(onTap: () {
           moveToOldScreen(context: context);

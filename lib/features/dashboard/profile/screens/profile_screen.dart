@@ -22,8 +22,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         centerTitle: true,
         backgroundColor: kWhite,
-        centerTitle: false,
+       
         title: Text("Settings",
             softWrap: true,
             textAlign: TextAlign.center,

@@ -27,6 +27,7 @@ class _InterestScreenState extends State<InterestScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kTransparent,
+         centerTitle: true,
         leading: CustomBackButton(onTap: () {
           moveToOldScreen(context: context);
         }),

@@ -20,6 +20,7 @@ class _PayWithCardState extends State<PayWithCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         centerTitle: true,
         backgroundColor: kTransparent,
         title: Text("Pay with card",
             textAlign: TextAlign.center,

@@ -20,6 +20,7 @@ class _PayWithSavingState extends State<PayWithSaving> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         centerTitle: true,
         backgroundColor: kTransparent,
         title: Text("Pay with savings",
             textAlign: TextAlign.center,

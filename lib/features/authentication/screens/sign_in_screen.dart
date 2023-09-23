@@ -35,6 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kTransparent,
+         centerTitle: true,
         leading: CustomBackButton(onTap: () {
           moveAndClearStack(context: context, page: OnboardingScreen.routeName);
         }),

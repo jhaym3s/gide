@@ -34,6 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         centerTitle: true,
         backgroundColor: kTransparent,
         leading: CustomBackButton(onTap: () {
           moveAndClearStack(context: context, page: OnboardingScreen.routeName);

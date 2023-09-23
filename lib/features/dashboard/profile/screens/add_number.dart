@@ -18,6 +18,7 @@ class _AddNumberState extends State<AddNumber> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         centerTitle: true,
         backgroundColor: kTransparent,
         leading: CustomBackButton(onTap: () {
           moveToOldScreen(context: context);
