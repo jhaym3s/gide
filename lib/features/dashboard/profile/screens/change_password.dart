@@ -37,6 +37,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         padding:  EdgeInsets.symmetric(horizontal: 20.dx),
         child: Column(
           children: [
+            SpaceY(56.dy),
             PasswordTextFormField(hidePassword: showPassword, labelText: "Old Password", suffixFunction: (){
               setState(() {
                 showPassword = !showPassword;
