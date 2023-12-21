@@ -1,9 +1,14 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:gide/core/configs/configs.dart';
 
 class CustomProgressIndicator extends StatelessWidget {
   const CustomProgressIndicator({super.key, required this.progress});
-  final double progress; /// in decimal
+  final double progress;
+
+  /// in decimal
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +16,9 @@ class CustomProgressIndicator extends StatelessWidget {
       width: 184.dx,
       height: 8.dy,
       decoration: BoxDecoration(
-        //border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(10),
-        color: Color(0xffD0D5DD)
-      ),
+          //border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(10),
+          color: Color(0xffD0D5DD)),
       child: Stack(
         children: [
           Container(
@@ -30,4 +34,3 @@ class CustomProgressIndicator extends StatelessWidget {
     );
   }
 }
-

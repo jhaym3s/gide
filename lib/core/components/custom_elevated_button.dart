@@ -1,6 +1,8 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import '../configs/configs.dart';
 
+// Project imports:
+import '../configs/configs.dart';
 
 class CustomElevatedButton extends StatefulWidget {
   const CustomElevatedButton({
@@ -49,14 +51,10 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
               ),
             ),
           ),
-          child: Text(
-                widget.buttonText,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                          color: kWhite)
-                ),
+          child: Text(widget.buttonText,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: 16.sp, fontWeight: FontWeight.w500, color: kWhite)),
         ),
       ),
     );

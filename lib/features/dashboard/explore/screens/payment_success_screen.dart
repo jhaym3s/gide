@@ -1,8 +1,10 @@
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/configs/images.dart';
-
 import '../../../../core/components/components.dart';
 import '../../../../core/router/router.dart';
 import '../../custom_navigation_bar.dart';
@@ -41,22 +43,20 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
             text: TextSpan(
               text: 'Your payment for ',
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                  color: kGrey),
+                  fontSize: 16.sp, fontWeight: FontWeight.w400, color: kGrey),
               children: <TextSpan>[
                 TextSpan(
                     text: 'Quick steps to Figma ',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
-                        color:kTextColorsLight)),
+                        color: kTextColorsLight)),
                 TextSpan(
                     text: 'design course has been confirmed.',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w400,
-                        color:kGrey)),
+                        color: kGrey)),
               ],
             ),
           ),

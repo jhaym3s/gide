@@ -1,13 +1,15 @@
+// Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Project imports:
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/helpers/regex_validation.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/features/authentication/screens/interest_screen.dart';
 import 'package:gide/features/authentication/screens/onboarding.dart';
 import 'package:gide/features/authentication/screens/sign_in_screen.dart';
-
 import '../../../core/components/components.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -34,7 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         centerTitle: true,
+        centerTitle: true,
         backgroundColor: kTransparent,
         leading: CustomBackButton(onTap: () {
           moveAndClearStack(context: context, page: OnboardingScreen.routeName);
@@ -47,7 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 20.dx),
+                  padding: EdgeInsets.symmetric(horizontal: 20.dx),
                   child: Text("Create your account",
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 24.sp,
@@ -56,7 +58,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SpaceY(8.dy),
                 Padding(
-                   padding:  EdgeInsets.symmetric(horizontal: 20.dx),
+                  padding: EdgeInsets.symmetric(horizontal: 20.dx),
                   child: Text("Lets get your account started in few steps.",
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 16.sp,
@@ -64,10 +66,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           color: const Color(0xff667085))),
                 ),
                 SpaceY(40.dy),
-                const Divider(height: 4,color: Color(0xffEAECF0),),
+                const Divider(
+                  height: 4,
+                  color: Color(0xffEAECF0),
+                ),
                 SpaceY(40.dy),
                 Padding(
-                   padding:  EdgeInsets.symmetric(horizontal: 20.dx),
+                  padding: EdgeInsets.symmetric(horizontal: 20.dx),
                   child: NormalTextFormField(
                     controller: nameTextController,
                     labelText: "Full Name",
@@ -79,19 +84,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       }
                       return null;
                     },
-                
                   ),
                 ),
                 SpaceY(16.dy),
                 Padding(
-                   padding:  EdgeInsets.symmetric(horizontal: 20.dx),
+                  padding: EdgeInsets.symmetric(horizontal: 20.dx),
                   child: NormalTextFormField(
                     controller: emailTextController,
                     labelText: "Email address",
                     hintText: kDummyEmail,
                     inputFormatters: [
-                        FilteringTextInputFormatter.deny(RegExp('[ ]')),
-                      ],
+                      FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                    ],
                     onChanged: (value) {
                       emailTextController.addListener(() {
                         if (emailTextController.text.emailIsValidated()) {
@@ -116,7 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SpaceY(16.dy),
                 //! Password textfield
                 Padding(
-                   padding:  EdgeInsets.symmetric(horizontal: 20.dx),
+                  padding: EdgeInsets.symmetric(horizontal: 20.dx),
                   child: PasswordTextFormField(
                     //keyboardType: TextInputType.phone,
                     controller: passwordTextController,
@@ -124,8 +128,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     hidePassword: hidePassword,
                     labelText: "Password",
                     inputFormatters: [
-                        FilteringTextInputFormatter.deny(RegExp('[ ]')),
-                      ],
+                      FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                    ],
                     suffixFunction: () {
                       setState(() {
                         hidePassword = !hidePassword;
@@ -194,7 +198,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       if (!passwordTextController.text.containsUpperCase()) {
                         return "Password must contain uppercase letter";
                       }
-                      if(passwordTextController.text.containsSpace()){
+                      if (passwordTextController.text.containsSpace()) {
                         return "Space";
                       }
                       return null;
@@ -205,46 +209,46 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 CustomElevatedButton(
                     onPressed: emailIsValidated && passwordIsValid
                         ? () {
-                          _formKey.currentState!.validate()?
-                           Navigator.of(context).pushNamed(InterestScreen.routeName):null;
+                            _formKey.currentState!.validate()
+                                ? Navigator.of(context)
+                                    .pushNamed(InterestScreen.routeName)
+                                : null;
                           }
                         : null,
                     buttonText: "Sign Up"),
-                   SpaceY(40.dy), 
-                 Center(child: RichText(
-                          text: TextSpan(
-                            text: 'Already have an account? ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                    fontWeight: FontWeight.w400,
+                SpaceY(40.dy),
+                Center(
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Already have an account? ',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16.sp,
+                          color: kTextColorsLight),
+                      children: [
+                        TextSpan(
+                          text: 'Sign In',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.w500,
                                     fontSize: 16.sp,
-                                    color: kTextColorsLight),
-                            children: [
-                              TextSpan(
-                                text: 'Sign In',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16.sp,
-                                      color: kPrimaryColor,
-                                     // decoration: TextDecoration.underline,
-                                    ),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    moveAndClearStack(context: context, page: SignInScreen.routeName);
-                                    // moveToNextScreen(
-                                    //     context: context,
-                                    //     page: SignInScreen.routeName);
-                                 },
-                              ),
-                            ],
-                          ),
+                                    color: kPrimaryColor,
+                                    // decoration: TextDecoration.underline,
+                                  ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              moveAndClearStack(
+                                  context: context,
+                                  page: SignInScreen.routeName);
+                              // moveToNextScreen(
+                              //     context: context,
+                              //     page: SignInScreen.routeName);
+                            },
                         ),
-                      ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             )),
       ),

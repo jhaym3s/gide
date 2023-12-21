@@ -1,7 +1,9 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:gide/core/components/alerts.dart';
 import 'package:gide/core/router/router.dart';
-
 import '../../../../core/components/components.dart';
 import '../../../../core/configs/configs.dart';
 
@@ -23,7 +25,7 @@ class _BecomeAnInstructorState extends State<BecomeAnInstructor> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         centerTitle: true,
+        centerTitle: true,
         backgroundColor: kTransparent,
         leading: CustomBackButton(onTap: () {
           moveToOldScreen(context: context);
@@ -59,7 +61,7 @@ class _BecomeAnInstructorState extends State<BecomeAnInstructor> {
               hintText: "Select image",
               labelText: "Upload image",
               suffixIcon: const Icon(
-               Icons.description_rounded,
+                Icons.description_rounded,
               ),
               controller: imageController,
               onTap: () {},
@@ -87,11 +89,17 @@ class _BecomeAnInstructorState extends State<BecomeAnInstructor> {
               },
             ),
             SpaceY(16.dy),
-            CommentTextFormField(commentController: commentController, hint: "Work experience, hobbies, just make it short.",labelText: "Tell us about yourself",),
+            CommentTextFormField(
+              commentController: commentController,
+              hint: "Work experience, hobbies, just make it short.",
+              labelText: "Tell us about yourself",
+            ),
             SpaceY(34.dy),
-            CustomElevatedButton(onPressed: (){
-             showSuccessDialog(context: context, onPressed: (){});
-            }, buttonText: "Submit Details")
+            CustomElevatedButton(
+                onPressed: () {
+                  showSuccessDialog(context: context, onPressed: () {});
+                },
+                buttonText: "Submit Details")
           ],
         ),
       ),

@@ -1,4 +1,3 @@
-
 class AssetsImages {
   static const splash = "assets/images/splash.png";
   static const logo = "assets/images/appLogo.png";

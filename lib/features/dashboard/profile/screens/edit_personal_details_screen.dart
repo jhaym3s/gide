@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:gide/core/components/custom_back_button.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/configs/constants.dart';
@@ -11,39 +14,45 @@ class EditPersonalDetailsScreen extends StatefulWidget {
   const EditPersonalDetailsScreen({super.key});
 
   @override
-  State<EditPersonalDetailsScreen> createState() => _EditPersonalDetailsScreenState();
+  State<EditPersonalDetailsScreen> createState() =>
+      _EditPersonalDetailsScreenState();
 }
 
 class _EditPersonalDetailsScreenState extends State<EditPersonalDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         backgroundColor: kTransparent,
         leading: CustomBackButton(onTap: () {
           moveToOldScreen(context: context);
         }),
         title: Text("Personal Information",
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w700,
-                                color: kTextColorsLight)),
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w700,
+                color: kTextColorsLight)),
       ),
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 20.dx),
+        padding: EdgeInsets.symmetric(horizontal: 20.dx),
         child: Column(
           children: [
             SpaceY(46.dy),
             GestureDetector(
-              onTap: () {
-                moveToNextScreen(context: context, page: ChangePassword.routeName);
-              },
-              child: const EditListTile(title: "Change Password",)),
+                onTap: () {
+                  moveToNextScreen(
+                      context: context, page: ChangePassword.routeName);
+                },
+                child: const EditListTile(
+                  title: "Change Password",
+                )),
             GestureDetector(
-              onTap: () {
-                moveToNextScreen(context: context, page: AddNumber.routeName);
-              },
-              child: const EditListTile(title: "Add Phone Number",)),
+                onTap: () {
+                  moveToNextScreen(context: context, page: AddNumber.routeName);
+                },
+                child: const EditListTile(
+                  title: "Add Phone Number",
+                )),
           ],
         ),
       ),
@@ -52,9 +61,7 @@ class _EditPersonalDetailsScreenState extends State<EditPersonalDetailsScreen> {
 }
 
 class EditListTile extends StatelessWidget {
-  const EditListTile({
-    super.key, required this.title
-  });
+  const EditListTile({super.key, required this.title});
   final String title;
 
   @override
@@ -62,7 +69,8 @@ class EditListTile extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.dx),
       margin: EdgeInsets.only(bottom: 16.dx),
-      height: 56.dy, width: kScreenWidth(context),
+      height: 56.dy,
+      width: kScreenWidth(context),
       decoration: BoxDecoration(
         color: Color(0xffF2F4F7),
         borderRadius: BorderRadius.circular(8),
@@ -71,11 +79,15 @@ class EditListTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                                color: kPrimaryColor)),
-          const Icon(Icons.arrow_forward_ios, size: 24, color: kTextColorsLight,)
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                  color: kPrimaryColor)),
+          const Icon(
+            Icons.arrow_forward_ios,
+            size: 24,
+            color: kTextColorsLight,
+          )
         ],
       ),
     );

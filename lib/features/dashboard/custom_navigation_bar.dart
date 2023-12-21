@@ -1,13 +1,16 @@
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
+
+// Project imports:
 import 'package:gide/features/dashboard/explore/screens/explore_screen.dart';
 import 'package:gide/features/dashboard/learning/screens/learning_screen.dart';
 import 'package:gide/features/dashboard/profile/screens/profile_screen.dart';
 import 'package:gide/features/dashboard/wallet/screens/wallet_screen.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
-
 import '../../core/configs/configs.dart';
-
 
 class CustomNavigationBar extends StatefulWidget {
   static const routeName = "custom_nav_bar";
@@ -35,40 +38,48 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         contentPadding: 0,
         //iconSize: 24,
         activeColorPrimary: kPrimaryColor,
-        icon: Image.asset(AssetsImages.activeExplore,height: 24.dy, width: 24.dx,
+        icon: Image.asset(
+          AssetsImages.activeExplore,
+          height: 24.dy,
+          width: 24.dx,
         ),
-        inactiveIcon: Image.asset(AssetsImages.inactiveExplore,height: 24.dy, width: 24.dx),
+        inactiveIcon: Image.asset(AssetsImages.inactiveExplore,
+            height: 24.dy, width: 24.dx),
         title: ("Explore"),
       ),
-
       PersistentBottomNavBarItem(
         contentPadding: 0,
         activeColorPrimary: kPrimaryColor,
         //iconSize: 80,
-         icon: Image.asset(AssetsImages.activeLearning, height: 24.dy, width: 24.dx),
-        inactiveIcon: Image.asset(AssetsImages.inactiveLearning,height: 24.dy, width: 24.dx),
+        icon: Image.asset(AssetsImages.activeLearning,
+            height: 24.dy, width: 24.dx),
+        inactiveIcon: Image.asset(AssetsImages.inactiveLearning,
+            height: 24.dy, width: 24.dx),
         title: ("Learning"),
-       
       ),
       PersistentBottomNavBarItem(
         contentPadding: 0,
         //iconSize: 80,
         activeColorPrimary: kPrimaryColor,
-         icon: Image.asset(AssetsImages.activeWallet,height: 24.dy, width: 24.dx),
-        inactiveIcon: Image.asset(AssetsImages.inactiveWallet,height: 24.dy, width: 24.dx),
+        icon:
+            Image.asset(AssetsImages.activeWallet, height: 24.dy, width: 24.dx),
+        inactiveIcon: Image.asset(AssetsImages.inactiveWallet,
+            height: 24.dy, width: 24.dx),
         title: ("Wallet"),
-        
       ),
       PersistentBottomNavBarItem(
-        contentPadding: 0,
-        //iconSize: 80,
-        activeColorPrimary: kPrimaryColor,
-         icon: Image.asset(AssetsImages.activeProfile,height: 24.dy, width: 24.dx),
-        inactiveIcon: Image.asset(AssetsImages.inactiveProfile,height: 24.dy, width: 24.dx),
-        title: ("Profile"),
-        textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 10.sp, fontWeight: FontWeight.w400)
-      
-      ),
+          contentPadding: 0,
+          //iconSize: 80,
+          activeColorPrimary: kPrimaryColor,
+          icon: Image.asset(AssetsImages.activeProfile,
+              height: 24.dy, width: 24.dx),
+          inactiveIcon: Image.asset(AssetsImages.inactiveProfile,
+              height: 24.dy, width: 24.dx),
+          title: ("Profile"),
+          textStyle: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(fontSize: 10.sp, fontWeight: FontWeight.w400)),
     ];
   }
 

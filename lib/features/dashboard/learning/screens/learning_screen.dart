@@ -1,9 +1,14 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+// Project imports:
 import 'package:gide/core/components/search_bar.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/features/dashboard/learning/widgets/learning_courses.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../../../core/components/components.dart';
 import '../../../../core/components/custom_tab_bar.dart';
 import '../widgets/completed_courses.dart';
@@ -24,6 +29,7 @@ class _LearningScreenState extends State<LearningScreen>
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
+
   final commentController = TextEditingController();
 
   @override
@@ -118,8 +124,12 @@ class _LearningScreenState extends State<LearningScreen>
                                                       color: kTextColorsLight)),
                                         ),
                                         SpaceY(40.dy),
-                                        
-                                        CommentTextFormField(commentController: commentController,hint: 'Your favorite thing about the course',labelText: "Drop a message",),
+                                        CommentTextFormField(
+                                          commentController: commentController,
+                                          hint:
+                                              'Your favorite thing about the course',
+                                          labelText: "Drop a message",
+                                        ),
                                         SpaceY(24.dy),
                                         Text("How would you rate the course",
                                             softWrap: true,
@@ -152,46 +162,62 @@ class _LearningScreenState extends State<LearningScreen>
                                         ),
                                         SpaceY(32.dy),
                                         CustomElevatedButton(
-                                           buttonText: "Submit Review",
-                                            onPressed: () {
-                                              moveToOldScreen(context: context);
-                                              showModalSheetWithRadius(
-                                                context: context,
-                                                height: 445,
-                                                returnWidget: Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 20.dx),
-                                                  child: Column(
-                                                    children: [
-                                                      SpaceY(64.dy),
-                                                      Image.asset(
-                                                        AssetsImages
-                                                            .review_success,
-                                                        height: 80.dy,
-                                                        width: 80.dx,
-                                                      ),
-                                                      SpaceY(16.dy),
-                                                      Padding(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal:
-                                                                    50.dx),
-                                                        child: Text(
-                                                            "Your response have been recorded successful",
-                                                            softWrap: true,
-                                                            textAlign: TextAlign.center,
-                                                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize:16.sp,fontWeight:FontWeight.w400,color:kGrey)),
-                                                      ),
-                                                      SpaceY(32.dy),
-                                                      CustomElevatedButton(onPressed: (){
-                                                        moveToOldScreen(context: context);
-                                                      }, buttonText: "Go back to learning")
-                                                    ],
-                                                  ),
+                                          buttonText: "Submit Review",
+                                          onPressed: () {
+                                            moveToOldScreen(context: context);
+                                            showModalSheetWithRadius(
+                                              context: context,
+                                              height: 445,
+                                              returnWidget: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 20.dx),
+                                                child: Column(
+                                                  children: [
+                                                    SpaceY(64.dy),
+                                                    Image.asset(
+                                                      AssetsImages
+                                                          .review_success,
+                                                      height: 80.dy,
+                                                      width: 80.dx,
+                                                    ),
+                                                    SpaceY(16.dy),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal:
+                                                                  50.dx),
+                                                      child: Text(
+                                                          "Your response have been recorded successful",
+                                                          softWrap: true,
+                                                          textAlign: TextAlign
+                                                              .center,
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .bodyLarge!
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      16.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color:
+                                                                      kGrey)),
+                                                    ),
+                                                    SpaceY(32.dy),
+                                                    CustomElevatedButton(
+                                                        onPressed: () {
+                                                          moveToOldScreen(
+                                                              context: context);
+                                                        },
+                                                        buttonText:
+                                                            "Go back to learning")
+                                                  ],
                                                 ),
-                                              );
-                                            },
-                                           )
+                                              ),
+                                            );
+                                          },
+                                        )
                                       ],
                                     ),
                                   ),
@@ -212,8 +238,6 @@ class _LearningScreenState extends State<LearningScreen>
     );
   }
 }
-
-
 
 class EmptyLearningScreen extends StatelessWidget {
   const EmptyLearningScreen({

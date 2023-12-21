@@ -1,5 +1,8 @@
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:gide/core/components/search_bar.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/features/dashboard/explore/screens/course_detail_screen.dart';
@@ -16,9 +19,15 @@ class ExploreScreen extends StatefulWidget {
 }
 
 class _ExploreScreenState extends State<ExploreScreen> {
-
   final interestList = [
-    "UI/UX Design","Product Management","Mobile","Frontend Development","Digital Marketing","Backend Development","Copy Writing","Data Science",
+    "UI/UX Design",
+    "Product Management",
+    "Mobile",
+    "Frontend Development",
+    "Digital Marketing",
+    "Backend Development",
+    "Copy Writing",
+    "Data Science",
   ];
   @override
   Widget build(BuildContext context) {
@@ -55,55 +64,60 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 SpaceY(16.dy),
                 Container(
                   height: 44.dy,
-                   margin: EdgeInsets.zero, // Remove margin
+                  margin: EdgeInsets.zero, // Remove margin
                   padding: EdgeInsets.zero, // Remove padding
                   child: ListView.builder(
-                   padding: EdgeInsets.zero, // Remove padding
+                      padding: EdgeInsets.zero, // Remove padding
                       scrollDirection: Axis.horizontal,
                       itemCount: interestList.length,
                       itemBuilder: (context, index) {
-                        return ExploreCategories(name: interestList[index],);
+                        return ExploreCategories(
+                          name: interestList[index],
+                        );
                       }),
                 ),
                 SpaceY(30.dy),
                 Text("New Courses",
-                        softWrap: true,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w500,
-                            color: kTextColorsLight)),
+                    softWrap: true,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                        color: kTextColorsLight)),
                 SpaceY(14.dy),
                 SizedBox(
                   height: 260.dy,
                   child: ListView.builder(
-                    padding: const EdgeInsets.all(0),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index){
-                    return InkWell(onTap: (){
-                      moveFromBottomNavBarScreen(context: context, targetScreen: const CourseDetailScreen());
-                    },child: const Courses());
-                  }),
+                      padding: const EdgeInsets.all(0),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                            onTap: () {
+                              moveFromBottomNavBarScreen(
+                                  context: context,
+                                  targetScreen: const CourseDetailScreen());
+                            },
+                            child: const Courses());
+                      }),
                 ),
                 SpaceY(30.dy),
                 Text("Featured courses",
-              softWrap: true,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w500,
-              color: kTextColorsLight)),
+                    softWrap: true,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                        color: kTextColorsLight)),
                 SpaceY(14.dy),
                 Container(
                   height: 260.dy,
-                   margin: EdgeInsets.zero, // Remove margin
+                  margin: EdgeInsets.zero, // Remove margin
                   padding: EdgeInsets.zero, // Remove padding
                   child: ListView.builder(
-                     padding: EdgeInsets.zero, // Remove padding
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index){
-                    return Courses();
-                  }),
+                      padding: EdgeInsets.zero, // Remove padding
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Courses();
+                      }),
                 )
-               
               ],
             ),
           ),
@@ -113,11 +127,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
   }
 }
 
-
-
 class ExploreCategories extends StatelessWidget {
   const ExploreCategories({
-    super.key, required this.name,
+    super.key,
+    required this.name,
   });
   final String name;
 
@@ -132,13 +145,10 @@ class ExploreCategories extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.dx, vertical: 9.5.dy),
         child: Text(name,
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge!
-                .copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    color: kTextColorsLight)),
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w400,
+                color: kTextColorsLight)),
       ),
     );
   }

@@ -1,9 +1,11 @@
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:intl/intl.dart';
-
 
 // typedef ToolbarOptionModelCallback = void Function(ToolbarOptionModel sortModel);
 
@@ -111,8 +113,5 @@ double kScreenWidth(BuildContext context) {
   return MediaQuery.of(context).size.width;
 }
 
-
 /// Preference keys used to store/read values using [AppPreferences].
 class BoxKey {}
-
-

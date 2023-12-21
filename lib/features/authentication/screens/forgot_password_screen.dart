@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:gide/core/components/custom_back_button.dart';
 import 'package:gide/core/components/custom_elevated_button.dart';
 import 'package:gide/core/components/normal_text_form_field.dart';
@@ -39,7 +42,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   children: [
                     Text("Forgot password?",
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 24.sp, fontWeight: FontWeight.w500,color: kTextColorsLight)),
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.w500,
+                            color: kTextColorsLight)),
                     SpaceY(8.dy),
                     Padding(
                       padding: EdgeInsets.only(right: 30.dx),
@@ -47,10 +52,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           "Enter your email address below to receive password reset instructions.",
                           textAlign: TextAlign.start,
                           softWrap: true,
-                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff667085))),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xff667085))),
                     ),
                     SpaceY(40.dy),
                     NormalTextFormField(
@@ -63,26 +71,23 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         }
                         return null;
                       },
-                      onChanged: (value){
+                      onChanged: (value) {
                         emailTextController.addListener(() {
-                          if(emailTextController.text.emailIsValidated()){
-                              setState(() {
-                                emailIsValidated = true;
-                              });
-                          }else{
+                          if (emailTextController.text.emailIsValidated()) {
+                            setState(() {
+                              emailIsValidated = true;
+                            });
+                          } else {
                             setState(() {
                               emailIsValidated = false;
                             });
                           }
-                         });
+                        });
                       },
                     ),
                     SpaceY(40.dy),
                     CustomElevatedButton(
-                        onPressed: 
-                        emailIsValidated ?() {
-                          
-                        }: null,
+                        onPressed: emailIsValidated ? () {} : null,
                         buttonText: "Send Password"),
                   ],
                 ),

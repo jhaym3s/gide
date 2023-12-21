@@ -1,10 +1,12 @@
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/features/dashboard/profile/screens/become_an_instructor.dart';
 import 'package:gide/features/dashboard/profile/screens/edit_personal_details_screen.dart';
-
 import '../widgets/profile_list_tile.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -22,9 +24,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         centerTitle: true,
+        centerTitle: true,
         backgroundColor: kWhite,
-       
         title: Text("Settings",
             softWrap: true,
             textAlign: TextAlign.center,
@@ -99,11 +100,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         fontWeight: FontWeight.w500,
                         color: kPrimaryColor)),
                 SpaceY(8.dy),
-                 ProfileCard(
+                ProfileCard(
                   children: [
                     GestureDetector(
                       onTap: () {
-                        moveFromBottomNavBarScreen(context: context, targetScreen: BecomeAnInstructor());
+                        moveFromBottomNavBarScreen(
+                            context: context,
+                            targetScreen: BecomeAnInstructor());
                       },
                       child: const SupportListTile(
                         title: "Become an Instructor",

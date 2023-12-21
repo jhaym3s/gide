@@ -1,15 +1,16 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:gide/core/configs/configs.dart';
 
-
 class CustomThreeTabBar extends StatelessWidget {
-  const CustomThreeTabBar({
-    super.key,
-    required this.tabController,
-    required this.label1,
-    required this.label2,
-     required this.label3
-  });
+  const CustomThreeTabBar(
+      {super.key,
+      required this.tabController,
+      required this.label1,
+      required this.label2,
+      required this.label3});
   final TabController tabController;
   final String label1, label2, label3;
 
@@ -32,28 +33,20 @@ class CustomThreeTabBar extends StatelessWidget {
         labelColor: kWhite,
         indicatorColor: kWarning,
         unselectedLabelColor: kBlack,
-        labelStyle: Theme.of(context)
-            .textTheme
-            .bodyMedium!
-            .copyWith(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: kWhite),
-        unselectedLabelStyle: Theme.of(context)
-            .textTheme
-            .bodyMedium!
-            .copyWith(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: kTextColorsLight),
-        tabs:  [
+        labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontWeight: FontWeight.w400, fontSize: 14.sp, color: kWhite),
+        unselectedLabelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontWeight: FontWeight.w400,
+            fontSize: 14.sp,
+            color: kTextColorsLight),
+        tabs: [
           Tab(
             text: label1,
           ),
           Tab(
             text: label2,
           ),
-        Tab(
+          Tab(
             text: label3,
           ),
         ],
@@ -91,28 +84,19 @@ class CustomTwoTabBar extends StatelessWidget {
         labelColor: kWhite,
         indicatorColor: kWarning,
         unselectedLabelColor: kBlack,
-        labelStyle: Theme.of(context)
-            .textTheme
-            .bodyMedium!
-            .copyWith(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: kWhite),
-        unselectedLabelStyle: Theme.of(context)
-            .textTheme
-            .bodyMedium!
-            .copyWith(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: kTextColorsLight),
-        tabs:  [
+        labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontWeight: FontWeight.w400, fontSize: 14.sp, color: kWhite),
+        unselectedLabelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontWeight: FontWeight.w400,
+            fontSize: 14.sp,
+            color: kTextColorsLight),
+        tabs: [
           Tab(
             text: label1,
           ),
           Tab(
             text: label2,
           ),
-       
         ],
       ),
     );

@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:gide/core/components/alerts.dart';
 import 'package:gide/core/components/components.dart';
 import 'package:gide/core/components/custom_back_button.dart';
@@ -19,7 +22,7 @@ class _FundAccountScreenState extends State<FundAccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         centerTitle: true,
+        centerTitle: true,
         backgroundColor: kTransparent,
         title: Text("Fund Account",
             textAlign: TextAlign.center,
@@ -54,19 +57,21 @@ class _FundAccountScreenState extends State<FundAccountScreen> {
                   labelText: "Enter amount",
                   controller: amountController,
                   onChanged: (p0) {
-                    setState((){});
+                    setState(() {});
                   },
-                  validator: (String? value){
+                  validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                        return 'Please enter an amount';
-                      }
-                      return null;
+                      return 'Please enter an amount';
+                    }
+                    return null;
                   }),
-                  SpaceY(67.dy),
-                  CustomElevatedButton(
-                  onPressed: amountController.text.isEmpty?null:(){
-                    showFundingOption(context: context, onPressed: (){});
-                  }, 
+              SpaceY(67.dy),
+              CustomElevatedButton(
+                  onPressed: amountController.text.isEmpty
+                      ? null
+                      : () {
+                          showFundingOption(context: context, onPressed: () {});
+                        },
                   buttonText: "Proceed")
             ],
           ),

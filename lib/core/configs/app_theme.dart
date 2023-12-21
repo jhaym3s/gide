@@ -1,8 +1,9 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// Project imports:
 import 'constants.dart';
-
 
 class AppTheme {
   /// Constructs an [AppTheme].
@@ -18,9 +19,7 @@ class AppTheme {
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: Color(0xfff5f5f5),
       ),
-      buttonTheme: const ButtonThemeData(
-        buttonColor: kPrimaryColor
-      ),
+      buttonTheme: const ButtonThemeData(buttonColor: kPrimaryColor),
       //colorScheme: ColorScheme(brightness: brightness, primary: primary, onPrimary: onPrimary, secondary: secondary, onSecondary: onSecondary, error: error, onError: onError, background: background, onBackground: onBackground, surface: surface, onSurface: onSurface),
       // buttonTheme: const ButtonThemeData(
       //   textTheme: ButtonTextTheme.accent,
@@ -64,20 +63,20 @@ class AppTheme {
           left: 16,
           right: 16,
         ),
-      ), colorScheme: const ColorScheme(
-          brightness: Brightness.light,
-          primary:kPrimaryColor,
-          onPrimary: kWhite,
-          secondary: kPrimaryColor,
-          onSecondary: kWhite,
-          error: kError,
-          onError: kWhite,
-          background: kWhite,
-          onBackground:  kTextColorsLight,
-          surface: kWhite,
-          onSurface:  kTextColorsLight,
-          
-          ).copyWith(secondary: kPrimaryColor),
+      ),
+      colorScheme: const ColorScheme(
+        brightness: Brightness.light,
+        primary: kPrimaryColor,
+        onPrimary: kWhite,
+        secondary: kPrimaryColor,
+        onSecondary: kWhite,
+        error: kError,
+        onError: kWhite,
+        background: kWhite,
+        onBackground: kTextColorsLight,
+        surface: kWhite,
+        onSurface: kTextColorsLight,
+      ).copyWith(secondary: kPrimaryColor),
     );
     darkTheme = ThemeData(
       fontFamily: kFontFamily,
@@ -144,31 +143,54 @@ class AppTheme {
           fontWeight: FontWeight.w400,
           fontStyle: FontStyle.normal,
         ),
-      ), bottomAppBarTheme: const BottomAppBarTheme(color: Color(0xff424242)),
-       switchTheme: SwitchThemeData(
- thumbColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
- if (states.contains(MaterialState.disabled)) { return null; }
- if (states.contains(MaterialState.selected)) { return kPrimaryColor; }
- return null;
- }),
- trackColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
- if (states.contains(MaterialState.disabled)) { return null; }
- if (states.contains(MaterialState.selected)) { return kPrimaryColor; }
- return null;
- }),
- ), radioTheme: RadioThemeData(
- fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
- if (states.contains(MaterialState.disabled)) { return null; }
- if (states.contains(MaterialState.selected)) { return kPrimaryColor; }
- return null;
- }),
- ), checkboxTheme: CheckboxThemeData(
- fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
- if (states.contains(MaterialState.disabled)) { return null; }
- if (states.contains(MaterialState.selected)) { return kPrimaryColor; }
- return null;
- }),
- ),
+      ),
+      bottomAppBarTheme: const BottomAppBarTheme(color: Color(0xff424242)),
+      switchTheme: SwitchThemeData(
+        thumbColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return null;
+          }
+          if (states.contains(MaterialState.selected)) {
+            return kPrimaryColor;
+          }
+          return null;
+        }),
+        trackColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return null;
+          }
+          if (states.contains(MaterialState.selected)) {
+            return kPrimaryColor;
+          }
+          return null;
+        }),
+      ),
+      radioTheme: RadioThemeData(
+        fillColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return null;
+          }
+          if (states.contains(MaterialState.selected)) {
+            return kPrimaryColor;
+          }
+          return null;
+        }),
+      ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return null;
+          }
+          if (states.contains(MaterialState.selected)) {
+            return kPrimaryColor;
+          }
+          return null;
+        }),
+      ),
     );
   }
 
@@ -217,38 +239,38 @@ lightModeAppTextTheme() {
 }
 
 darkModeAppTextTheme() {
-  return  const TextTheme(
-    displayLarge:  TextStyle(
+  return const TextTheme(
+    displayLarge: TextStyle(
         color: kWhite,
         fontFamily: kFontFamily,
         fontSize: 64,
         fontWeight: FontWeight.normal),
-    displayMedium:  TextStyle(
+    displayMedium: TextStyle(
         color: kWhite,
         fontSize: 48,
         fontFamily: kFontFamily,
         fontWeight: FontWeight.normal),
-    displaySmall:   TextStyle(
+    displaySmall: TextStyle(
         color: kWhite,
         fontSize: 36,
         fontFamily: kFontFamily,
         fontWeight: FontWeight.normal),
-    headlineMedium:  TextStyle(
+    headlineMedium: TextStyle(
         color: kWhite,
         fontSize: 30,
         fontFamily: kFontFamily,
         fontWeight: FontWeight.normal),
-    headlineSmall:  TextStyle(
+    headlineSmall: TextStyle(
         color: kWhite,
         fontFamily: kFontFamily,
         fontSize: 25,
         fontWeight: FontWeight.normal),
-    bodyLarge:  TextStyle(
+    bodyLarge: TextStyle(
         color: kWhite,
         fontFamily: kFontFamily,
         fontSize: 20,
         fontWeight: FontWeight.normal),
-    bodyMedium:  TextStyle(
+    bodyMedium: TextStyle(
         color: kWhite, fontFamily: kFontFamily, fontWeight: FontWeight.normal),
   );
 }
