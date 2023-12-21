@@ -1,6 +1,7 @@
 class APIKey {
   //?Dev url
-  static const String baseUrl = 'http://localhost:8080/api/v1 ';
+  static const String baseUrl =
+      'https://gide-learning-api-app-lyvvhgfssq-ew.a.run.app/api/v1';
 
   //?Production url
   // static const String baseUrl = '';
