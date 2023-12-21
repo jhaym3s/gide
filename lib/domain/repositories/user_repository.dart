@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:io';
-
 // Project imports:
 import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/features/dashboard/profile/profile/profile.dart';

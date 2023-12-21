@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gide/core/services/local_database/hive_keys.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 // Project imports:
@@ -14,6 +15,7 @@ import 'features/dashboard/custom_navigation_bar.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  await Hive.openBox(HiveKeys.appBox);
   runApp(const ProviderScope(child: MyApp()));
 }
 

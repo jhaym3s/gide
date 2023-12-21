@@ -8,7 +8,7 @@ class Profile extends Equatable {
   final String? email;
   final String? phoneNumber;
   final String? accountType;
-  final List<String>? interests;
+  final List<dynamic>? interests;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final String? fullName;
@@ -35,7 +35,7 @@ class Profile extends Equatable {
         email: json['email'] as String?,
         phoneNumber: json['phoneNumber'] as String?,
         accountType: json['accountType'] as String?,
-        interests: json['interests'] as List<String>?,
+        interests: json['interests'] as List<dynamic>?,
         createdAt: json['createdAt'] == null
             ? null
             : DateTime.parse(json['createdAt'] as String),
@@ -67,7 +67,7 @@ class Profile extends Equatable {
     String? email,
     String? phoneNumber,
     String? accountType,
-    List<String>? interests,
+    List<dynamic>? interests,
     DateTime? createdAt,
     DateTime? updatedAt,
     String? fullName,

@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:gide/general_widget/app_loader.dart';
 
 // Project imports:
 import '../configs/configs.dart';
@@ -12,12 +13,14 @@ class CustomElevatedButton extends StatefulWidget {
     this.color = kPrimaryColor,
     this.textColor = kWhite,
     this.width = 343,
+    this.isLoading = false,
   }) : super(key: key);
   final Function()? onPressed;
   final String buttonText;
   final Color color;
   final Color textColor;
   final double? width;
+  final bool isLoading;
 
   @override
   State<CustomElevatedButton> createState() => _CustomElevatedButtonState();
@@ -32,7 +35,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
         width: widget.width!.dx,
         height: 52.dy,
         child: ElevatedButton(
-          onPressed: widget.onPressed,
+          onPressed: widget.isLoading ? null : widget.onPressed,
           style: ButtonStyle(
             alignment: Alignment.center,
             backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -51,10 +54,16 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
               ),
             ),
           ),
-          child: Text(widget.buttonText,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontSize: 16.sp, fontWeight: FontWeight.w500, color: kWhite)),
+          child: widget.isLoading
+              ? const AppLoader(
+                  color: kWhite,
+                )
+              : Text(widget.buttonText,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                      color: kWhite)),
         ),
       ),
     );

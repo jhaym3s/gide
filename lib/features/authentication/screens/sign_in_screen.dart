@@ -2,10 +2,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gide/core/components/app_enums.dart';
 
 // Project imports:
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/helpers/regex_validation.dart';
+import 'package:gide/core/services/config/exception/logger.dart';
+import 'package:gide/features/authentication/model/login_model.dart';
+import 'package:gide/features/authentication/notifier/auth_notifier.dart';
+import 'package:gide/features/authentication/notifier/auth_state.dart';
 import 'package:gide/features/authentication/screens/forgot_password_screen.dart';
 import 'package:gide/features/authentication/screens/onboarding.dart';
 import 'package:gide/features/authentication/screens/sign_up_screen.dart';
@@ -13,15 +19,15 @@ import 'package:gide/features/dashboard/custom_navigation_bar.dart';
 import '../../../core/components/components.dart';
 import '../../../core/router/router.dart';
 
-class SignInScreen extends StatefulWidget {
+class SignInScreen extends ConsumerStatefulWidget {
   static const routeName = "signInScreen";
   const SignInScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  ConsumerState<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignInScreenState extends ConsumerState<SignInScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
@@ -32,8 +38,12 @@ class _SignInScreenState extends State<SignInScreen> {
   bool containsLowerCase = false;
   bool hidePassword = true;
   bool passwordIsValid = false;
+
   @override
   Widget build(BuildContext context) {
+    navToHome();
+    final state = ref.watch(authProvider);
+    final notifier = ref.read(authProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kTransparent,
@@ -64,6 +74,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   SpaceY(40.dy),
                   NormalTextFormField(
                     controller: emailTextController,
+                    keyboardType: TextInputType.emailAddress,
                     labelText: "Email address",
                     hintText: kDummyEmail,
                     inputFormatters: [
@@ -92,7 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   SpaceY(16.dy),
                   //! Password textfield
                   PasswordTextFormField(
-                    //keyboardType: TextInputType.phone,
+                    keyboardType: TextInputType.visiblePassword,
                     controller: passwordTextController,
                     hintText: kDummyPassword,
                     hidePassword: hidePassword,
@@ -107,6 +118,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     },
                     onChanged: (value) {
                       passwordTextController.addListener(() {
+                        debugLog('In on changed');
                         if (passwordTextController.text.length >= 8) {
                           setState(() {
                             eightChars = true;
@@ -116,61 +128,65 @@ class _SignInScreenState extends State<SignInScreen> {
                             eightChars = false;
                           });
                         }
-                        if (passwordTextController.text.containsUpperCase()) {
-                          setState(() {
-                            containsUpperCase = true;
-                          });
-                        } else {
-                          setState(() {
-                            containsUpperCase = false;
-                          });
-                        }
-                        if (passwordTextController.text.containsLowerCase()) {
-                          setState(() {
-                            containsLowerCase = true;
-                          });
-                        } else {
-                          setState(() {
-                            containsLowerCase = false;
-                          });
-                        }
-                        if (passwordTextController.text
-                            .containsSpecialChars()) {
-                          setState(() {
-                            containsSpecialChars = true;
-                          });
-                        } else {
-                          setState(() {
-                            containsSpecialChars = false;
-                          });
-                        }
-                        if (passwordTextController.text.passwordValidator()) {
-                          setState(() {
-                            passwordIsValid = true;
-                          });
-                        } else {
-                          setState(() {
-                            passwordIsValid = false;
-                          });
-                        }
+                        // if (passwordTextController.text.containsUpperCase()) {
+                        //   setState(() {
+                        //     containsUpperCase = true;
+                        //   });
+                        // } else {
+                        //   setState(() {
+                        //     containsUpperCase = false;
+                        //   });
+                        // }
+                        // if (passwordTextController.text.containsLowerCase()) {
+                        //   setState(() {
+                        //     containsLowerCase = true;
+                        //   });
+                        // } else {
+                        //   setState(() {
+                        //     containsLowerCase = false;
+                        //   });
+                        // }
+                        // if (passwordTextController.text
+                        //     .containsSpecialChars()) {
+                        //   setState(() {
+                        //     containsSpecialChars = true;
+                        //   });
+                        // } else {
+                        //   setState(() {
+                        //     containsSpecialChars = false;
+                        //   });
+                        // }
+                        // if (passwordTextController.text.passwordValidator()) {
+                        //   setState(() {
+                        //     passwordIsValid = true;
+                        //   });
+                        // } else {
+                        //   setState(() {
+                        //     passwordIsValid = false;
+                        //   });
+                        // }
                       });
                     },
                     validator: (String? value) {
+                      debugLog('In validator atm');
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
                       }
-                      if (!passwordTextController.text.containsSpecialChars()) {
-                        return "Please enter a special character";
+                      if (value.length < 7) {
+                        return 'Password must be up to 8 ';
                       }
-                      if (!passwordTextController.text.containsLowerCase()) {
-                        return "Password must contain a lowercase letter";
-                      }
-                      if (!passwordTextController.text.containsUpperCase()) {
-                        return "Password must contain uppercase letter";
-                      }
-                      if (passwordTextController.text.containsSpace()) {
-                        return "Space";
-                      }
+                      // if (!passwordTextController.text.containsSpecialChars()) {
+                      //   return "Please enter a special character";
+                      // }
+                      // if (!passwordTextController.text.containsLowerCase()) {
+                      //   return "Password must contain a lowercase letter";
+                      // }
+                      // if (!passwordTextController.text.containsUpperCase()) {
+                      //   return "Password must contain uppercase letter";
+                      // }
+                      // if (passwordTextController.text.containsSpace()) {
+                      //   return "Space";
+                      // }
                       return null;
                     },
                   ),
@@ -188,16 +204,20 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   SpaceY(40.dy),
                   CustomElevatedButton(
-                      onPressed: emailIsValidated && passwordIsValid
+                      onPressed: emailIsValidated
+                          //  && passwordIsValid
                           ? () {
+                              debugLog('In OnPressed');
+                              final loginData = LoginModel(
+                                  email: emailTextController.text,
+                                  password: passwordTextController.text);
                               _formKey.currentState!.validate()
-                                  ? moveAndClearStack(
-                                      context: context,
-                                      page: CustomNavigationBar.routeName)
+                                  ? notifier.login(loginData)
                                   : null;
                             }
                           : null,
-                      buttonText: "Sign Up"),
+                      isLoading: state.loginLoadState == LoginLoadState.loading,
+                      buttonText: "Sign In"),
                   SpaceY(40.dy),
                   Center(
                     child: RichText(
@@ -238,5 +258,15 @@ class _SignInScreenState extends State<SignInScreen> {
             )),
       ),
     );
+  }
+
+  void navToHome() {
+    ref.listen<AuthState>(authProvider, (previous, next) {
+      if (next.loginLoadState == LoginLoadState.success) {
+        moveAndClearStack(
+            context: context, page: CustomNavigationBar.routeName);
+        return;
+      }
+    });
   }
 }
