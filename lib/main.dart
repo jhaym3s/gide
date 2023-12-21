@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gide/features/authentication/screens/splash_screen.dart';
-
 import 'core/configs/configs.dart';
 import 'core/router/app_route.dart';
 import 'features/dashboard/custom_navigation_bar.dart';
@@ -22,8 +21,8 @@ class MyApp extends StatelessWidget {
       theme: AppTheme().lightTheme,
       darkTheme: AppTheme().lightTheme,
       home: 
-      //const CustomNavigationBar(),
-       const SplashScreen(),
+      const CustomNavigationBar(),
+      //  const SplashScreen(),
       onGenerateRoute: AppRouter.onGenerated,
       builder: (context, widget){
         final media = MediaQuery.of(context);
