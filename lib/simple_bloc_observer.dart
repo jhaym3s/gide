@@ -1,3 +1,5 @@
+//!Commented out because the project does not use bloc but riverpod instead
+
 // import 'package:flutter_bloc/flutter_bloc.dart';
 
 // class AppBlocObserver extends BlocObserver {
