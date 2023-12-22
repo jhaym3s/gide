@@ -37,7 +37,7 @@ class AuthImpl extends AuthRepo {
   }
 
   @override
-  Future<BaseResponse<CategoryResp>> getCategory() async {
+  Future<BaseResponse<List<CategoryResp>>> getCategory() async {
     try {
       final resp = await _client.getCategories();
       return resp;

@@ -81,13 +81,13 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<BaseResponse<CategoryResp>> getCategories() async {
+  Future<BaseResponse<List<CategoryResp>>> getCategories() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<CategoryResp>>(Options(
+        _setStreamType<BaseResponse<List<CategoryResp>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -103,9 +103,14 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BaseResponse<CategoryResp>.fromJson(
+    final value = BaseResponse<List<CategoryResp>>.fromJson(
       _result.data!,
-      (json) => CategoryResp.fromJson(json as Map<String, dynamic>),
+      (json) => json is List<dynamic>
+          ? json
+              .map<CategoryResp>(
+                  (i) => CategoryResp.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }

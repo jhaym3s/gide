@@ -8,5 +8,5 @@ import 'package:gide/features/authentication/model/signup_model.dart';
 abstract class AuthRepo {
   Future<BaseResponse<LoginResponse>> login(LoginModel loginModel);
   Future<BaseResponse<SignupResp>> signUp(SignupModel signupModel);
-  Future<BaseResponse<CategoryResp>> getCategory();
+  Future<BaseResponse<List<CategoryResp>>> getCategory();
 }

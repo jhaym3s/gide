@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:gide/domain/model_response/signup_response/category_resp.dart';
 
 // Project imports:
 import 'package:gide/features/authentication/screens/forgot_password_screen.dart';
@@ -36,7 +37,10 @@ class AppRouter {
       case ForgotPassword.routeName:
         return MaterialPageRoute(builder: (_) => const ForgotPassword());
       case InterestScreen.routeName:
-        return MaterialPageRoute(builder: (_) => const InterestScreen());
+        return MaterialPageRoute(
+            builder: (_) => InterestScreen(
+                categoryList: settings.arguments as List<CategoryResp>?));
+
       case CustomNavigationBar.routeName:
         return MaterialPageRoute(builder: (_) => const CustomNavigationBar());
       case CourseDetailScreen.routeName:

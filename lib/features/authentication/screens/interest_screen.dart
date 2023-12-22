@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/services/config/exception/logger.dart';
+import 'package:gide/domain/model_response/signup_response/category_resp.dart';
 import 'package:gide/features/authentication/model/signup_model.dart';
 import 'package:gide/features/authentication/notifier/auth_notifier.dart';
 import 'package:gide/features/authentication/notifier/auth_state.dart';
@@ -17,22 +18,31 @@ import '../../../core/router/router.dart';
 //? sign up
 class InterestScreen extends StatefulWidget {
   static const routeName = "interest_screen";
-  const InterestScreen({super.key});
+  const InterestScreen({super.key, this.categoryList});
+  final List<CategoryResp>? categoryList;
 
   @override
   State<InterestScreen> createState() => _InterestScreenState();
 }
 
 class _InterestScreenState extends State<InterestScreen> {
-  final interestList = [
-    "UI/UX Design",
-    "Product Management",
-    "Mobile",
-    "Frontend Development",
-    "Digital Marketing",
-    "Backend Development",
-    "Copy Writing",
-    "Data Science",
+  @override
+  void initState() {
+    super.initState();
+
+    final catList = (widget.categoryList ?? []).map((e) => e.name);
+    interestList = [...catList];
+  }
+
+  List<String?> interestList = [
+    // "UI/UX Design",
+    // "Product Management",
+    // "Mobile",
+    // "Frontend Development",
+    // "Digital Marketing",
+    // "Backend Development",
+    // "Copy Writing",
+    // "Data Science",
   ];
   final List<int> selectedItems = [];
   final List<String> selectedInterest = [];
@@ -86,12 +96,12 @@ class _InterestScreenState extends State<InterestScreen> {
                     } else {
                       setState(() {
                         selectedItems.add(index);
-                        selectedInterest.add(interestList[index]);
+                        selectedInterest.add(interestList[index] ?? '');
                       });
                     }
                   },
                   child: InterestCards(
-                    name: interestList[index],
+                    name: interestList[index] ?? '',
                     index: index,
                     selectedItems: selectedItems,
                   ));
@@ -116,17 +126,22 @@ class _InterestScreenState extends State<InterestScreen> {
               return CustomElevatedButton(
                   isLoading: state.loadState == LoadState.loading,
                   onPressed: () {
+                    List<dynamic> interestListId = [];
+                    for (var element in selectedInterest) {
+                      for (var single in widget.categoryList!) {
+                        if ((single.name ?? '') == element) {
+                          interestListId.add(single.id ?? '');
+                        }
+                      }
+                    }
                     debugLog(
-                        'interest list $selectedInterest, \n index => $selectedItems');
+                      'interest list $selectedInterest, \n index => $selectedItems\ninterestsid after loop => $interestListId',
+                    );
                     final data = SignupModel(
                       accountType: state.signupModel?.accountType ?? '',
                       email: state.signupModel?.email ?? '',
                       firstName: state.signupModel?.firstName ?? '',
-                      // interests: [...selectedInterest],
-                      interests: [
-                        "656dd1f31166a217f8257b7c",
-                        "656dd1f31166a217f8257b7f"
-                      ],
+                      interests: [...interestListId],
                       lastName: state.signupModel?.lastName ?? '',
                       password: state.signupModel?.password ?? '',
                     );

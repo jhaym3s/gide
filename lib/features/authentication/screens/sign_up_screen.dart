@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gide/core/components/app_enums.dart';
 
 // Project imports:
 import 'package:gide/core/configs/configs.dart';
@@ -214,15 +215,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SpaceY(40.dy),
                 Consumer(builder: (context, ref, child) {
                   final notifier = ref.read(authProvider.notifier);
+                  final state = ref.watch(authProvider);
+
                   return CustomElevatedButton(
                       onPressed: emailIsValidated && passwordIsValid
-                          ? () {
+                          ? () async {
+                              final catList = await notifier.getCatergories();
                               if (_formKey.currentState!.validate()) {
                                 List<String> splittedName =
                                     nameTextController.text.split(' ');
                                 final firstName = splittedName.first;
                                 final lastName = splittedName.last;
-                              
+
                                 final signupData = SignupModel(
                                   accountType: 'STUDENT',
                                   email: emailTextController.text,
@@ -232,11 +236,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 );
                                 notifier.saveSignupData(signupData);
 
-                                Navigator.of(context)
-                                    .pushNamed(InterestScreen.routeName);
+                                Navigator.of(context).pushNamed(
+                                  InterestScreen.routeName,
+                                  arguments: catList,
+                                );
                               }
                             }
                           : null,
+                      isLoading: state.loadState == LoadState.loading,
                       buttonText: "Sign Up");
                 }),
                 SpaceY(40.dy),

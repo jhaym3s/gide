@@ -21,5 +21,5 @@ abstract class RestClient {
   @POST('/auth/signup')
   Future<BaseResponse<SignupResp>> signup(@Body() SignupModel signupModel);
   @GET('/categories')
-  Future<BaseResponse<CategoryResp>> getCategories();
+  Future<BaseResponse<List<CategoryResp>>> getCategories();
 }

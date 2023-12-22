@@ -3,6 +3,7 @@ import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/helpers/helper_fxn.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/core/services/config/exception/logger.dart';
+import 'package:gide/domain/model_response/signup_response/category_resp.dart';
 import 'package:gide/domain/repositories/auth_responsitory.dart';
 import 'package:gide/domain/repositories/user_repository.dart';
 import 'package:gide/features/authentication/data/auth_impl.dart';
@@ -88,6 +89,29 @@ class AuthNotifier extends StateNotifier<AuthState> {
     } finally {
       state = state.copyWith(loadState: LoadState.idle);
     }
+  }
+
+  Future<List<CategoryResp>>? getCatergories() async {
+    state = state.copyWith(loadState: LoadState.loading);
+    debugLog('Attempting to get category');
+    try {
+      final response = await authRepo.getCategory();
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        debugLog('Category Details: ${response.data.toString()}');
+
+        state = state.copyWith(
+            categoryList: response.data, loadState: LoadState.success);
+        return response.data??[];
+      }
+    } catch (e) {
+      state = state.copyWith(
+        loadState: LoadState.error,
+        errorMessage: e.toString(),
+      );
+    } finally {
+      state = state.copyWith(loadState: LoadState.done);
+    }
+    return state.categoryList ?? [];
   }
 
   void saveSignupData(SignupModel signupModel) {
