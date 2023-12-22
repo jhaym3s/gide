@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 // Project imports:
@@ -7,19 +9,27 @@ import 'package:gide/core/components/custom_elevated_button.dart';
 import 'package:gide/core/components/normal_text_form_field.dart';
 import 'package:gide/core/helpers/regex_validation.dart';
 import 'package:gide/core/router/router.dart';
-import 'package:gide/features/authentication/screens/verify_otp_screen.dart';
+import 'package:gide/features/authentication/widgets/pin_text_field.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../../../core/configs/configs.dart';
 
-//? move here from sign in
-class ForgotPassword extends StatefulWidget {
-  static const routeName = "forgot_password_screen";
-  const ForgotPassword({Key? key}) : super(key: key);
+class VerifyOTPScreen extends StatefulWidget {
+  static const routeName = "verify_otp_screen";
+  const VerifyOTPScreen({Key? key}) : super(key: key);
 
   @override
-  State<ForgotPassword> createState() => _ForgotPasswordState();
+  State<VerifyOTPScreen> createState() => _VerifyOTPScreenState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
+  StreamController<ErrorAnimationType>? errorController;
+  TextEditingController controller = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    errorController = StreamController<ErrorAnimationType>();
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey();
   final emailTextController = TextEditingController();
   bool emailIsValidated = false;
@@ -41,7 +51,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Forgot password?",
+                    Text("Verify OTP",
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontSize: 24.sp,
                             fontWeight: FontWeight.w500,
@@ -49,8 +59,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     SpaceY(8.dy),
                     Padding(
                       padding: EdgeInsets.only(right: 30.dx),
-                      child: Text(
-                          "Enter your email address below to receive password reset instructions.",
+                      child: Text("Enter your OTP code here",
                           textAlign: TextAlign.start,
                           softWrap: true,
                           style: Theme.of(context)
@@ -62,38 +71,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   color: const Color(0xff667085))),
                     ),
                     SpaceY(40.dy),
-                    NormalTextFormField(
-                      controller: emailTextController,
-                      labelText: "Email address",
-                      hintText: kDummyEmail,
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        emailTextController.addListener(() {
-                          if (emailTextController.text.emailIsValidated()) {
-                            setState(() {
-                              emailIsValidated = true;
-                            });
-                          } else {
-                            setState(() {
-                              emailIsValidated = false;
-                            });
-                          }
-                        });
-                      },
-                    ),
+                    PinTextField(
+                        errorController: errorController,
+                        pinController: controller),
                     SpaceY(40.dy),
                     CustomElevatedButton(
-                        onPressed: emailIsValidated ? () {
-                                moveToNextScreen(
-                                    context: context,
-                                    page: VerifyOTPScreen.routeName);
-                        } : null,
-                        buttonText: "Send Password"),
+                        onPressed: () {
+                          _formKey.currentState!.validate();
+                          if (controller.text.length != 6) {
+                            errorController!.add(ErrorAnimationType
+                                .shake); // Triggering error shake animation
+                          } else {
+                            //!verified: send api request
+                          }
+                        },
+                        buttonText: "Verify OTP"),
                   ],
                 ),
               ))),

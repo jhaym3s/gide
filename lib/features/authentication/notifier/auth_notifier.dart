@@ -118,6 +118,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.saveSignupData(signupModel);
     debugLog('sign up data saved is ${state.signupModel.toString()}');
   }
+  
 }
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>(

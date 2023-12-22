@@ -9,6 +9,7 @@ import 'package:gide/features/authentication/screens/onboarding.dart';
 import 'package:gide/features/authentication/screens/sign_in_screen.dart';
 import 'package:gide/features/authentication/screens/sign_up_screen.dart';
 import 'package:gide/features/authentication/screens/splash_screen.dart';
+import 'package:gide/features/authentication/screens/verify_otp_screen.dart';
 import 'package:gide/features/dashboard/explore/screens/checkout_screen.dart';
 import 'package:gide/features/dashboard/explore/screens/course_detail_screen.dart';
 import 'package:gide/features/dashboard/explore/screens/pay_with_card.dart';
@@ -43,6 +44,8 @@ class AppRouter {
 
       case CustomNavigationBar.routeName:
         return MaterialPageRoute(builder: (_) => const CustomNavigationBar());
+      case VerifyOTPScreen.routeName:
+        return MaterialPageRoute(builder: (_) => const VerifyOTPScreen());
       case CourseDetailScreen.routeName:
         return MaterialPageRoute(builder: (_) => const CourseDetailScreen());
       case CheckoutScreen.routeName:
