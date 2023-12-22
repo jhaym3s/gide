@@ -1,5 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gide/core/components/app_enums.dart';
+import 'package:gide/core/services/config/exception/logger.dart';
+import 'package:gide/features/authentication/model/signup_model.dart';
+import 'package:gide/features/authentication/notifier/auth_notifier.dart';
+import 'package:gide/features/authentication/notifier/auth_state.dart';
 
 // Project imports:
 import 'package:gide/features/authentication/widgets/interest_cards.dart';
@@ -29,6 +35,7 @@ class _InterestScreenState extends State<InterestScreen> {
     "Data Science",
   ];
   final List<int> selectedItems = [];
+  final List<String> selectedInterest = [];
 
   bool isSelected = false;
   @override
@@ -73,10 +80,13 @@ class _InterestScreenState extends State<InterestScreen> {
                     if (selectedItems.contains(index)) {
                       setState(() {
                         selectedItems.remove(index);
+                        final removedValue = interestList[index];
+                        selectedInterest.remove(removedValue);
                       });
                     } else {
                       setState(() {
                         selectedItems.add(index);
+                        selectedInterest.add(interestList[index]);
                       });
                     }
                   },
@@ -87,12 +97,43 @@ class _InterestScreenState extends State<InterestScreen> {
                   ));
             })),
             SpaceY(40.dy),
-            CustomElevatedButton(
-                onPressed: () {
-                  moveAndClearStack(
-                      context: context, page: CustomNavigationBar.routeName);
-                },
-                buttonText: "Get Started"),
+            Consumer(builder: (context, ref, child) {
+              final state = ref.watch(authProvider);
+              final notifier = ref.read(authProvider.notifier);
+
+              void navToHome() {
+                ref.listen<AuthState>(authProvider, (previous, next) {
+                  if (next.loadState == LoadState.success) {
+                    moveAndClearStack(
+                        context: context, page: CustomNavigationBar.routeName);
+                    return;
+                  }
+                });
+              }
+
+              navToHome();
+
+              return CustomElevatedButton(
+                  isLoading: state.loadState == LoadState.loading,
+                  onPressed: () {
+                    debugLog(
+                        'interest list $selectedInterest, \n index => $selectedItems');
+                    final data = SignupModel(
+                      accountType: state.signupModel?.accountType ?? '',
+                      email: state.signupModel?.email ?? '',
+                      firstName: state.signupModel?.firstName ?? '',
+                      // interests: [...selectedInterest],
+                      interests: [
+                        "656dd1f31166a217f8257b7c",
+                        "656dd1f31166a217f8257b7f"
+                      ],
+                      lastName: state.signupModel?.lastName ?? '',
+                      password: state.signupModel?.password ?? '',
+                    );
+                    notifier.signup(data);
+                  },
+                  buttonText: "Get Started");
+            }),
           ],
         ),
       )),

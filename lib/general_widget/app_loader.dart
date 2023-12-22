@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:gide/core/configs/constants.dart';
 
-
 class AppLoader extends StatefulWidget {
   const AppLoader({
     Key? key,

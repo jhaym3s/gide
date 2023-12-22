@@ -2,11 +2,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/helpers/regex_validation.dart';
 import 'package:gide/core/router/router.dart';
+import 'package:gide/core/services/config/exception/logger.dart';
+import 'package:gide/features/authentication/model/signup_model.dart';
+import 'package:gide/features/authentication/notifier/auth_notifier.dart';
 import 'package:gide/features/authentication/screens/interest_screen.dart';
 import 'package:gide/features/authentication/screens/onboarding.dart';
 import 'package:gide/features/authentication/screens/sign_in_screen.dart';
@@ -76,6 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: NormalTextFormField(
                     controller: nameTextController,
                     labelText: "Full Name",
+                    keyboardType: TextInputType.name,
                     hintText: kDummyName,
                     inputFormatters: const [],
                     validator: (String? value) {
@@ -92,6 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: NormalTextFormField(
                     controller: emailTextController,
                     labelText: "Email address",
+                    keyboardType: TextInputType.emailAddress,
                     hintText: kDummyEmail,
                     inputFormatters: [
                       FilteringTextInputFormatter.deny(RegExp('[ ]')),
@@ -122,7 +128,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.dx),
                   child: PasswordTextFormField(
-                    //keyboardType: TextInputType.phone,
+                    keyboardType: TextInputType.visiblePassword,
                     controller: passwordTextController,
                     hintText: kDummyPassword,
                     hidePassword: hidePassword,
@@ -206,16 +212,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                 SpaceY(40.dy),
-                CustomElevatedButton(
-                    onPressed: emailIsValidated && passwordIsValid
-                        ? () {
-                            _formKey.currentState!.validate()
-                                ? Navigator.of(context)
-                                    .pushNamed(InterestScreen.routeName)
-                                : null;
-                          }
-                        : null,
-                    buttonText: "Sign Up"),
+                Consumer(builder: (context, ref, child) {
+                  final notifier = ref.read(authProvider.notifier);
+                  return CustomElevatedButton(
+                      onPressed: emailIsValidated && passwordIsValid
+                          ? () {
+                              if (_formKey.currentState!.validate()) {
+                                List<String> splittedName =
+                                    nameTextController.text.split(' ');
+                                final firstName = splittedName.first;
+                                final lastName = splittedName.last;
+                              
+                                final signupData = SignupModel(
+                                  accountType: 'STUDENT',
+                                  email: emailTextController.text,
+                                  firstName: firstName,
+                                  lastName: lastName,
+                                  password: passwordTextController.text,
+                                );
+                                notifier.saveSignupData(signupData);
+
+                                Navigator.of(context)
+                                    .pushNamed(InterestScreen.routeName);
+                              }
+                            }
+                          : null,
+                      buttonText: "Sign Up");
+                }),
                 SpaceY(40.dy),
                 Center(
                   child: RichText(
