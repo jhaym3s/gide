@@ -9,6 +9,7 @@ import 'package:gide/core/components/custom_elevated_button.dart';
 import 'package:gide/core/components/normal_text_form_field.dart';
 import 'package:gide/core/helpers/regex_validation.dart';
 import 'package:gide/core/router/router.dart';
+import 'package:gide/features/authentication/screens/reset_password_screen.dart';
 import 'package:gide/features/authentication/widgets/pin_text_field.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../../../core/configs/configs.dart';
@@ -83,6 +84,9 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                                 .shake); // Triggering error shake animation
                           } else {
                             //!verified: send api request
+                            moveAndClearStack(
+                                context: context,
+                                page: ResetPasswordScreen.routeName);
                           }
                         },
                         buttonText: "Verify OTP"),

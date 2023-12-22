@@ -6,6 +6,7 @@ import 'package:gide/domain/model_response/signup_response/category_resp.dart';
 import 'package:gide/features/authentication/screens/forgot_password_screen.dart';
 import 'package:gide/features/authentication/screens/interest_screen.dart';
 import 'package:gide/features/authentication/screens/onboarding.dart';
+import 'package:gide/features/authentication/screens/reset_password_screen.dart';
 import 'package:gide/features/authentication/screens/sign_in_screen.dart';
 import 'package:gide/features/authentication/screens/sign_up_screen.dart';
 import 'package:gide/features/authentication/screens/splash_screen.dart';
@@ -46,6 +47,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const CustomNavigationBar());
       case VerifyOTPScreen.routeName:
         return MaterialPageRoute(builder: (_) => const VerifyOTPScreen());
+      case ResetPasswordScreen.routeName:
+        return MaterialPageRoute(builder: (_) => const ResetPasswordScreen());
       case CourseDetailScreen.routeName:
         return MaterialPageRoute(builder: (_) => const CourseDetailScreen());
       case CheckoutScreen.routeName:
