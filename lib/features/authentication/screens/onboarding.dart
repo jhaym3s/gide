@@ -1,11 +1,14 @@
 // Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gide/core/components/app_enums.dart';
 
 // Project imports:
 import 'package:gide/core/components/custom_elevated_button.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
+import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/features/authentication/screens/sign_in_screen.dart';
 import 'package:gide/features/authentication/screens/sign_up_screen.dart';
 
@@ -67,12 +70,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     color: const Color(0xff667085))),
           ),
           SpaceY(32.dy),
-          CustomElevatedButton(
-              onPressed: () {
-                moveToNextScreen(
-                    context: context, page: SignUpScreen.routeName);
-              },
-              buttonText: "Get Started"),
+          Consumer(builder: (context, ref, _) {
+            final notifier = ref.read(userRepoProvider);
+            notifier.saveCurrentState(CurrentState.onboarded);
+            return CustomElevatedButton(
+                onPressed: () {
+                  moveToNextScreen(
+                      context: context, page: SignUpScreen.routeName);
+                },
+                buttonText: "Get Started");
+          }),
           SpaceY(24.dy),
           Center(
             child: RichText(

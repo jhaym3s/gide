@@ -1,20 +1,26 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gide/core/components/app_enums.dart';
 
 // Project imports:
 import 'package:gide/core/router/router.dart';
+import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/features/authentication/screens/onboarding.dart';
+import 'package:gide/features/authentication/screens/sign_in_screen.dart';
+import 'package:gide/features/authentication/screens/sign_up_screen.dart';
+import 'package:gide/features/dashboard/custom_navigation_bar.dart';
 import '../../../core/configs/configs.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   static const routeName = "splash";
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> animation;
@@ -26,11 +32,32 @@ class _SplashScreenState extends State<SplashScreen>
     animation =
         CurvedAnimation(parent: animationController, curve: Curves.bounceInOut);
     animationController.forward();
-    Future.delayed(const Duration(seconds: 5)).then((value) {
-      moveAndClearStack(context: context, page: OnboardingScreen.routeName);
-      // Navigator.of(context).(isFirstTime? WelcomeScreen.routeName:CustomNavigationBar.routeName);
-    });
+    navigateto();
+    // Future.delayed(const Duration(seconds: 5)).then((value) {
+    //   moveAndClearStack(context: context, page: OnboardingScreen.routeName);
+    //   // Navigator.of(context).(isFirstTime? WelcomeScreen.routeName:CustomNavigationBar.routeName);
+    // });
     super.initState();
+  }
+
+  navigateto() async {
+    await Future.delayed(const Duration(milliseconds: 500), () {
+      var data = ref.read(userRepoProvider).getCurrentState();
+      switch (data) {
+        case CurrentState.loggedIn:
+          moveAndClearStack(
+              context: context, page: CustomNavigationBar.routeName);
+          break;
+        case CurrentState.onboarded:
+          moveAndClearStack(context: context, page: SignUpScreen.routeName);
+          break;
+        case CurrentState.initial:
+          moveAndClearStack(context: context, page: OnboardingScreen.routeName);
+          break;
+        default:
+          moveAndClearStack(context: context, page: SignInScreen.routeName);
+      }
+    });
   }
 
   @override

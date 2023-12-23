@@ -24,16 +24,7 @@ class ExploreScreen extends ConsumerStatefulWidget {
 }
 
 class _ExploreScreenState extends ConsumerState<ExploreScreen> {
-  List<String?> interestList = [
-    // "UI/UX Design",
-    // "Product Management",
-    // "Mobile",
-    // "Frontend Development",
-    // "Digital Marketing",
-    // "Backend Development",
-    // "Copy Writing",
-    // "Data Science",
-  ];
+  List<String?> interestList = [];
   @override
   void initState() {
     super.initState();
