@@ -7,6 +7,7 @@ import 'package:gide/domain/model_response/signup_response/category_resp.dart';
 import 'package:gide/domain/repositories/auth_responsitory.dart';
 import 'package:gide/domain/repositories/user_repository.dart';
 import 'package:gide/features/authentication/data/auth_impl.dart';
+import 'package:gide/features/authentication/model/forget_password.dart';
 import 'package:gide/features/authentication/model/login_model.dart';
 import 'package:gide/features/authentication/model/signup_model.dart';
 import 'package:gide/features/authentication/notifier/auth_state.dart';
@@ -70,6 +71,37 @@ class AuthNotifier extends StateNotifier<AuthState> {
       if (response.statusCode == 201 || response.statusCode == 200) {
         state = state.copyWith(
           loadState: LoadState.success,
+        );
+        toastMessage('${response.message}');
+        return response.message;
+      } else {
+        errorToastMessage('${response.message}');
+        state = state.copyWith(
+            errorMessage: response.message, loadState: LoadState.error);
+        return response.message;
+      }
+    } catch (e) {
+      state = state.copyWith(
+        loadState: LoadState.error,
+        errorMessage: e.toString(),
+      );
+      errorToastMessage('$e');
+      rethrow;
+    } finally {
+      state = state.copyWith(loadState: LoadState.idle);
+    }
+  }
+  Future forgetPass(ForgetPasswordModel data) async {
+    debugLog('Attemping to forget password');
+    state = state.copyWith(loadState: LoadState.loading);
+    try {
+      final response = await authRepo.forgetPassword(data);
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        state = state.copyWith(
+          loadState: LoadState.success,
+          //!email saved with error message
+          errorMessage: data.email,
         );
         toastMessage('${response.message}');
         return response.message;

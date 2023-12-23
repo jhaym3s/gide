@@ -1,5 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gide/core/components/app_enums.dart';
 
 // Project imports:
 import 'package:gide/core/components/custom_back_button.dart';
@@ -7,6 +9,9 @@ import 'package:gide/core/components/custom_elevated_button.dart';
 import 'package:gide/core/components/normal_text_form_field.dart';
 import 'package:gide/core/helpers/regex_validation.dart';
 import 'package:gide/core/router/router.dart';
+import 'package:gide/features/authentication/model/forget_password.dart';
+import 'package:gide/features/authentication/notifier/auth_notifier.dart';
+import 'package:gide/features/authentication/notifier/auth_state.dart';
 import 'package:gide/features/authentication/screens/verify_otp_screen.dart';
 import '../../../../../core/configs/configs.dart';
 
@@ -87,13 +92,35 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       },
                     ),
                     SpaceY(40.dy),
-                    CustomElevatedButton(
-                        onPressed: emailIsValidated ? () {
-                                moveToNextScreen(
-                                    context: context,
-                                    page: VerifyOTPScreen.routeName);
-                        } : null,
-                        buttonText: "Send Password"),
+                    Consumer(builder: (context, ref, child) {
+                      final notifier = ref.read(authProvider.notifier);
+                      final state = ref.watch(authProvider);
+                         void navToHome() {
+                        ref.listen<AuthState>(authProvider, (previous, next) {
+                          if (next.loadState == LoadState.success) {
+                              moveToNextScreen(
+                                context: context,
+                                page: VerifyOTPScreen.routeName);
+                            return;
+                          }
+                        });
+                      }
+
+                      navToHome();
+                      return CustomElevatedButton(
+                          onPressed: emailIsValidated
+                              ? ()async {
+                                  final data = ForgetPasswordModel(
+                                      email: emailTextController.text);
+                                  await notifier.forgetPass(data);
+                                  // moveToNextScreen(
+                                  //     context: context,
+                                  //     page: VerifyOTPScreen.routeName);
+                                }
+                              : null,
+                              isLoading:state.loadState == LoadState.loading ,
+                          buttonText: "Send Password");
+                    }),
                   ],
                 ),
               ))),
