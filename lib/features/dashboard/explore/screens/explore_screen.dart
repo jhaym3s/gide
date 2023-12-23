@@ -1,36 +1,55 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gide/core/components/app_enums.dart';
 
 // Project imports:
 import 'package:gide/core/components/search_bar.dart';
 import 'package:gide/core/router/router.dart';
+import 'package:gide/core/services/config/configure_dependencies.dart';
+import 'package:gide/features/authentication/notifier/auth_notifier.dart';
 import 'package:gide/features/dashboard/explore/screens/course_detail_screen.dart';
 import 'package:gide/features/dashboard/explore/widgets/explore_app_bar.dart';
+import 'package:gide/general_widget/app_loader.dart';
 import '../../../../core/configs/configs.dart';
 import '../widgets/courses.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ExploreScreen extends StatefulWidget {
+class ExploreScreen extends ConsumerStatefulWidget {
   static const routeName = "explore_screen";
   const ExploreScreen({super.key});
 
   @override
-  State<ExploreScreen> createState() => _ExploreScreenState();
+  ConsumerState<ExploreScreen> createState() => _ExploreScreenState();
 }
 
-class _ExploreScreenState extends State<ExploreScreen> {
-  final interestList = [
-    "UI/UX Design",
-    "Product Management",
-    "Mobile",
-    "Frontend Development",
-    "Digital Marketing",
-    "Backend Development",
-    "Copy Writing",
-    "Data Science",
+class _ExploreScreenState extends ConsumerState<ExploreScreen> {
+  List<String?> interestList = [
+    // "UI/UX Design",
+    // "Product Management",
+    // "Mobile",
+    // "Frontend Development",
+    // "Digital Marketing",
+    // "Backend Development",
+    // "Copy Writing",
+    // "Data Science",
   ];
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final notifier = ref.read(authProvider.notifier);
+      final catListresp = await notifier.getCatergories();
+      final catList = (catListresp ?? []).map((e) => e.name);
+      interestList = [...catList];
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final userProfile = ref.watch(currentUserProvider);
+    final catState = ref.watch(authProvider);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -66,15 +85,19 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   height: 44.dy,
                   margin: EdgeInsets.zero, // Remove margin
                   padding: EdgeInsets.zero, // Remove padding
-                  child: ListView.builder(
-                      padding: EdgeInsets.zero, // Remove padding
-                      scrollDirection: Axis.horizontal,
-                      itemCount: interestList.length,
-                      itemBuilder: (context, index) {
-                        return ExploreCategories(
-                          name: interestList[index],
-                        );
-                      }),
+                  child: catState.loadState == LoadState.loading
+                      ? const AppLoader(
+                          color: kPrimaryColor,
+                        )
+                      : ListView.builder(
+                          padding: EdgeInsets.zero, // Remove padding
+                          scrollDirection: Axis.horizontal,
+                          itemCount: interestList.length,
+                          itemBuilder: (context, index) {
+                            return ExploreCategories(
+                              name: interestList[index] ?? '',
+                            );
+                          }),
                 ),
                 SpaceY(30.dy),
                 Text("New Courses",
