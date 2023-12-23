@@ -90,7 +90,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     fontSize: 16.sp,
                     color: kTextColorsLight),
                 children: [
-                  TextSpan(
+                  TextSpan(   
                     text: 'Sign In',
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w500,

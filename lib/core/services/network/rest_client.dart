@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:gide/core/services/config/response/base_response.dart';
 import 'package:gide/domain/model_response/forget_password_resp.dart';
 import 'package:gide/domain/model_response/login_response/login_response.dart';
+import 'package:gide/domain/model_response/phone_numer_model.dart';
 import 'package:gide/domain/model_response/signup_response/category_resp.dart';
 import 'package:gide/domain/model_response/signup_response/signup_resp/signup_resp.dart';
 import 'package:gide/features/authentication/model/forget_password.dart';
@@ -22,14 +23,21 @@ abstract class RestClient {
 
   @POST('/auth/login')
   Future<BaseResponse<LoginResponse>> login(@Body() LoginModel loginModel);
+
   @POST('/auth/signup')
   Future<BaseResponse<SignupResp>> signup(@Body() SignupModel signupModel);
   @POST('/auth/forgot-password')
-  Future<BaseResponse<ForgetPasswordResp>> forgetPassword(@Body() ForgetPasswordModel forgetPassword);
+  Future<BaseResponse<ForgetPasswordResp>> forgetPassword(
+      @Body() ForgetPasswordModel forgetPassword);
   @POST('/auth/verify-otp')
   Future<BaseResponse> veriftOTP(@Body() VerifyOtpModel verifyOtpModel);
   @PUT('/auth/password')
-  Future<BaseResponse> resetPassword(@Body() ResetPasswordModel resetPasswordModel);
+  Future<BaseResponse> resetPassword(
+      @Body() ResetPasswordModel resetPasswordModel);
   @GET('/categories')
   Future<BaseResponse<List<CategoryResp>>> getCategories();
+
+  @PATCH('/profile')
+  Future<BaseResponse<LoginResponse>> updatePhoneNumber(
+      @Body() PhoneNumerModel phoneNumerModel);
 }

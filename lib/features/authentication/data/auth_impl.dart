@@ -62,7 +62,8 @@ class AuthImpl extends AuthRepo {
   }
 
   @override
-  Future<BaseResponse> resetPassword(ResetPasswordModel resetPasswordModel) async {
+  Future<BaseResponse> resetPassword(
+      ResetPasswordModel resetPasswordModel) async {
     try {
       final resp = await _client.resetPassword(resetPasswordModel);
       return resp;

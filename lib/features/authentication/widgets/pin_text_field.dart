@@ -8,7 +8,7 @@ import 'package:gide/features/authentication/notifier/auth_notifier.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PinTextField extends ConsumerWidget {
-  const PinTextField( {super.key, this.errorController, this.pinController});
+  const PinTextField({super.key, this.errorController, this.pinController});
   final StreamController<ErrorAnimationType>? errorController;
   final TextEditingController? pinController;
 
@@ -65,7 +65,7 @@ class PinTextField extends ConsumerWidget {
         return true;
       },
       errorAnimationController: errorController,
-       controller: pinController,
+      controller: pinController,
     );
   }
 }

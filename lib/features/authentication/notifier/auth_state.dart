@@ -32,19 +32,18 @@ class AuthState {
     return AuthState(signupModel: signupModel ?? this.signupModel);
   }
 
-  AuthState copyWith({
-    LoginLoadState? loginLoadState,
-    LoginResponse? loginresponse,
-    String? errorMessage,
-    LoadState? loadState,
-    List<CategoryResp>? categoryList
-  }) {
+  AuthState copyWith(
+      {LoginLoadState? loginLoadState,
+      LoginResponse? loginresponse,
+      String? errorMessage,
+      LoadState? loadState,
+      List<CategoryResp>? categoryList}) {
     return AuthState(
       loginLoadState: loginLoadState ?? this.loginLoadState,
       loginresponse: loginresponse ?? this.loginresponse,
       errorMessage: errorMessage ?? this.errorMessage,
       loadState: loadState ?? this.loadState,
-      categoryList:  categoryList ?? this.categoryList,
+      categoryList: categoryList ?? this.categoryList,
     );
   }
 }

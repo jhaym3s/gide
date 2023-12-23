@@ -95,10 +95,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     Consumer(builder: (context, ref, child) {
                       final notifier = ref.read(authProvider.notifier);
                       final state = ref.watch(authProvider);
-                         void navToHome() {
+                      void navToHome() {
                         ref.listen<AuthState>(authProvider, (previous, next) {
                           if (next.loadState == LoadState.success) {
-                              moveToNextScreen(
+                            moveToNextScreen(
                                 context: context,
                                 page: VerifyOTPScreen.routeName);
                             return;
@@ -109,7 +109,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       navToHome();
                       return CustomElevatedButton(
                           onPressed: emailIsValidated
-                              ? ()async {
+                              ? () async {
                                   final data = ForgetPasswordModel(
                                       email: emailTextController.text);
                                   await notifier.forgetPass(data);
@@ -118,7 +118,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   //     page: VerifyOTPScreen.routeName);
                                 }
                               : null,
-                              isLoading:state.loadState == LoadState.loading ,
+                          isLoading: state.loadState == LoadState.loading,
                           buttonText: "Send Password");
                     }),
                   ],

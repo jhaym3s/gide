@@ -1,27 +1,30 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
+import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/features/dashboard/profile/screens/become_an_instructor.dart';
 import 'package:gide/features/dashboard/profile/screens/edit_personal_details_screen.dart';
 import '../widgets/profile_list_tile.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends ConsumerStatefulWidget {
   static const routeName = "profile_screen";
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   bool isLoopActive = false;
   bool isSubtitleActive = false;
   @override
   Widget build(BuildContext context) {
+    final userProfile = ref.watch(currentUserProvider);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -77,18 +80,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
                 SpaceY(8.dy),
-                const ProfileCard(
+                ProfileCard(
                   children: [
                     PersonalInfoDetails(
-                        sub: "Brownmax001@mail.com",
+                        sub: userProfile.email ?? '',
                         title: "Email address",
                         image: AssetsImages.mail),
+                        //!removed
+                    // PersonalInfoDetails(
+                    //     sub: "Br.......021",
+                    //     title: "Password",
+                    //     image: AssetsImages.lock),
                     PersonalInfoDetails(
-                        sub: "Br.......021",
-                        title: "Password",
-                        image: AssetsImages.lock),
-                    PersonalInfoDetails(
-                        sub: "N/A",
+                        sub: userProfile.phoneNumber ?? "N/A",
                         title: "Phone Number",
                         image: AssetsImages.phone),
                   ],

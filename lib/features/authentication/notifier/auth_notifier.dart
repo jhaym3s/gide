@@ -91,6 +91,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       state = state.copyWith(loadState: LoadState.idle);
     }
   }
+
   Future forgetPass(ForgetPasswordModel data) async {
     debugLog('Attemping to forget password');
     state = state.copyWith(loadState: LoadState.loading);
@@ -133,7 +134,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
         state = state.copyWith(
             categoryList: response.data, loadState: LoadState.success);
-        return response.data??[];
+        return response.data ?? [];
       }
     } catch (e) {
       state = state.copyWith(
@@ -150,7 +151,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.saveSignupData(signupModel);
     debugLog('sign up data saved is ${state.signupModel.toString()}');
   }
-  
 }
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>(
