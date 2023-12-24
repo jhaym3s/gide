@@ -20,8 +20,7 @@ class ProfileState {
   }
 
   ProfileState copyWith(
-      {
-        LoginResponse? loginresponse,
+      {LoginResponse? loginresponse,
       String? errorMessage,
       LoadState? loadState}) {
     return ProfileState(

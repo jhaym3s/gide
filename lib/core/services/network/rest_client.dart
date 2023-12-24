@@ -6,7 +6,8 @@ import 'package:dio/dio.dart';
 import 'package:gide/core/services/config/response/base_response.dart';
 import 'package:gide/domain/model_response/forget_password_resp.dart';
 import 'package:gide/domain/model_response/login_response/login_response.dart';
-import 'package:gide/domain/model_response/phone_numer_model.dart';
+import 'package:gide/features/dashboard/profile/model/change_password_model.dart';
+import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
 import 'package:gide/domain/model_response/signup_response/category_resp.dart';
 import 'package:gide/domain/model_response/signup_response/signup_resp/signup_resp.dart';
 import 'package:gide/features/authentication/model/forget_password.dart';
@@ -44,4 +45,7 @@ abstract class RestClient {
 
   @GET('/profile')
   Future<BaseResponse<Profile>> getProfile();
+  
+  @POST('/profile/change-password')
+  Future<BaseResponse> changePass(@Body() ChangePasswordModel changePasswordModel);
 }

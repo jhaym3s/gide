@@ -7,7 +7,7 @@ import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/components/components.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/helpers/helper_fxn.dart';
-import 'package:gide/domain/model_response/phone_numer_model.dart';
+import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
 import 'package:gide/features/dashboard/profile/notifiers/profile_notifier.dart';
 import 'package:gide/features/dashboard/profile/notifiers/profile_state.dart';
 import '../../../../core/router/router.dart';

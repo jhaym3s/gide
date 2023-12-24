@@ -5,7 +5,8 @@ import 'package:gide/core/services/config/exception/app_exception.dart';
 import 'package:gide/core/services/config/response/base_response.dart';
 import 'package:gide/core/services/network/rest_client.dart';
 import 'package:gide/domain/model_response/login_response/login_response.dart';
-import 'package:gide/domain/model_response/phone_numer_model.dart';
+import 'package:gide/features/dashboard/profile/model/change_password_model.dart';
+import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
 import 'package:gide/domain/repositories/profile_repo.dart';
 import 'package:gide/features/dashboard/profile/profile/profile.dart';
 
@@ -15,7 +16,8 @@ class ProfileImpl extends ProfileRepo {
   ProfileImpl(this._client);
 
   @override
-  Future<BaseResponse<Profile>> updatePhone(PhoneNumerModel phoneNumerModel) async {
+  Future<BaseResponse<Profile>> updatePhone(
+      PhoneNumerModel phoneNumerModel) async {
     try {
       final resp = await _client.updatePhoneNumber(phoneNumerModel);
       return resp;
@@ -34,6 +36,16 @@ class ProfileImpl extends ProfileRepo {
     }
   }
 
+  @override
+  Future<BaseResponse> changePasswd(ChangePasswordModel changePasswordModel) async {
+    try {
+      final resp = await _client.changePass(changePasswordModel);
+      return resp;
+    } on DioException catch (ex) {
+      return AppException.handleError(ex);
+    }
+  }
 }
 
-final profileRepoProv = Provider((ref) => ProfileImpl(ref.read(restClientProvider)));
+final profileRepoProv =
+    Provider((ref) => ProfileImpl(ref.read(restClientProvider)));

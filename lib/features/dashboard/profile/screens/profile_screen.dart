@@ -36,7 +36,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final userProfile = ref.watch(currentUserProvider);
-    
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
