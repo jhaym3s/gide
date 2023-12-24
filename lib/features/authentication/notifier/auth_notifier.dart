@@ -130,7 +130,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       final response = await authRepo.getCategory();
       if (response.statusCode == 201 || response.statusCode == 200) {
-        debugLog('Category Details: ${response.data.toString()}');
+        // debugLog('Category Details: ${response.data.toString()}');
 
         state = state.copyWith(
             categoryList: response.data, loadState: LoadState.success);

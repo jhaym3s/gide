@@ -14,6 +14,7 @@ import 'package:gide/features/authentication/model/login_model.dart';
 import 'package:gide/features/authentication/model/reset_password_model.dart';
 import 'package:gide/features/authentication/model/signup_model.dart';
 import 'package:gide/features/authentication/model/verify_otp_model.dart';
+import 'package:gide/features/dashboard/profile/profile/profile.dart';
 import 'package:retrofit/retrofit.dart';
 part 'rest_client.g.dart';
 
@@ -38,6 +39,9 @@ abstract class RestClient {
   Future<BaseResponse<List<CategoryResp>>> getCategories();
 
   @PATCH('/profile')
-  Future<BaseResponse<LoginResponse>> updatePhoneNumber(
+  Future<BaseResponse<Profile>> updatePhoneNumber(
       @Body() PhoneNumerModel phoneNumerModel);
+
+  @GET('/profile')
+  Future<BaseResponse<Profile>> getProfile();
 }

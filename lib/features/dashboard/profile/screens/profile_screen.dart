@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
+import 'package:gide/features/dashboard/profile/notifiers/profile_notifier.dart';
 import 'package:gide/features/dashboard/profile/screens/become_an_instructor.dart';
 import 'package:gide/features/dashboard/profile/screens/edit_personal_details_screen.dart';
 import '../widgets/profile_list_tile.dart';
@@ -20,11 +21,22 @@ class ProfileScreen extends ConsumerStatefulWidget {
 }
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final notifer = ref.read(profileProvider.notifier);
+
+      await notifer.getProfile();
+    });
+  }
+
   bool isLoopActive = false;
   bool isSubtitleActive = false;
   @override
   Widget build(BuildContext context) {
     final userProfile = ref.watch(currentUserProvider);
+    
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -86,7 +98,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         sub: userProfile.email ?? '',
                         title: "Email address",
                         image: AssetsImages.mail),
-                        //!removed
+                    //!removed
                     // PersonalInfoDetails(
                     //     sub: "Br.......021",
                     //     title: "Password",

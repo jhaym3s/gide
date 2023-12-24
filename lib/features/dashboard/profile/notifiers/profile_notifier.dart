@@ -13,27 +13,42 @@ import 'package:gide/features/dashboard/profile/profile/profile.dart';
 class ProfileNotifier extends StateNotifier<ProfileState> {
   ProfileNotifier(
     this.userRepository,
-    this.authRepo,
+    this.profileRepo,
   ) : super(ProfileState.initialState());
 
   final UserRepository userRepository;
-  final ProfileRepo authRepo;
+  final ProfileRepo profileRepo;
+  //!todo fetch user profile and update it on setting screen
+
+  Future getProfile() async {
+    try {
+      final response = await profileRepo.getProfile();
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        // debugLog('Profile Details: ${response.data.toString()}');
+        userRepository.setCurrentProfile(response.data ?? const Profile());
+      }
+    } catch (e) {
+      state = state.copyWith(
+        loadState: LoadState.error,
+        errorMessage: e.toString(),
+      );
+    }
+  }
 
   Future<void> updatePhoneNum(PhoneNumerModel data) async {
     debugLog('Updating Phone number');
     state = state.copyWith(loadState: LoadState.loading);
     try {
-      final response = await authRepo.updatePhone(data);
+      final response = await profileRepo.updatePhone(data);
 
       if (response.statusCode == 201 || response.statusCode == 200) {
-        userRepository.saveProfile(
-          response.data!.user ?? const Profile(),
+        userRepository.setCurrentProfile(
+          response.data ?? const Profile(),
         );
 
         state = state.copyWith(
           loadState: LoadState.success,
         );
-        debugLog('current user data ${userRepository.getProfile()}');
         toastMessage('${response.message}');
       } else {
         errorToastMessage('${response.message}');

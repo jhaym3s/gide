@@ -211,7 +211,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<BaseResponse<LoginResponse>> updatePhoneNumber(
+  Future<BaseResponse<Profile>> updatePhoneNumber(
       PhoneNumerModel phoneNumerModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -219,7 +219,7 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     _data.addAll(phoneNumerModel.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<LoginResponse>>(Options(
+        _setStreamType<BaseResponse<Profile>>(Options(
       method: 'PATCH',
       headers: _headers,
       extra: _extra,
@@ -235,9 +235,39 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BaseResponse<LoginResponse>.fromJson(
+    final value = BaseResponse<Profile>.fromJson(
       _result.data!,
-      (json) => LoginResponse.fromJson(json as Map<String, dynamic>),
+      (json) => Profile.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<Profile>> getProfile() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<Profile>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/profile',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = BaseResponse<Profile>.fromJson(
+      _result.data!,
+      (json) => Profile.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
