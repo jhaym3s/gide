@@ -147,26 +147,33 @@ void showFundingOption({
 }
 
 class PaymentListTile extends StatelessWidget {
-  const PaymentListTile({super.key, required this.option});
+  const PaymentListTile({
+    super.key,
+    required this.option,this.onTap
+  });
   final String option;
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 52.dy,
-      width: 307.dx,
-      margin: EdgeInsets.only(bottom: 8.dy),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: const Color(0xffF2F4F7),
-      ),
-      child: Center(
-        child: Text(option,
-            softWrap: true,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500,
-                color: kTextColorsLight)),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 52.dy,
+        width: 307.dx,
+        margin: EdgeInsets.only(bottom: 8.dy),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: const Color(0xffF2F4F7),
+        ),
+        child: Center(
+          child: Text(option,
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                  color: kTextColorsLight)),
+        ),
       ),
     );
   }
