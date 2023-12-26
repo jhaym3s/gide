@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:gide/core/configs/configs.dart';
+import 'package:gide/features/dashboard/explore/model/all_courses_model/course_model.dart';
 
 class Courses extends StatelessWidget {
-  const Courses({
-    super.key,
-  });
+  const Courses({super.key, required this.coursemodel});
+  final CourseModel coursemodel;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,7 @@ class Courses extends StatelessWidget {
             height: 121.dy,
             width: 253.dx,
             color: kBlack,
+            child: const FlutterLogo(),
           ),
           SpaceY(12.dy),
           Padding(
@@ -33,6 +34,8 @@ class Courses extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                //!here 1
+                //!todo change when api is updated
                 Text("Design",
                     softWrap: true,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -41,10 +44,12 @@ class Courses extends StatelessWidget {
                         color: kGrey)),
                 Row(
                   children: [
-                    const ExplorePointsTile(
-                      points: "500",
+                    ExplorePointsTile(
+                      points: (coursemodel.points??0).toString(),
                     ),
                     SpaceX(4.dx),
+                    //!here 2
+                    //todo: add an info bar to the icon
                     const Icon(
                       Icons.info_outline,
                       color: Color(0xff292D32),
@@ -58,7 +63,7 @@ class Courses extends StatelessWidget {
           SpaceY(6.dy),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.dx),
-            child: Text("Quick steps to Figma",
+            child: Text(coursemodel.title ?? "Quick steps to Figma",
                 softWrap: true,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: 20.sp,
@@ -68,7 +73,8 @@ class Courses extends StatelessWidget {
           SpaceY(8.dy),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.dx),
-            child: Text("With Tom Lingard",
+            child: Text(
+                "With ${(coursemodel.instructors ?? []).first.fullName ?? 'Tom Lingard'}",
                 softWrap: true,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: 14.sp,
@@ -78,7 +84,7 @@ class Courses extends StatelessWidget {
           SpaceY(8.dy),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.dx),
-            child: Text("8h:20mins . 12 Lessons",
+            child: Text("${coursemodel.courseLength?.hours??0}h:${coursemodel.courseLength?.minutes??00}mins . ${(coursemodel.modules??[]).length} Lessons",
                 softWrap: true,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: 14.sp,

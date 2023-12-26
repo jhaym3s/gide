@@ -172,7 +172,8 @@ class _BecomeAnInstructorState extends ConsumerState<BecomeAnInstructor> {
             ),
             SpaceY(34.dy),
             CustomElevatedButton(
-                isLoading: state.uploadLoadState == LoadState.loading || state.loadState == LoadState.loading,
+                isLoading: state.uploadLoadState == LoadState.loading ||
+                    state.loadState == LoadState.loading,
                 onPressed: () async {
                   if (genderController.text.isNotEmpty &&
                       imageController.text.isNotEmpty &&

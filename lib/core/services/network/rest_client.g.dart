@@ -305,6 +305,38 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<BaseResponse<InstructorResp>> becomeAnInstructor(
+      BecomeInstructorModel becomeInstructorModel) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(becomeInstructorModel.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<InstructorResp>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/profile/instructor',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = BaseResponse<InstructorResp>.fromJson(
+      _result.data!,
+      (json) => InstructorResp.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<BaseResponse<UploadFileResp>> uploadFiles(File file) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -343,22 +375,20 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<BaseResponse<InstructorResp>> becomeAnInstructor(
-      BecomeInstructorModel becomeInstructorModel) async {
+  Future<BaseResponse<AllCoursesModel>> getAllCourses() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(becomeInstructorModel.toJson());
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<InstructorResp>>(Options(
-      method: 'POST',
+        _setStreamType<BaseResponse<AllCoursesModel>>(Options(
+      method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/profile/instructor',
+              '/courses',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -367,9 +397,40 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BaseResponse<InstructorResp>.fromJson(
+    final value = BaseResponse<AllCoursesModel>.fromJson(
       _result.data!,
-      (json) => InstructorResp.fromJson(json as Map<String, dynamic>),
+      (json) => AllCoursesModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<SingleCourseModel>> getSingleCourse({String? id}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<SingleCourseModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/courses/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = BaseResponse<SingleCourseModel>.fromJson(
+      _result.data!,
+      (json) => SingleCourseModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

@@ -62,14 +62,15 @@ class ProfileImpl extends ProfileRepo {
   }
 
   @override
-  Future<BaseResponse<InstructorResp>> becomeInstructor(BecomeInstructorModel becomeInstructorModel) async {
+  Future<BaseResponse<InstructorResp>> becomeInstructor(
+      BecomeInstructorModel becomeInstructorModel) async {
     try {
       final resp = await _client.becomeAnInstructor(becomeInstructorModel);
       return resp;
     } on DioException catch (ex) {
       throw AppException.handleError(ex);
     }
-  } 
+  }
 }
 
 final profileRepoProv =

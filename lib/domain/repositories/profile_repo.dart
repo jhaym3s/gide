@@ -14,6 +14,6 @@ abstract class ProfileRepo {
   Future<BaseResponse<Profile>> updatePhone(PhoneNumerModel phoneNumerModel);
   Future<BaseResponse> changePasswd(ChangePasswordModel changePasswordModel);
   Future<BaseResponse<UploadFileResp>> uploadFile(File file);
-    Future<BaseResponse<InstructorResp>> becomeInstructor(
+  Future<BaseResponse<InstructorResp>> becomeInstructor(
       BecomeInstructorModel becomeInstructorModel);
 }

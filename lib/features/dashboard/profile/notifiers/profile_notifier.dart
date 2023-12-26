@@ -156,7 +156,8 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     }
     return null;
   }
-   void logout() {
+
+  void logout() {
     userRepository.setCurrentProfile(const Profile());
     userRepository.saveCurrentState(CurrentState.onboarded);
   }

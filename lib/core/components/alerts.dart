@@ -147,10 +147,7 @@ void showFundingOption({
 }
 
 class PaymentListTile extends StatelessWidget {
-  const PaymentListTile({
-    super.key,
-    required this.option,this.onTap
-  });
+  const PaymentListTile({super.key, required this.option, this.onTap});
   final String option;
   final VoidCallback? onTap;
   @override

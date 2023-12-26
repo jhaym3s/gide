@@ -8,6 +8,8 @@ import 'package:gide/core/components/search_bar.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/features/authentication/notifier/auth_notifier.dart';
+import 'package:gide/features/dashboard/explore/model/all_courses_model/course_model.dart';
+import 'package:gide/features/dashboard/explore/notifier.dart/course_notifier.dart';
 import 'package:gide/features/dashboard/explore/screens/course_detail_screen.dart';
 import 'package:gide/features/dashboard/explore/widgets/explore_app_bar.dart';
 import 'package:gide/general_widget/app_loader.dart';
@@ -31,6 +33,9 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final notifier = ref.read(authProvider.notifier);
+      final coursenotifier = ref.read(courseProvider.notifier);
+      // await
+       coursenotifier.getallCourses();
       final catListresp = await notifier.getCatergories();
       final catList = (catListresp ?? []).map((e) => e.name);
       interestList = [...catList];
@@ -40,6 +45,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
   @override
   Widget build(BuildContext context) {
     final userProfile = ref.watch(currentUserProvider);
+    final allCourses = ref.watch(courseProvider);
     final catState = ref.watch(authProvider);
     return Scaffold(
       body: SafeArea(
@@ -100,17 +106,29 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                 SpaceY(14.dy),
                 SizedBox(
                   height: 260.dy,
-                  child: ListView.builder(
+                  child:
+                   allCourses.loadState == LoadState.loading
+                      ? const AppLoader(
+                          color: kPrimaryColor,
+                        )
+                      : ListView.builder(
                       padding: const EdgeInsets.all(0),
                       scrollDirection: Axis.horizontal,
+                      itemCount:
+                          (allCourses.allCoursesModel?.data ?? []).length,
                       itemBuilder: (context, index) {
+                        final coursemodel =
+                            allCourses.allCoursesModel?.data?[index] ??
+                                const CourseModel();
                         return InkWell(
                             onTap: () {
                               moveFromBottomNavBarScreen(
                                   context: context,
                                   targetScreen: const CourseDetailScreen());
                             },
-                            child: const Courses());
+                            child: Courses(
+                              coursemodel: coursemodel,
+                            ));
                       }),
                 ),
                 SpaceY(30.dy),
@@ -125,11 +143,22 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                   height: 260.dy,
                   margin: EdgeInsets.zero, // Remove margin
                   padding: EdgeInsets.zero, // Remove padding
-                  child: ListView.builder(
+                  child:   allCourses.loadState == LoadState.loading
+                      ? const AppLoader(
+                          color: kPrimaryColor,
+                        )
+                      : ListView.builder(
                       padding: EdgeInsets.zero, // Remove padding
                       scrollDirection: Axis.horizontal,
+                      itemCount:
+                          (allCourses.allCoursesModel?.data ?? []).length,
                       itemBuilder: (context, index) {
-                        return Courses();
+                        final coursemodel =
+                            allCourses.allCoursesModel?.data?[index] ??
+                                const CourseModel();
+                        return Courses(
+                          coursemodel: coursemodel,
+                        );
                       }),
                 )
               ],

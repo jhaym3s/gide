@@ -9,16 +9,18 @@ class ProfileState {
   final LoginResponse? loginresponse;
   final String errorMessage;
 
-  ProfileState({
-    this.loginresponse,
-    this.errorMessage = '',
-    this.loadState,
-    this.uploadLoadState
-  });
+  ProfileState(
+      {this.loginresponse,
+      this.errorMessage = '',
+      this.loadState,
+      this.uploadLoadState});
 
   factory ProfileState.initialState() {
     return ProfileState(
-        errorMessage: '', loginresponse: null, loadState: LoadState.idle, uploadLoadState : LoadState.idle);
+        errorMessage: '',
+        loginresponse: null,
+        loadState: LoadState.idle,
+        uploadLoadState: LoadState.idle);
   }
 
   ProfileState copyWith(
@@ -27,10 +29,9 @@ class ProfileState {
       LoadState? uploadLoadState,
       LoadState? loadState}) {
     return ProfileState(
-      loginresponse: loginresponse ?? this.loginresponse,
-      errorMessage: errorMessage ?? this.errorMessage,
-      loadState: loadState ?? this.loadState,
-      uploadLoadState:  uploadLoadState ?? this.uploadLoadState
-    );
+        loginresponse: loginresponse ?? this.loginresponse,
+        errorMessage: errorMessage ?? this.errorMessage,
+        loadState: loadState ?? this.loadState,
+        uploadLoadState: uploadLoadState ?? this.uploadLoadState);
   }
 }
