@@ -11,7 +11,8 @@ import '../../../../core/configs/configs.dart';
 
 class CheckoutScreen extends StatefulWidget {
   static const routeName = "checkout_screen";
-  const CheckoutScreen({super.key});
+  const CheckoutScreen({super.key, required this.model});
+  final CheckOutCourseModel model;
 
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
@@ -52,14 +53,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     .cover, // You can adjust the BoxFit to your preference
               ),
             ),
-            child: const Center(child: CheckoutCourses()),
+            child:  Center(
+                child: CheckoutCourses(
+              model: widget.model,
+            )),
           ),
           SpaceY(40.dy),
           CustomElevatedButton(
               onPressed: () {
                 showPaymentOption(context: context, onPressed: () {});
               },
-              buttonText: "Pay now - \$20")
+              buttonText: "Pay now - \$${widget.model.price}")
         ],
       ),
     );

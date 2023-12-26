@@ -17,6 +17,7 @@ import 'package:gide/features/dashboard/explore/screens/pay_with_card.dart';
 import 'package:gide/features/dashboard/explore/screens/pay_with_earnings.dart';
 import 'package:gide/features/dashboard/explore/screens/pay_with_saving.dart';
 import 'package:gide/features/dashboard/explore/screens/payment_success_screen.dart';
+import 'package:gide/features/dashboard/explore/widgets/checkout_course.dart';
 import 'package:gide/features/dashboard/profile/screens/add_number.dart';
 import 'package:gide/features/dashboard/profile/screens/become_an_instructor.dart';
 import 'package:gide/features/dashboard/profile/screens/change_password.dart';
@@ -52,7 +53,7 @@ class AppRouter {
       case CourseDetailScreen.routeName:
         return MaterialPageRoute(builder: (_) =>  CourseDetailScreen( courseId: settings.arguments as String,));
       case CheckoutScreen.routeName:
-        return MaterialPageRoute(builder: (_) => const CheckoutScreen());
+        return MaterialPageRoute(builder: (_) =>  CheckoutScreen(model: settings.arguments as CheckOutCourseModel,));
       case FundAccountScreen.routeName:
         return MaterialPageRoute(builder: (_) => const FundAccountScreen());
       case EditPersonalDetailsScreen.routeName:

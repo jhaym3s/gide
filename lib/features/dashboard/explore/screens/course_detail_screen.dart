@@ -12,6 +12,7 @@ import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/features/dashboard/explore/notifier.dart/course_notifier.dart';
 import 'package:gide/features/dashboard/explore/screens/checkout_screen.dart';
+import 'package:gide/features/dashboard/explore/widgets/checkout_course.dart';
 import 'package:gide/features/dashboard/explore/widgets/courses.dart';
 import 'package:gide/general_widget/app_loader.dart';
 
@@ -325,6 +326,23 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                             onPressed: () {
                               moveToNextScreen(
                                   context: context,
+                                  arguments: CheckOutCourseModel(
+                                      category: 'Design',
+                                      hours:
+                                          singleCourse?.courseLength?.hours ??
+                                              0,
+                                      minutes:
+                                          singleCourse?.courseLength?.minutes ??
+                                              0,
+                                      instructor:
+                                          (singleCourse?.instructors ?? [])
+                                                  .first
+                                                  .fullName ??
+                                              '',
+                                      lessons:
+                                          (singleCourse?.modules ?? []).length,
+                                      price: singleCourse?.price ?? 0,
+                                      title: singleCourse?.title ?? ''),
                                   page: CheckoutScreen.routeName);
                             },
                             buttonText:
