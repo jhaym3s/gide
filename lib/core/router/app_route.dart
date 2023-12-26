@@ -50,7 +50,7 @@ class AppRouter {
       case ResetPasswordScreen.routeName:
         return MaterialPageRoute(builder: (_) => const ResetPasswordScreen());
       case CourseDetailScreen.routeName:
-        return MaterialPageRoute(builder: (_) => const CourseDetailScreen());
+        return MaterialPageRoute(builder: (_) =>  CourseDetailScreen( courseId: settings.arguments as String,));
       case CheckoutScreen.routeName:
         return MaterialPageRoute(builder: (_) => const CheckoutScreen());
       case FundAccountScreen.routeName:

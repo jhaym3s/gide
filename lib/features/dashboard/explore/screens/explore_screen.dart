@@ -124,7 +124,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                             onTap: () {
                               moveFromBottomNavBarScreen(
                                   context: context,
-                                  targetScreen: const CourseDetailScreen());
+                                  targetScreen:  CourseDetailScreen(courseId: coursemodel.id??'',));
                             },
                             child: Courses(
                               coursemodel: coursemodel,
