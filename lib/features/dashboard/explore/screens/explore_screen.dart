@@ -10,6 +10,7 @@ import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/features/authentication/notifier/auth_notifier.dart';
 import 'package:gide/features/dashboard/explore/model/all_courses_model/course_model.dart';
 import 'package:gide/features/dashboard/explore/notifier.dart/course_notifier.dart';
+import 'package:gide/features/dashboard/explore/screens/all_categories_screen.dart';
 import 'package:gide/features/dashboard/explore/screens/course_detail_screen.dart';
 import 'package:gide/features/dashboard/explore/widgets/explore_app_bar.dart';
 import 'package:gide/general_widget/app_loader.dart';
@@ -35,7 +36,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
       final notifier = ref.read(authProvider.notifier);
       final coursenotifier = ref.read(courseProvider.notifier);
       // await
-       coursenotifier.getallCourses();
+      coursenotifier.getallCourses();
       final catListresp = await notifier.getCatergories();
       final catList = (catListresp ?? []).map((e) => e.name);
       interestList = [...catList];
@@ -69,12 +70,24 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w500,
                             color: kTextColorsLight)),
-                    Text("View All",
-                        softWrap: true,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: kPrimaryColor)),
+                    GestureDetector(
+                      onTap: () => Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return AllCategorieScreen(
+                            cat: interestList,
+                          );
+                        },
+                      )),
+                      child: Text("View All",
+                          softWrap: true,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: kPrimaryColor)),
+                    ),
                   ],
                 ),
                 SpaceY(16.dy),
@@ -106,30 +119,31 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                 SpaceY(14.dy),
                 SizedBox(
                   height: 260.dy,
-                  child:
-                   allCourses.loadState == LoadState.loading
+                  child: allCourses.loadState == LoadState.loading
                       ? const AppLoader(
                           color: kPrimaryColor,
                         )
                       : ListView.builder(
-                      padding: const EdgeInsets.all(0),
-                      scrollDirection: Axis.horizontal,
-                      itemCount:
-                          (allCourses.allCoursesModel?.data ?? []).length,
-                      itemBuilder: (context, index) {
-                        final coursemodel =
-                            allCourses.allCoursesModel?.data?[index] ??
-                                const CourseModel();
-                        return InkWell(
-                            onTap: () {
-                              moveFromBottomNavBarScreen(
-                                  context: context,
-                                  targetScreen:  CourseDetailScreen(courseId: coursemodel.id??'',));
-                            },
-                            child: Courses(
-                              coursemodel: coursemodel,
-                            ));
-                      }),
+                          padding: const EdgeInsets.all(0),
+                          scrollDirection: Axis.horizontal,
+                          itemCount:
+                              (allCourses.allCoursesModel?.data ?? []).length,
+                          itemBuilder: (context, index) {
+                            final coursemodel =
+                                allCourses.allCoursesModel?.data?[index] ??
+                                    const CourseModel();
+                            return InkWell(
+                                onTap: () {
+                                  moveFromBottomNavBarScreen(
+                                      context: context,
+                                      targetScreen: CourseDetailScreen(
+                                        courseId: coursemodel.id ?? '',
+                                      ));
+                                },
+                                child: Courses(
+                                  coursemodel: coursemodel,
+                                ));
+                          }),
                 ),
                 SpaceY(30.dy),
                 Text("Featured courses",
@@ -143,23 +157,23 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                   height: 260.dy,
                   margin: EdgeInsets.zero, // Remove margin
                   padding: EdgeInsets.zero, // Remove padding
-                  child:   allCourses.loadState == LoadState.loading
+                  child: allCourses.loadState == LoadState.loading
                       ? const AppLoader(
                           color: kPrimaryColor,
                         )
                       : ListView.builder(
-                      padding: EdgeInsets.zero, // Remove padding
-                      scrollDirection: Axis.horizontal,
-                      itemCount:
-                          (allCourses.allCoursesModel?.data ?? []).length,
-                      itemBuilder: (context, index) {
-                        final coursemodel =
-                            allCourses.allCoursesModel?.data?[index] ??
-                                const CourseModel();
-                        return Courses(
-                          coursemodel: coursemodel,
-                        );
-                      }),
+                          padding: EdgeInsets.zero, // Remove padding
+                          scrollDirection: Axis.horizontal,
+                          itemCount:
+                              (allCourses.allCoursesModel?.data ?? []).length,
+                          itemBuilder: (context, index) {
+                            final coursemodel =
+                                allCourses.allCoursesModel?.data?[index] ??
+                                    const CourseModel();
+                            return Courses(
+                              coursemodel: coursemodel,
+                            );
+                          }),
                 )
               ],
             ),
