@@ -53,7 +53,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     .cover, // You can adjust the BoxFit to your preference
               ),
             ),
-            child:  Center(
+            child: Center(
                 child: CheckoutCourses(
               model: widget.model,
             )),
@@ -61,7 +61,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           SpaceY(40.dy),
           CustomElevatedButton(
               onPressed: () {
-                showPaymentOption(context: context, onPressed: () {});
+                showPaymentOption(
+                    context: context,
+                    onPressed: () {},
+                    price: (widget.model.price).toString());
               },
               buttonText: "Pay now - \$${widget.model.price}")
         ],

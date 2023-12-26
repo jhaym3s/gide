@@ -48,6 +48,7 @@ void generalDialog({
 void showPaymentOption({
   required BuildContext context,
   required VoidCallback onPressed,
+  required String price
 }) {
   generalDialog(
       context: context,
@@ -67,7 +68,7 @@ void showPaymentOption({
                     fontWeight: FontWeight.w500,
                     color: kTextColorsLight)),
             SpaceY(4.dy),
-            Text("Amount - \$20",
+            Text("Amount - \$$price",
                 softWrap: true,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
