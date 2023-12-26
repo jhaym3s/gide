@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:info_popup/info_popup.dart';
 
 // Project imports:
 import 'package:gide/core/configs/configs.dart';
@@ -45,16 +46,20 @@ class Courses extends StatelessWidget {
                 Row(
                   children: [
                     ExplorePointsTile(
-                      points: (coursemodel.points??0).toString(),
+                      points: (coursemodel.points ?? 0).toString(),
                     ),
                     SpaceX(4.dx),
-                    //!here 2
-                    //todo: add an info bar to the icon
-                    const Icon(
-                      Icons.info_outline,
-                      color: Color(0xff292D32),
-                      size: 16,
-                    )
+                    const InfoPopupWidget(
+                      contentTitle:
+                          'Points are litte token of rewards awarded whenever you comlete a task',
+                      dismissTriggerBehavior:
+                          PopupDismissTriggerBehavior.anyWhere,
+                      child: Icon(
+                        Icons.info_outline,
+                        color: Color(0xff292D32),
+                        size: 16,
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -84,7 +89,8 @@ class Courses extends StatelessWidget {
           SpaceY(8.dy),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.dx),
-            child: Text("${coursemodel.courseLength?.hours??0}h:${coursemodel.courseLength?.minutes??00}mins . ${(coursemodel.modules??[]).length} Lessons",
+            child: Text(
+                "${coursemodel.courseLength?.hours ?? 0}h:${coursemodel.courseLength?.minutes ?? 00}mins . ${(coursemodel.modules ?? []).length} Lessons",
                 softWrap: true,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: 14.sp,

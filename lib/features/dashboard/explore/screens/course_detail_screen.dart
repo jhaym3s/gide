@@ -15,6 +15,7 @@ import 'package:gide/features/dashboard/explore/screens/checkout_screen.dart';
 import 'package:gide/features/dashboard/explore/widgets/checkout_course.dart';
 import 'package:gide/features/dashboard/explore/widgets/courses.dart';
 import 'package:gide/general_widget/app_loader.dart';
+import 'package:info_popup/info_popup.dart';
 
 class CourseDetailScreen extends ConsumerStatefulWidget {
   static const routeName = "course_detail_screen";
@@ -110,11 +111,17 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                                     points:
                                         (singleCourse?.points ?? 0).toString()),
                                 SpaceX(4.dx),
-                                const Icon(
-                                  Icons.info_outline,
-                                  color: Color(0xff292D32),
-                                  size: 16,
-                                )
+                                const InfoPopupWidget(
+                                  contentTitle:
+                                      'Points are litte token of rewards awarded whenever you comlete a task',
+                                  dismissTriggerBehavior:
+                                      PopupDismissTriggerBehavior.anyWhere,
+                                  child: Icon(
+                                    Icons.info_outline,
+                                    color: Color(0xff292D32),
+                                    size: 16,
+                                  ),
+                                ),
                               ],
                             )
                           ],
