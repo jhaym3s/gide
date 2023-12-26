@@ -7,6 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
+import 'package:gide/features/authentication/screens/onboarding.dart';
+import 'package:gide/features/authentication/screens/sign_in_screen.dart';
+import 'package:gide/features/authentication/screens/splash_screen.dart';
 import 'package:gide/features/dashboard/profile/notifiers/profile_notifier.dart';
 import 'package:gide/features/dashboard/profile/screens/become_an_instructor.dart';
 import 'package:gide/features/dashboard/profile/screens/edit_personal_details_screen.dart';
@@ -36,6 +39,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final userProfile = ref.watch(currentUserProvider);
+    final notifer = ref.read(profileProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -185,20 +189,32 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   ],
                 ),
                 SpaceY(24.dy),
-                Row(
-                  children: [
-                    Image.asset(
-                      AssetsImages.logout,
-                      height: 24.dy,
-                      width: 24.dx,
-                    ),
-                    SpaceX(8.dx),
-                    Text("Logout",
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                            color: kError)),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    notifer.logout();
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => const SignInScreen()),
+                        (route) => false);
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        AssetsImages.logout,
+                        height: 24.dy,
+                        width: 24.dx,
+                      ),
+                      SpaceX(8.dx),
+                      Text("Logout",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: kError)),
+                    ],
+                  ),
                 ),
                 SpaceY(32.dy),
               ],
