@@ -118,7 +118,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     },
                     onChanged: (value) {
                       passwordTextController.addListener(() {
-                        debugLog('In on changed');
+                        
                         if (passwordTextController.text.length >= 8) {
                           setState(() {
                             eightChars = true;
@@ -168,7 +168,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                       });
                     },
                     validator: (String? value) {
-                      debugLog('In validator atm');
+                      
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
                       }

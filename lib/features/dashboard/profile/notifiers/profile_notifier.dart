@@ -78,7 +78,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       final response = await profileRepo.changePasswd(data);
 
       if (response.statusCode == 201 || response.statusCode == 200) {
-        userRepository.saveCurrentState(CurrentState.onboarded);
         state = state.copyWith(
           loadState: LoadState.success,
         );
@@ -107,7 +106,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       final response = await profileRepo.becomeInstructor(data);
 
       if (response.statusCode == 201 || response.statusCode == 200) {
-        userRepository.saveCurrentState(CurrentState.onboarded);
         state = state.copyWith(
           loadState: LoadState.success,
         );

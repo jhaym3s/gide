@@ -347,6 +347,7 @@ class _RestClient implements RestClient {
       MultipartFile.fromFileSync(
         file.path,
         filename: file.path.split(Platform.pathSeparator).last,
+        contentType: MediaType('image', 'png')
       ),
     ));
     final _result = await _dio.fetch<Map<String, dynamic>>(

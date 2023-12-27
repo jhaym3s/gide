@@ -34,14 +34,15 @@ class AllCategorieScreen extends StatelessWidget {
                 color: kTextColorsLight)),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.dx),
+        padding: EdgeInsets.only(left: 8.dx),
         child: Wrap(
-             spacing: 8.0,
-          runSpacing: 8.0,
-          children:cat.map((cat) => ExploreCategories(
-                name:cat??
-                '',
-              ) ).toList(),
+          spacing: 0.0,
+          runSpacing: 16.0,
+          children: cat
+              .map((cat) => ExploreCategories(
+                    name: cat ?? '',
+                  ))
+              .toList(),
         ),
       ),
     );

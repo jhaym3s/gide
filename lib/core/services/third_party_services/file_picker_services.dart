@@ -18,7 +18,7 @@ class AppFilePicker {
   }) async {
     try {
       final FilePickerResult? pickedFile =
-          await FilePicker.platform.pickFiles(type: FileType.image);
+          await FilePicker.platform.pickFiles(type: FileType.any);
       if (pickedFile != null) {
         files.value = [...files.value, File(pickedFile.files.single.path!)];
       } else {

@@ -56,7 +56,7 @@ class _BecomeAnInstructorState extends ConsumerState<BecomeAnInstructor> {
 
     Future<String> sendFiles(String filePath) async =>
         await (notifer.uploadFileData(filePath: File(filePath))) ?? 'no-data';
-
+    successDialog();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

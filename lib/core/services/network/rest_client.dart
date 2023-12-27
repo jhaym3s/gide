@@ -1,6 +1,10 @@
 // Dart imports:
+import 'dart:convert';
 import 'dart:io';
-
+// ignore: depend_on_referenced_packages
+import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
+//!very useful import
 // Package imports:
 import 'package:dio/dio.dart';
 import 'package:gide/core/services/config/response/base_response.dart';
@@ -26,9 +30,9 @@ part 'rest_client.g.dart';
 
 @RestApi()
 abstract class RestClient {
-  //? auth
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
+  //? auth
   @POST('/auth/login')
   Future<BaseResponse<LoginResponse>> login(@Body() LoginModel loginModel);
 
@@ -69,8 +73,12 @@ abstract class RestClient {
   //? media
   @POST('/media/upload')
   @MultiPart()
-  Future<BaseResponse<UploadFileResp>> uploadFiles(@Part() File file);
-
+  Future<BaseResponse<UploadFileResp>> uploadFiles(
+      @Part(contentType: 'multipart/form-data') File file);
+  //!Note: for the file upload to work
+  //! use MediaType('image', 'png') instead of MediaType.parse('multipart/form-data'), in the rest_client.g.dart file
+  //!here
+  
   //? courses
   @GET('/courses')
   Future<BaseResponse<AllCoursesModel>> getAllCourses();
@@ -78,4 +86,15 @@ abstract class RestClient {
   @GET('/courses/{id}')
   Future<BaseResponse<SingleCourseModel>> getSingleCourse(
       {@Path('id') String? id});
+}
+
+class ImagePartConverter extends Converter<File, MultipartFile> {
+  @override
+  MultipartFile convert(File file) {
+    return MultipartFile.fromFileSync(
+      file.path,
+      filename: file.path.split('/').last,
+      contentType: MediaType('image', 'png'), // Specific MIME type
+    );
+  }
 }

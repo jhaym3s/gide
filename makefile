@@ -1,5 +1,7 @@
 auto_generate:
-	dart run build_runner build --delete-conflicting-outputs
+	dart run build_runner build 
+	## this was removed because there was a modification of the generated file(rest_client.g.dart)
+	## --delete-conflicting-outputs 
 
 format: ## Formats the code
 	@echo "╠ Formatting the code"
