@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:gide/core/configs/configs.dart';
 
 class ExpandableContainer extends StatefulWidget {
   final String text;
   final Widget content;
+  final int hour, minutes;
 
   const ExpandableContainer(
-      {super.key, required this.text, required this.content});
+      {super.key,
+      required this.text,
+      required this.content,
+      required this.hour,
+      required this.minutes});
   @override
   // ignore: library_private_types_in_public_api
   _ExpandableContainerState createState() => _ExpandableContainerState();
@@ -39,8 +45,9 @@ class _ExpandableContainerState extends State<ExpandableContainer>
           ],
         ),
         duration: const Duration(milliseconds: 300),
-        height: _isExpanded ? 700 : 64,
+        height: _isExpanded ? 350 : 64,
         width: 396,
+        margin: EdgeInsets.only(bottom: 16.dy),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -50,17 +57,33 @@ class _ExpandableContainerState extends State<ExpandableContainer>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      widget.text,
-                      style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.text,
+                            softWrap: true,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: kTextColorsLight)),
+                        Text("${widget.hour}hrs:${widget.minutes}mins",
+                            softWrap: true,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: kGrey)),
+                      ],
                     ),
                     Icon(
                       _isExpanded
-                          ? Icons.keyboard_arrow_down
-                          : Icons.arrow_left_outlined,
+                          ? Icons.keyboard_arrow_down_outlined
+                          : Icons.arrow_forward_ios,
                       color: Colors.black,
                     ),
                   ],

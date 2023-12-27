@@ -10,10 +10,12 @@ import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/components/custom_elevated_button.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
+import 'package:gide/core/services/third_party_services/web_link.dart';
 import 'package:gide/features/dashboard/explore/notifier.dart/course_notifier.dart';
 import 'package:gide/features/dashboard/explore/screens/checkout_screen.dart';
 import 'package:gide/features/dashboard/explore/widgets/checkout_course.dart';
 import 'package:gide/features/dashboard/explore/widgets/courses.dart';
+import 'package:gide/features/dashboard/explore/widgets/expandable_widget.dart';
 import 'package:gide/general_widget/app_loader.dart';
 import 'package:info_popup/info_popup.dart';
 
@@ -44,6 +46,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(courseProvider);
     final singleCourse = state.singleCourseModel;
+    final webService = ref.read(webLinkProvider);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -176,10 +179,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                         SpaceY(8.dy),
                         ExpandableText(
                           singleCourse?.description ?? '',
-                          // 'In this course you will learn the range of features and capabilities of figma, including: UI design, prototyping, collaboration, plugins and design systems Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
-                          // 'Suspendisse potenti. Nulla aliquam, justo eu convallis vehicula, '
-                          // 'elit libero dignissim purus, non tempus arcu tortor at metus. '
-                          // 'Read more about this text...',
+
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
@@ -207,7 +207,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Courses",
+                            Text("Modules",
                                 softWrap: true,
                                 style: Theme.of(context)
                                     .textTheme
@@ -230,20 +230,48 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                         ),
                         SpaceY(16.dy),
                         SizedBox(
-                          height: 200.dy,
+                          height: 250.dy,
                           child: ListView.builder(
                             shrinkWrap: true,
                             itemCount: (singleCourse?.modules ?? []).length,
                             itemBuilder: (context, index) {
                               final moduleData = singleCourse?.modules?[index];
-                              return CoursesListTile(
-                                icon: index == 0
-                                    ? Icons.arrow_forward_ios
-                                    : Icons.lock_outline,
-                                title: moduleData?.name ?? '',
-                                hours: moduleData?.length?.hours ?? 0,
+                              return ExpandableContainer(
+                                hour: moduleData?.length?.hours ?? 0,
                                 minutes: moduleData?.length?.minutes ?? 0,
+                                content: SizedBox(
+                                  height: 150.dy,
+                                  child: ListView.builder(
+                                    itemCount:
+                                        (moduleData?.lessons ?? []).length,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      final lesson =
+                                          moduleData?.lessons?[index];
+                                      return CoursesListTile(
+                                        icon: index == 0
+                                            ? Icons.arrow_forward_ios
+                                            : Icons.lock_outline,
+                                        title: lesson?.description ?? '',
+                                        points: lesson?.points ?? 0,
+                                        onTap: () => webService.webLink(
+                                            urlLink:
+                                                lesson?.virtualSessionUrl ??
+                                                    ''),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                text: moduleData?.name ?? '',
                               );
+                              // CoursesListTile(
+                              //   icon: index == 0
+                              //       ? Icons.arrow_forward_ios
+                              //       : Icons.lock_outline,
+                              //   title: moduleData?.name ?? '',
+                              //   hours: moduleData?.length?.hours ?? 0,
+                              //   minutes: moduleData?.length?.minutes ?? 0,
+                              // );
                             },
                           ),
                         ),
@@ -381,55 +409,62 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
 }
 
 class CoursesListTile extends StatelessWidget {
-  const CoursesListTile(
-      {super.key,
-      required this.icon,
-      required this.title,
-      required this.hours,
-      required this.minutes});
+  const CoursesListTile({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.points,
+    required this.onTap,
+  });
   final IconData icon;
   final String title;
-  final int hours, minutes;
+  final int points;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 64.dy,
-      width: 350.dx,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: const Color(0xffEAECF0))),
-      margin: EdgeInsets.only(bottom: 8.dy),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 11.dy, horizontal: 16.dx),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title,
-                    softWrap: true,
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: kTextColorsLight)),
-                Text("${hours}hrs:${minutes}mins",
-                    softWrap: true,
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                        color: kGrey)),
-              ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 64.dy,
+        width: 350.dx,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: const Color(0xffEAECF0))),
+        margin: EdgeInsets.only(
+            bottom: 8.dy, top: 16.dy, left: 16.dx, right: 16.dx),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 11.dy, horizontal: 16.dx),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,
+                      softWrap: true,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: kTextColorsLight)),
+                  Text("$points points",
+                      softWrap: true,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w700,
+                          color: kGrey)),
+                ],
+              ),
             ),
-          ),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                icon,
-                color: Color(0xff292D32),
-              )),
-        ],
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  icon,
+                  size: 12,
+                  color: Color(0xff292D32),
+                )),
+          ],
+        ),
       ),
     );
   }
