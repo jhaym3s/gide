@@ -5,7 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/core/services/config/exception/app_exception.dart';
 import 'package:gide/core/services/config/response/base_response.dart';
+import 'package:gide/core/services/network/api_key.dart';
 import 'package:gide/core/services/network/rest_client.dart';
+import 'package:gide/core/services/network/upload_file_services.dart';
 import 'package:gide/domain/model_response/instructor_resp.dart';
 import 'package:gide/domain/model_response/upload_file_resp.dart';
 import 'package:gide/features/dashboard/profile/become_instructor_model.dart';
@@ -17,7 +19,9 @@ import 'package:gide/features/dashboard/profile/profile/profile.dart';
 class ProfileImpl extends ProfileRepo {
   final RestClient _client;
 
-  ProfileImpl(this._client);
+  ProfileImpl(this._client, this._reader);
+  final UploadFileApiServices fileApiServices = UploadFileApiServices();
+  final Ref _reader;
 
   @override
   Future<BaseResponse<Profile>> updatePhone(
@@ -53,8 +57,10 @@ class ProfileImpl extends ProfileRepo {
 
   @override
   Future<BaseResponse<UploadFileResp>> uploadFile(File file) async {
+    final dio = _reader.read(dioProvider);
     try {
-      final resp = await _client.uploadFiles(file);
+      // final resp = await _client.uploadFiles(file);
+      final resp = await fileApiServices.uploadFiles(file, dio, APIKey.baseUrl);
       return resp;
     } on DioException catch (ex) {
       throw AppException.handleError(ex);
@@ -74,4 +80,4 @@ class ProfileImpl extends ProfileRepo {
 }
 
 final profileRepoProv =
-    Provider((ref) => ProfileImpl(ref.read(restClientProvider)));
+    Provider((ref) => ProfileImpl(ref.read(restClientProvider), ref));
