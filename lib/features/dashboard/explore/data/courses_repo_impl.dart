@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
 import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/core/services/config/exception/app_exception.dart';
 import 'package:gide/core/services/config/response/base_response.dart';
@@ -44,4 +47,5 @@ class CoursesImpl extends CourseRepo {
   }
 }
 
-final courseRepoProv = Provider((ref) => CoursesImpl(ref.read(restClientProvider)));
+final courseRepoProv =
+    Provider((ref) => CoursesImpl(ref.read(restClientProvider)));

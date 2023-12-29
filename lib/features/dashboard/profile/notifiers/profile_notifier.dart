@@ -1,16 +1,20 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
 import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/helpers/helper_fxn.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/core/services/config/exception/logger.dart';
-import 'package:gide/features/dashboard/profile/become_instructor_model.dart';
-import 'package:gide/features/dashboard/profile/model/change_password_model.dart';
-import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
 import 'package:gide/domain/repositories/profile_repo.dart';
 import 'package:gide/domain/repositories/user_repository.dart';
+import 'package:gide/features/dashboard/profile/become_instructor_model.dart';
 import 'package:gide/features/dashboard/profile/data/profile_repo_impl.dart';
+import 'package:gide/features/dashboard/profile/model/change_password_model.dart';
+import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
 import 'package:gide/features/dashboard/profile/notifiers/profile_state.dart';
 import 'package:gide/features/dashboard/profile/profile/profile.dart';
 

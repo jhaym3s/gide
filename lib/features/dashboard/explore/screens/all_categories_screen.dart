@@ -1,9 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gide/core/components/app_enums.dart';
 
 // Project imports:
+import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/components/components.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/helpers/helper_fxn.dart';

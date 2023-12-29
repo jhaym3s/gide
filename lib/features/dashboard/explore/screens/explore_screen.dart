@@ -1,9 +1,12 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gide/core/components/app_enums.dart';
+
+// Package imports:
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
+import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/components/search_bar.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
@@ -16,7 +19,6 @@ import 'package:gide/features/dashboard/explore/widgets/explore_app_bar.dart';
 import 'package:gide/general_widget/app_loader.dart';
 import '../../../../core/configs/configs.dart';
 import '../widgets/courses.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ExploreScreen extends ConsumerStatefulWidget {
   static const routeName = "explore_screen";

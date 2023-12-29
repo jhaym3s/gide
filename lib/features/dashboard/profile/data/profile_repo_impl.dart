@@ -1,7 +1,11 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
 import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/core/services/config/exception/app_exception.dart';
 import 'package:gide/core/services/config/response/base_response.dart';
@@ -10,10 +14,10 @@ import 'package:gide/core/services/network/rest_client.dart';
 import 'package:gide/core/services/network/upload_file_services.dart';
 import 'package:gide/domain/model_response/instructor_resp.dart';
 import 'package:gide/domain/model_response/upload_file_resp.dart';
+import 'package:gide/domain/repositories/profile_repo.dart';
 import 'package:gide/features/dashboard/profile/become_instructor_model.dart';
 import 'package:gide/features/dashboard/profile/model/change_password_model.dart';
 import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
-import 'package:gide/domain/repositories/profile_repo.dart';
 import 'package:gide/features/dashboard/profile/profile/profile.dart';
 
 class ProfileImpl extends ProfileRepo {

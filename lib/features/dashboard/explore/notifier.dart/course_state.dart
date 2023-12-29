@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/features/dashboard/explore/model/all_courses_model/all_courses_model.dart';
 import 'package:gide/features/dashboard/explore/model/single_course_model/single_course_model.dart';
@@ -16,7 +17,11 @@ class CourseState {
   });
 
   factory CourseState.initialState() {
-    return CourseState(errorMessage: '', loadState: LoadState.idle, allCoursesModel:  null, singleCourseModel: null);
+    return CourseState(
+        errorMessage: '',
+        loadState: LoadState.idle,
+        allCoursesModel: null,
+        singleCourseModel: null);
   }
 
   CourseState copyWith({

@@ -1,9 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gide/core/components/app_enums.dart';
 
 // Project imports:
+import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/features/authentication/screens/onboarding.dart';

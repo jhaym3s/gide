@@ -1,8 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:gide/general_widget/app_loader.dart';
 
 // Project imports:
+import 'package:gide/general_widget/app_loader.dart';
 import '../configs/configs.dart';
 
 class CustomElevatedButton extends StatefulWidget {

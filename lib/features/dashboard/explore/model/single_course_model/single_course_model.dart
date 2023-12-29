@@ -1,5 +1,7 @@
+// Package imports:
 import 'package:equatable/equatable.dart';
 
+// Project imports:
 import 'course_length.dart';
 import 'instructor.dart';
 import 'module.dart';

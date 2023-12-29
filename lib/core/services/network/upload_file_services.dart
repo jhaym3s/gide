@@ -1,7 +1,12 @@
+// Dart imports:
 import 'dart:convert';
 import 'dart:io';
-import 'package:http_parser/http_parser.dart';
+
+// Package imports:
 import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
+
+// Project imports:
 import 'package:gide/core/services/config/exception/logger.dart';
 import 'package:gide/core/services/config/response/base_response.dart';
 import 'package:gide/domain/model_response/upload_file_resp.dart';

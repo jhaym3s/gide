@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
 import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/core/services/config/exception/logger.dart';
@@ -34,6 +37,7 @@ class CourseNotifier extends StateNotifier<CourseState> {
       state = state.copyWith(loadState: LoadState.done);
     }
   }
+
   Future getSingleCou({required String id}) async {
     state = state.copyWith(loadState: LoadState.loading);
     debugLog('Attempting to get single courses');

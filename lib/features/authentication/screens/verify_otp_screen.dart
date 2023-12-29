@@ -1,7 +1,11 @@
-// Flutter imports:
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 // Project imports:
 import 'package:gide/core/components/custom_back_button.dart';
@@ -11,7 +15,6 @@ import 'package:gide/core/helpers/regex_validation.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/features/authentication/screens/reset_password_screen.dart';
 import 'package:gide/features/authentication/widgets/pin_text_field.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../../../core/configs/configs.dart';
 
 class VerifyOTPScreen extends StatefulWidget {

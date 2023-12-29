@@ -1,9 +1,14 @@
-// Flutter imports:
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 // Project imports:
 import 'package:gide/core/components/alerts.dart';
@@ -15,8 +20,6 @@ import 'package:gide/core/services/third_party_services/image_picker_services.da
 import 'package:gide/features/dashboard/profile/become_instructor_model.dart';
 import 'package:gide/features/dashboard/profile/notifiers/profile_notifier.dart';
 import 'package:gide/features/dashboard/profile/notifiers/profile_state.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../../../core/components/components.dart';
 import '../../../../core/configs/configs.dart';
 

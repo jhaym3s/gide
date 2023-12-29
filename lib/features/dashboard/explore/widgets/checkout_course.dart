@@ -12,14 +12,16 @@ class CheckOutCourseModel {
       {required this.category,
       required this.title,
       required this.instructor,
-      required this.hours,required this.price,
+      required this.hours,
+      required this.price,
       required this.minutes,
       required this.lessons});
 }
 
 class CheckoutCourses extends StatelessWidget {
   const CheckoutCourses({
-    super.key, required this.model,
+    super.key,
+    required this.model,
   });
   final CheckOutCourseModel model;
 
@@ -44,7 +46,7 @@ class CheckoutCourses extends StatelessWidget {
           SpaceY(12.dy),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.dx),
-            child: Text( model.category ,
+            child: Text(model.category,
                 softWrap: true,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: 10.sp,
@@ -74,7 +76,8 @@ class CheckoutCourses extends StatelessWidget {
           SpaceY(8.dy),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.dx),
-            child: Text("${model.hours}h:${model.minutes}mins . ${model.lessons} Lessons",
+            child: Text(
+                "${model.hours}h:${model.minutes}mins . ${model.lessons} Lessons",
                 softWrap: true,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: 14.sp,

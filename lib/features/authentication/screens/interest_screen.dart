@@ -1,14 +1,16 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
 import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/services/config/exception/logger.dart';
 import 'package:gide/domain/model_response/signup_response/category_resp.dart';
 import 'package:gide/features/authentication/model/signup_model.dart';
 import 'package:gide/features/authentication/notifier/auth_notifier.dart';
 import 'package:gide/features/authentication/notifier/auth_state.dart';
-
-// Project imports:
 import 'package:gide/features/authentication/widgets/interest_cards.dart';
 import 'package:gide/features/dashboard/custom_navigation_bar.dart';
 import '../../../core/components/components.dart';

@@ -1,20 +1,12 @@
-// Dart imports:
-import 'dart:convert';
-import 'dart:io';
-// ignore: depend_on_referenced_packages
-import 'package:dio/dio.dart';
-import 'package:http_parser/http_parser.dart';
-//!very useful import
 // Package imports:
+import 'package:dio/dio.dart';
+import 'package:retrofit/retrofit.dart';
+
+// Project imports:
 import 'package:gide/core/services/config/response/base_response.dart';
 import 'package:gide/domain/model_response/forget_password_resp.dart';
 import 'package:gide/domain/model_response/instructor_resp.dart';
 import 'package:gide/domain/model_response/login_response/login_response.dart';
-import 'package:gide/features/dashboard/explore/model/all_courses_model/all_courses_model.dart';
-import 'package:gide/features/dashboard/explore/model/single_course_model/single_course_model.dart';
-import 'package:gide/features/dashboard/profile/become_instructor_model.dart';
-import 'package:gide/features/dashboard/profile/model/change_password_model.dart';
-import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
 import 'package:gide/domain/model_response/signup_response/category_resp.dart';
 import 'package:gide/domain/model_response/signup_response/signup_resp/signup_resp.dart';
 import 'package:gide/features/authentication/model/forget_password.dart';
@@ -22,8 +14,15 @@ import 'package:gide/features/authentication/model/login_model.dart';
 import 'package:gide/features/authentication/model/reset_password_model.dart';
 import 'package:gide/features/authentication/model/signup_model.dart';
 import 'package:gide/features/authentication/model/verify_otp_model.dart';
+import 'package:gide/features/dashboard/explore/model/all_courses_model/all_courses_model.dart';
+import 'package:gide/features/dashboard/explore/model/single_course_model/single_course_model.dart';
+import 'package:gide/features/dashboard/profile/become_instructor_model.dart';
+import 'package:gide/features/dashboard/profile/model/change_password_model.dart';
+import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
 import 'package:gide/features/dashboard/profile/profile/profile.dart';
-import 'package:retrofit/retrofit.dart';
+
+// ignore: depend_on_referenced_packages
+//!very useful import
 part 'rest_client.g.dart';
 
 @RestApi()

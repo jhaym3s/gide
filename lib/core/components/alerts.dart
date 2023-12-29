@@ -45,11 +45,10 @@ void generalDialog({
   );
 }
 
-void showPaymentOption({
-  required BuildContext context,
-  required VoidCallback onPressed,
-  required String price
-}) {
+void showPaymentOption(
+    {required BuildContext context,
+    required VoidCallback onPressed,
+    required String price}) {
   generalDialog(
       context: context,
       children: Container(

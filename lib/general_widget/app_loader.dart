@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
+
+// Project imports:
 import 'package:gide/core/configs/constants.dart';
 
 class AppLoader extends StatefulWidget {

@@ -1,11 +1,17 @@
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+
+// Project imports:
 import 'package:gide/core/configs/constants.dart';
 import 'package:gide/features/authentication/notifier/auth_notifier.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PinTextField extends ConsumerWidget {
   const PinTextField({super.key, this.errorController, this.pinController});

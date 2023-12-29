@@ -2,10 +2,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gide/core/components/app_enums.dart';
 
 // Project imports:
+import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/helpers/regex_validation.dart';
 import 'package:gide/core/router/router.dart';

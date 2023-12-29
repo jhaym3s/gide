@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_expandable_text/flutter_expandable_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gide/core/components/app_enums.dart';
+import 'package:info_popup/info_popup.dart';
 
 // Project imports:
+import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/components/custom_elevated_button.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
@@ -17,7 +18,6 @@ import 'package:gide/features/dashboard/explore/widgets/checkout_course.dart';
 import 'package:gide/features/dashboard/explore/widgets/courses.dart';
 import 'package:gide/features/dashboard/explore/widgets/expandable_widget.dart';
 import 'package:gide/general_widget/app_loader.dart';
-import 'package:info_popup/info_popup.dart';
 
 class CourseDetailScreen extends ConsumerStatefulWidget {
   static const routeName = "course_detail_screen";

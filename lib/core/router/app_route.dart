@@ -1,8 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:gide/domain/model_response/signup_response/category_resp.dart';
 
 // Project imports:
+import 'package:gide/domain/model_response/signup_response/category_resp.dart';
 import 'package:gide/features/authentication/screens/forgot_password_screen.dart';
 import 'package:gide/features/authentication/screens/interest_screen.dart';
 import 'package:gide/features/authentication/screens/onboarding.dart';
@@ -51,9 +51,15 @@ class AppRouter {
       case ResetPasswordScreen.routeName:
         return MaterialPageRoute(builder: (_) => const ResetPasswordScreen());
       case CourseDetailScreen.routeName:
-        return MaterialPageRoute(builder: (_) =>  CourseDetailScreen( courseId: settings.arguments as String,));
+        return MaterialPageRoute(
+            builder: (_) => CourseDetailScreen(
+                  courseId: settings.arguments as String,
+                ));
       case CheckoutScreen.routeName:
-        return MaterialPageRoute(builder: (_) =>  CheckoutScreen(model: settings.arguments as CheckOutCourseModel,));
+        return MaterialPageRoute(
+            builder: (_) => CheckoutScreen(
+                  model: settings.arguments as CheckOutCourseModel,
+                ));
       case FundAccountScreen.routeName:
         return MaterialPageRoute(builder: (_) => const FundAccountScreen());
       case EditPersonalDetailsScreen.routeName:

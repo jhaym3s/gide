@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gide/core/services/local_database/hive_keys.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 // Project imports:
+import 'package:gide/core/services/local_database/hive_keys.dart';
 import 'package:gide/features/authentication/screens/splash_screen.dart';
 import 'core/configs/configs.dart';
 import 'core/router/app_route.dart';
