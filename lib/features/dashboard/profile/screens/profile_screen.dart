@@ -11,6 +11,7 @@ import 'package:gide/core/router/router.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/features/authentication/screens/onboarding.dart';
 import 'package:gide/features/authentication/screens/sign_in_screen.dart';
+import 'package:gide/features/authentication/screens/sign_up_screen.dart';
 import 'package:gide/features/authentication/screens/splash_screen.dart';
 import 'package:gide/features/dashboard/profile/notifiers/profile_notifier.dart';
 import 'package:gide/features/dashboard/profile/screens/become_an_instructor.dart';
@@ -194,10 +195,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 GestureDetector(
                   onTap: () {
                     notifer.logout();
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => const SignInScreen()),
-                        (route) => false);
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      SignInScreen.routeName,
+                      ModalRoute.withName(
+                        SignInScreen.routeName,
+                      ),
+                    );
                   },
                   child: Row(
                     children: [

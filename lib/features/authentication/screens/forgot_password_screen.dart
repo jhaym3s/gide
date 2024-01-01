@@ -121,7 +121,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 }
                               : null,
                           isLoading: state.loadState == LoadState.loading,
-                          buttonText: "Send Password");
+                          buttonText: "Forget Password");
                     }),
                   ],
                 ),

@@ -7,6 +7,10 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gide/core/components/app_enums.dart';
+import 'package:gide/core/router/router.dart';
+import 'package:gide/features/authentication/notifier/auth_state.dart';
+import 'package:gide/features/authentication/screens/reset_password_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 // Project imports:
@@ -21,6 +25,17 @@ class PinTextField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final notifier = ref.read(authProvider.notifier);
+    void navToNextScreen() {
+      ref.listen<AuthState>(authProvider, (previous, next) {
+        if (next.loadState == LoadState.success) {
+          moveAndClearStack(
+              context: context, page: ResetPasswordScreen.routeName);
+          return;
+        }
+      });
+    }
+
+    navToNextScreen();
     return PinCodeTextField(
       appContext: context,
       length: 6,
@@ -35,7 +50,7 @@ class PinTextField extends ConsumerWidget {
       onChanged: (value) {},
       onCompleted: (value) {
         debugPrint('OTP value: $value');
-        // notifier.verifyAccount(value);
+        notifier.verifyOtp(value);
       },
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (v) {

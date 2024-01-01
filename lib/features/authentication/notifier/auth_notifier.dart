@@ -12,7 +12,9 @@ import 'package:gide/domain/repositories/user_repository.dart';
 import 'package:gide/features/authentication/data/auth_impl.dart';
 import 'package:gide/features/authentication/model/forget_password.dart';
 import 'package:gide/features/authentication/model/login_model.dart';
+import 'package:gide/features/authentication/model/reset_password_model.dart';
 import 'package:gide/features/authentication/model/signup_model.dart';
+import 'package:gide/features/authentication/model/verify_otp_model.dart';
 import 'package:gide/features/authentication/notifier/auth_state.dart';
 import 'package:gide/features/dashboard/profile/profile/profile.dart';
 
@@ -95,8 +97,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
+//!used to store ref temporarily
+  String refCode = '';
+  String email = '';
   Future forgetPass(ForgetPasswordModel data) async {
-    debugLog('Attemping to forget password');
     state = state.copyWith(loadState: LoadState.loading);
     try {
       final response = await authRepo.forgetPassword(data);
@@ -105,7 +109,74 @@ class AuthNotifier extends StateNotifier<AuthState> {
         state = state.copyWith(
           loadState: LoadState.success,
           //!email saved with error message
-          errorMessage: data.email,
+        );
+        email = data.email ?? "";
+        refCode = response.data?.reference ?? "";
+        toastMessage('${response.message}');
+        return response.message;
+      } else {
+        errorToastMessage('${response.message}');
+        state = state.copyWith(
+            errorMessage: response.message, loadState: LoadState.error);
+        return response.message;
+      }
+    } catch (e) {
+      state = state.copyWith(
+        loadState: LoadState.error,
+        errorMessage: e.toString(),
+      );
+      errorToastMessage('$e');
+      rethrow;
+    } finally {
+      state = state.copyWith(loadState: LoadState.idle);
+    }
+  }
+
+  Future verifyOtp(String token) async {
+    state = state.copyWith(loadState: LoadState.loading);
+    VerifyOtpModel data =
+        VerifyOtpModel(code: token, email: email, reference: refCode);
+    try {
+      final response = await authRepo.verifyOTP(data);
+
+      if (response.status ?? false) {
+        state = state.copyWith(
+          loadState: LoadState.success,
+        );
+        toastMessage('${response.message}');
+        return response.message;
+      } else {
+        errorToastMessage('${response.message}');
+        state = state.copyWith(
+            errorMessage: response.message, loadState: LoadState.error);
+        return response.message;
+      }
+    } catch (e) {
+      state = state.copyWith(
+        loadState: LoadState.error,
+        errorMessage: e.toString(),
+      );
+      errorToastMessage('$e');
+      rethrow;
+    } finally {
+      state = state.copyWith(loadState: LoadState.idle);
+    }
+  }
+
+  Future resetPwd(
+      {required String password, required String confPasswd}) async {
+    state = state.copyWith(loadState: LoadState.loading);
+    final data = ResetPasswordModel(
+        password: password,
+        confirmPassword: confPasswd,
+        email: email,
+        reference: refCode);
+    try {
+      final response = await authRepo.resetPassword(data);
+
+      if (response.status ?? false) {
+        state = state.copyWith(
+          loadState: LoadState.success,
         );
         toastMessage('${response.message}');
         return response.message;
@@ -129,7 +200,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<List<CategoryResp>>? getCatergories() async {
     state = state.copyWith(loadState: LoadState.loading);
-    debugLog('Attempting to get category');
+
     try {
       final response = await authRepo.getCategory();
       if (response.statusCode == 201 || response.statusCode == 200) {

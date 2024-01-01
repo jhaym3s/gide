@@ -3,6 +3,10 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gide/core/components/app_enums.dart';
+import 'package:gide/features/authentication/notifier/auth_notifier.dart';
+import 'package:gide/features/authentication/notifier/auth_state.dart';
 
 // Package imports:
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -79,20 +83,35 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                         errorController: errorController,
                         pinController: controller),
                     SpaceY(40.dy),
-                    CustomElevatedButton(
-                        onPressed: () {
-                          _formKey.currentState!.validate();
-                          if (controller.text.length != 6) {
-                            errorController!.add(ErrorAnimationType
-                                .shake); // Triggering error shake animation
-                          } else {
-                            //!verified: send api request
+                    Consumer(builder: (context, ref, child) {
+                      final notifier = ref.read(authProvider.notifier);
+                      final state = ref.watch(authProvider);
+                      void navToHome() {
+                        ref.listen<AuthState>(authProvider, (previous, next) {
+                          if (next.loadState == LoadState.success) {
                             moveAndClearStack(
                                 context: context,
                                 page: ResetPasswordScreen.routeName);
+                            return;
                           }
-                        },
-                        buttonText: "Verify OTP"),
+                        });
+                      }
+
+                      navToHome();
+                      return CustomElevatedButton(
+                          isLoading: state.loadState == LoadState.loading,
+                          onPressed: () {
+                            _formKey.currentState!.validate();
+                            if (controller.text.length != 6) {
+                              errorController!.add(ErrorAnimationType
+                                  .shake); // Triggering error shake animation
+                            } else {
+                              //!verified: send api request
+                              notifier.verifyOtp(controller.text);
+                            }
+                          },
+                          buttonText: "Verify OTP");
+                    }),
                   ],
                 ),
               ))),

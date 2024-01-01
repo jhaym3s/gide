@@ -14,6 +14,7 @@ import 'package:gide/core/router/router.dart';
 import 'package:gide/core/services/config/exception/logger.dart';
 import 'package:gide/features/authentication/model/signup_model.dart';
 import 'package:gide/features/authentication/notifier/auth_notifier.dart';
+import 'package:gide/features/authentication/notifier/auth_state.dart';
 import 'package:gide/features/authentication/screens/interest_screen.dart';
 import 'package:gide/features/authentication/screens/onboarding.dart';
 import 'package:gide/features/authentication/screens/sign_in_screen.dart';
@@ -37,6 +38,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   bool containsSpecialChars = false;
   bool containsLowerCase = false;
   bool hidePassword = true;
+  bool hidePassword1 = true;
   bool passwordIsValid = false;
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         centerTitle: true,
         backgroundColor: kTransparent,
         leading: CustomBackButton(onTap: () {
-          moveAndClearStack(context: context, page: OnboardingScreen.routeName);
+          // moveAndClearStack(context: context, page: OnboardingScreen.routeName);
+          Navigator.pop(context);
         }),
       ),
       body: SingleChildScrollView(
@@ -166,7 +169,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     },
                   ),
                 ),
-                //! Password textfield
+                //! confirm Password textfield
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.dx, vertical: 10.dy),
@@ -174,19 +177,19 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     keyboardType: TextInputType.visiblePassword,
                     controller: confimPasswController,
                     hintText: kDummyPassword,
-                    hidePassword: hidePassword,
+                    hidePassword: hidePassword1,
                     labelText: "Confirm Password",
                     inputFormatters: [
                       FilteringTextInputFormatter.deny(RegExp('[ ]')),
                     ],
                     suffixFunction: () {
                       setState(() {
-                        hidePassword = !hidePassword;
+                        hidePassword1 = !hidePassword1;
                       });
                     },
                     onChanged: (value) {
-                      passwordTextController.addListener(() {
-                        if (passwordTextController.text.length >= 8) {
+                      confimPasswController.addListener(() {
+                        if (confimPasswController.text.length >= 8) {
                           setState(() {
                             eightChars = true;
                           });
@@ -195,7 +198,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             eightChars = false;
                           });
                         }
-                        if (passwordTextController.text.containsUpperCase()) {
+                        if (confimPasswController.text.containsUpperCase()) {
                           setState(() {
                             containsUpperCase = true;
                           });
@@ -204,7 +207,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             containsUpperCase = false;
                           });
                         }
-                        if (passwordTextController.text.containsLowerCase()) {
+                        if (confimPasswController.text.containsLowerCase()) {
                           setState(() {
                             containsLowerCase = true;
                           });
@@ -213,7 +216,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             containsLowerCase = false;
                           });
                         }
-                        if (passwordTextController.text
+                        if (confimPasswController.text
                             .containsSpecialChars()) {
                           setState(() {
                             containsSpecialChars = true;
@@ -223,7 +226,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             containsSpecialChars = false;
                           });
                         }
-                        if (passwordTextController.text.passwordValidator()) {
+                        if (confimPasswController.text.passwordValidator()) {
                           setState(() {
                             passwordIsValid = true;
                           });
@@ -238,16 +241,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
                       }
-                      if (!passwordTextController.text.containsSpecialChars()) {
+                      if (!confimPasswController.text.containsSpecialChars()) {
                         return "Please enter a special character";
                       }
-                      if (!passwordTextController.text.containsLowerCase()) {
+                      if (!confimPasswController.text.containsLowerCase()) {
                         return "Password must contain a lowercase letter";
                       }
-                      if (!passwordTextController.text.containsUpperCase()) {
+                      if (!confimPasswController.text.containsUpperCase()) {
                         return "Password must contain uppercase letter";
                       }
-                      if (passwordTextController.text.containsSpace()) {
+                      if (confimPasswController.text.containsSpace()) {
                         return "Space";
                       }
                       return null;
@@ -259,14 +262,26 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   final notifier = ref.read(authProvider.notifier);
                   final state = ref.watch(authProvider);
 
+                  void navToSignIn() {
+                    ref.listen<AuthState>(authProvider, (previous, next) {
+                      if (next.loadState == LoadState.success) {
+                        moveAndClearStack(
+                            context: context, page: SignInScreen.routeName);
+                        return;
+                      }
+                    });
+                  }
+
+                  navToSignIn();
+
                   return CustomElevatedButton(
                       onPressed: (confimPasswController.text ==
                               passwordTextController.text)
                           ? () async {
                               if (_formKey.currentState!.validate()) {
-                                moveAndClearStack(
-                                    context: context,
-                                    page: SignInScreen.routeName);
+                                notifier.resetPwd(
+                                    password: passwordTextController.text,
+                                    confPasswd: confimPasswController.text);
                               }
                             }
                           : null,

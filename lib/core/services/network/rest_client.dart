@@ -47,6 +47,10 @@ abstract class RestClient {
   Future<BaseResponse> resetPassword(
       @Body() ResetPasswordModel resetPasswordModel);
 
+
+
+      
+
   //? categorires
   @GET('/categories')
   Future<BaseResponse<List<CategoryResp>>> getCategories();
