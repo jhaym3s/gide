@@ -7,7 +7,7 @@ import 'package:gide/core/helpers/helper_fxn.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/core/services/config/exception/logger.dart';
 import 'package:gide/domain/model_response/signup_response/category_resp.dart';
-import 'package:gide/domain/repositories/auth_responsitory.dart';
+import 'package:gide/domain/repositories/auth_repository.dart';
 import 'package:gide/domain/repositories/user_repository.dart';
 import 'package:gide/features/authentication/data/auth_impl.dart';
 import 'package:gide/features/authentication/model/forget_password.dart';
@@ -16,7 +16,7 @@ import 'package:gide/features/authentication/model/reset_password_model.dart';
 import 'package:gide/features/authentication/model/signup_model.dart';
 import 'package:gide/features/authentication/model/verify_otp_model.dart';
 import 'package:gide/features/authentication/notifier/auth_state.dart';
-import 'package:gide/features/dashboard/profile/profile/profile.dart';
+import 'package:gide/features/dashboard/profile/model/profile.dart';
 
 class AuthNotifier extends StateNotifier<AuthState> {
   AuthNotifier(

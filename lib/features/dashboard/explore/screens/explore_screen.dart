@@ -163,19 +163,21 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                       ? const AppLoader(
                           color: kPrimaryColor,
                         )
-                      : ListView.builder(
-                          padding: EdgeInsets.zero, // Remove padding
-                          scrollDirection: Axis.horizontal,
-                          itemCount:
-                              (allCourses.allCoursesModel?.data ?? []).length,
-                          itemBuilder: (context, index) {
-                            final coursemodel =
-                                allCourses.allCoursesModel?.data?[index] ??
-                                    const CourseModel();
-                            return Courses(
-                              coursemodel: coursemodel,
-                            );
-                          }),
+                      : (allCourses.featuredCoursesModel ?? []).isEmpty
+                          ? Center(child: Text('No Featured course yet 😔'))
+                          : ListView.builder(
+                              padding: EdgeInsets.zero, // Remove padding
+                              scrollDirection: Axis.horizontal,
+                              itemCount: (allCourses.featuredCoursesModel ?? [])
+                                  .length,
+                              itemBuilder: (context, index) {
+                                final coursemodel =
+                                    allCourses.featuredCoursesModel?[index] ??
+                                        const CourseModel();
+                                return Courses(
+                                  coursemodel: coursemodel,
+                                );
+                              }),
                 )
               ],
             ),

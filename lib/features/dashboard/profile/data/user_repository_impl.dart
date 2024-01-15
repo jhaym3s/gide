@@ -10,7 +10,7 @@ import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/core/services/local_database/abstract_hive.dart';
 import 'package:gide/core/services/local_database/hive_keys.dart';
 import 'package:gide/domain/repositories/user_repository.dart';
-import 'package:gide/features/dashboard/profile/profile/profile.dart';
+import 'package:gide/features/dashboard/profile/model/profile.dart';
 
 class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl(this._storage, this._ref);

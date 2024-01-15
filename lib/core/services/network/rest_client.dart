@@ -1,5 +1,8 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:gide/domain/model_response/create_enrollment_resp/create_enrollment_resp.dart';
+import 'package:gide/features/dashboard/learning/model/create_enrollment.dart';
+import 'package:gide/features/dashboard/learning/model/enrollment_model/enrollment_model.dart';
 import 'package:retrofit/retrofit.dart';
 
 // Project imports:
@@ -19,7 +22,7 @@ import 'package:gide/features/dashboard/explore/model/single_course_model/single
 import 'package:gide/features/dashboard/profile/become_instructor_model.dart';
 import 'package:gide/features/dashboard/profile/model/change_password_model.dart';
 import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
-import 'package:gide/features/dashboard/profile/profile/profile.dart';
+import 'package:gide/features/dashboard/profile/model/profile.dart';
 
 // ignore: depend_on_referenced_packages
 //!very useful import
@@ -46,10 +49,6 @@ abstract class RestClient {
   @PUT('/auth/password')
   Future<BaseResponse> resetPassword(
       @Body() ResetPasswordModel resetPasswordModel);
-
-
-
-      
 
   //? categorires
   @GET('/categories')
@@ -85,4 +84,12 @@ abstract class RestClient {
   @GET('/courses/{id}')
   Future<BaseResponse<SingleCourseModel>> getSingleCourse(
       {@Path('id') String? id});
+
+  //? Enrollment / learning
+  @GET('/enrollments')
+  Future<BaseResponse<EnrollmentModel>> getEnrollment();
+
+  @POST('/enrollments')
+  Future<BaseResponse<CreateEnrollmentResp>> createEnrollment(
+      @Body() CreateEnrollment createEnrollment);
 }

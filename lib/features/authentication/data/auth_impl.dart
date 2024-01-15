@@ -11,7 +11,7 @@ import 'package:gide/domain/model_response/forget_password_resp.dart';
 import 'package:gide/domain/model_response/login_response/login_response.dart';
 import 'package:gide/domain/model_response/signup_response/category_resp.dart';
 import 'package:gide/domain/model_response/signup_response/signup_resp/signup_resp.dart';
-import 'package:gide/domain/repositories/auth_responsitory.dart';
+import 'package:gide/domain/repositories/auth_repository.dart';
 import 'package:gide/features/authentication/model/forget_password.dart';
 import 'package:gide/features/authentication/model/login_model.dart';
 import 'package:gide/features/authentication/model/reset_password_model.dart';

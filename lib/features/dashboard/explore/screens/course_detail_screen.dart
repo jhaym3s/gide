@@ -79,7 +79,6 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                               fit: BoxFit.contain,
                               imagePath: 'assets/images/empty_learning.png',
                             ),
-                      //  FlutterLogo(),
                     ),
                     Positioned(
                       top: 10,

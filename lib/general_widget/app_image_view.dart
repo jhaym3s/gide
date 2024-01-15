@@ -117,7 +117,8 @@ class AppImageView extends StatelessWidget {
         fit: fit ?? BoxFit.cover,
         color: color,
       );
-    } else if (url != null && url!.isNotEmpty && url !='') {
+    } else if (url != null && url!.isNotEmpty && url != '') {
+      debugPrint('URL LINK => $url');
       return CachedNetworkImage(
         height: height,
         width: width,

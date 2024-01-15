@@ -195,7 +195,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 SpaceY(24.dy),
                 GestureDetector(
                   onTap: () {
-                    
                     notifer.logout();
                     //!last option
                     SystemChannels.platform.invokeMethod('SystemNavigator.pop');

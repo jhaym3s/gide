@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 
 // Project imports:
-import 'package:gide/features/dashboard/profile/profile/profile.dart';
+import 'package:gide/features/dashboard/profile/model/profile.dart';
 
 class LoginResponse extends Equatable {
   final String? token;

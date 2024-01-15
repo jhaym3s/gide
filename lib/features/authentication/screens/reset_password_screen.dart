@@ -216,8 +216,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             containsLowerCase = false;
                           });
                         }
-                        if (confimPasswController.text
-                            .containsSpecialChars()) {
+                        if (confimPasswController.text.containsSpecialChars()) {
                           setState(() {
                             containsSpecialChars = true;
                           });

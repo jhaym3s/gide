@@ -12,20 +12,24 @@ import 'package:gide/core/services/config/response/base_response.dart';
 import 'package:gide/core/services/network/api_key.dart';
 import 'package:gide/core/services/network/rest_client.dart';
 import 'package:gide/core/services/network/upload_file_services.dart';
+import 'package:gide/domain/model_response/create_enrollment_resp/create_enrollment_resp.dart';
 import 'package:gide/domain/model_response/instructor_resp.dart';
 import 'package:gide/domain/model_response/upload_file_resp.dart';
+import 'package:gide/domain/repositories/learning_repo.dart';
 import 'package:gide/domain/repositories/profile_repo.dart';
+import 'package:gide/features/dashboard/learning/model/create_enrollment.dart';
+import 'package:gide/features/dashboard/learning/model/enrollment_model/enrollment_model.dart';
 import 'package:gide/features/dashboard/profile/become_instructor_model.dart';
 import 'package:gide/features/dashboard/profile/model/change_password_model.dart';
 import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
 import 'package:gide/features/dashboard/profile/model/profile.dart';
 
-class ProfileImpl extends ProfileRepo {
+class LearningImpl extends LearningRepo {
   final RestClient _client;
 
-  ProfileImpl(this._client, this._reader);
-  final UploadFileApiServices fileApiServices = UploadFileApiServices();
-  final Ref _reader;
+  LearningImpl(
+    this._client,
+  );
 
   @override
   Future<BaseResponse<Profile>> updatePhone(
@@ -39,39 +43,6 @@ class ProfileImpl extends ProfileRepo {
   }
 
   @override
-  Future<BaseResponse<Profile>> getProfile() async {
-    try {
-      final resp = await _client.getProfile();
-      return resp;
-    } on DioException catch (ex) {
-      return AppException.handleError(ex);
-    }
-  }
-
-  @override
-  Future<BaseResponse> changePasswd(
-      ChangePasswordModel changePasswordModel) async {
-    try {
-      final resp = await _client.changePass(changePasswordModel);
-      return resp;
-    } on DioException catch (ex) {
-      return AppException.handleError(ex);
-    }
-  }
-
-  @override
-  Future<BaseResponse<UploadFileResp>> uploadFile(File file) async {
-    final dio = _reader.read(dioProvider);
-    try {
-      // final resp = await _client.uploadFiles(file);
-      final resp = await fileApiServices.uploadFiles(file, dio, APIKey.baseUrl);
-      return resp;
-    } on DioException catch (ex) {
-      throw AppException.handleError(ex);
-    }
-  }
-
-  @override
   Future<BaseResponse<InstructorResp>> becomeInstructor(
       BecomeInstructorModel becomeInstructorModel) async {
     try {
@@ -81,7 +52,31 @@ class ProfileImpl extends ProfileRepo {
       throw AppException.handleError(ex);
     }
   }
+
+  @override
+  Future<BaseResponse<CreateEnrollmentResp>> createEnrollment(
+      {CreateEnrollment? createEnrollment}) async {
+    try {
+      final resp = await _client.createEnrollment(createEnrollment!);
+      return resp;
+    } on DioException catch (ex) {
+      return AppException.handleError(ex);
+    }
+  }
+
+  @override
+  Future<BaseResponse<EnrollmentModel>> getEnrollment() async {
+    try {
+      final resp = await _client.getEnrollment();
+      return resp;
+    } on DioException catch (ex) {
+      return AppException.handleError(ex);
+    }
+  }
 }
 
-final profileRepoProv =
-    Provider((ref) => ProfileImpl(ref.read(restClientProvider), ref));
+final enrollRroviderImpl = Provider(
+  (ref) => LearningImpl(
+    ref.read(restClientProvider),
+  ),
+);

@@ -30,13 +30,15 @@ class Courses extends StatelessWidget {
             height: 121.dy,
             width: 253.dx,
             color: kBlack,
-            child: AppImageView(
+            child:
+
+                // child:
+                AppImageView(
               url: coursemodel.image ?? '',
               height: 121.dy,
               fit: BoxFit.contain,
-              imagePath: 'assets/images/empty_learning.png',
+              // imagePath: 'assets/images/empty_learning.png',
             ),
-            // child: const FlutterLogo(),
           ),
           SpaceY(12.dy),
           Padding(
@@ -80,12 +82,17 @@ class Courses extends StatelessWidget {
           SpaceY(6.dy),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.dx),
-            child: Text(coursemodel.title ?? "Quick steps to Figma",
-                softWrap: true,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w700,
-                    color: kTextColorsLight)),
+            child: SizedBox(
+              width: 240.dx,
+              child: Text(coursemodel.title ?? "Quick steps to Figma",
+                  softWrap: true,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w700,
+                      color: kTextColorsLight)),
+            ),
           ),
           SpaceY(8.dy),
           Padding(

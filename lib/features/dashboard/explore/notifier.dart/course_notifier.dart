@@ -8,6 +8,7 @@ import 'package:gide/core/services/config/exception/logger.dart';
 import 'package:gide/domain/repositories/courses_repo.dart';
 import 'package:gide/domain/repositories/user_repository.dart';
 import 'package:gide/features/dashboard/explore/data/courses_repo_impl.dart';
+import 'package:gide/features/dashboard/explore/model/all_courses_model/course_model.dart';
 import 'package:gide/features/dashboard/explore/notifier.dart/course_state.dart';
 
 class CourseNotifier extends StateNotifier<CourseState> {
@@ -27,6 +28,15 @@ class CourseNotifier extends StateNotifier<CourseState> {
       if (response.statusCode == 201 || response.statusCode == 200) {
         state = state.copyWith(
             allCoursesModel: response.data, loadState: LoadState.success);
+        List<CourseModel> featured = [];
+        for (CourseModel singleData in response.data?.data ?? []) {
+          if (singleData.featured ?? false) {
+            featured.add(singleData);
+          }
+        }
+        state = state.copyWith(featuredCoursesModel: [...featured]);
+        debugLog(
+            'Updated featured list length : ${state.featuredCoursesModel?.length ?? 0}');
       }
     } catch (e) {
       state = state.copyWith(

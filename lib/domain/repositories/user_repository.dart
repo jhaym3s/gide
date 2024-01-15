@@ -1,6 +1,6 @@
 // Project imports:
 import 'package:gide/core/components/app_enums.dart';
-import 'package:gide/features/dashboard/profile/profile/profile.dart';
+import 'package:gide/features/dashboard/profile/model/profile.dart';
 
 abstract class UserRepository {
   void saveToken(String val);

@@ -9,7 +9,7 @@ import 'package:gide/domain/model_response/upload_file_resp.dart';
 import 'package:gide/features/dashboard/profile/become_instructor_model.dart';
 import 'package:gide/features/dashboard/profile/model/change_password_model.dart';
 import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
-import 'package:gide/features/dashboard/profile/profile/profile.dart';
+import 'package:gide/features/dashboard/profile/model/profile.dart';
 
 abstract class ProfileRepo {
   Future<BaseResponse<Profile>> getProfile();
