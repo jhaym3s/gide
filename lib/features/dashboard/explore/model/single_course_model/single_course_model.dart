@@ -8,6 +8,7 @@ import 'module.dart';
 
 class SingleCourseModel extends Equatable {
   final CourseLength? courseLength;
+  final String? image;
   final String? id;
   final String? title;
   final String? description;
@@ -24,6 +25,7 @@ class SingleCourseModel extends Equatable {
 
   const SingleCourseModel({
     this.courseLength,
+    this.image,
     this.id,
     this.title,
     this.description,
@@ -44,6 +46,8 @@ class SingleCourseModel extends Equatable {
       courseLength: json['courseLength'] == null
           ? null
           : CourseLength.fromJson(json['courseLength'] as Map<String, dynamic>),
+
+      image: json['image'] as String?,
       id: json['_id'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,
@@ -71,6 +75,7 @@ class SingleCourseModel extends Equatable {
   Map<String, dynamic> toJson() => {
         'courseLength': courseLength?.toJson(),
         '_id': id,
+        'image': image,
         'title': title,
         'description': description,
         'featured': featured,
@@ -88,6 +93,7 @@ class SingleCourseModel extends Equatable {
   SingleCourseModel copyWith({
     CourseLength? courseLength,
     String? id,
+    String? image,
     String? title,
     String? description,
     bool? featured,
@@ -103,6 +109,7 @@ class SingleCourseModel extends Equatable {
   }) {
     return SingleCourseModel(
       courseLength: courseLength ?? this.courseLength,
+      image: image?? this.image,
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
@@ -123,6 +130,7 @@ class SingleCourseModel extends Equatable {
   List<Object?> get props {
     return [
       courseLength,
+      image,
       id,
       title,
       description,

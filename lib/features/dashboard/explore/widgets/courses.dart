@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:gide/general_widget/app_image_view.dart';
 
 // Package imports:
 import 'package:info_popup/info_popup.dart';
@@ -29,7 +30,13 @@ class Courses extends StatelessWidget {
             height: 121.dy,
             width: 253.dx,
             color: kBlack,
-            child: const FlutterLogo(),
+            child: AppImageView(
+              url: coursemodel.image ?? '',
+              height: 121.dy,
+              fit: BoxFit.contain,
+              imagePath: 'assets/images/empty_learning.png',
+            ),
+            // child: const FlutterLogo(),
           ),
           SpaceY(12.dy),
           Padding(
@@ -39,12 +46,15 @@ class Courses extends StatelessWidget {
               children: [
                 //!here 1
                 //!todo change when api is updated
-                Text("Design",
-                    softWrap: true,
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                Text(
+                  "Design",
+                  softWrap: true,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 10.sp,
                         fontWeight: FontWeight.w500,
-                        color: kGrey)),
+                        color: kGrey,
+                      ),
+                ),
                 Row(
                   children: [
                     ExplorePointsTile(

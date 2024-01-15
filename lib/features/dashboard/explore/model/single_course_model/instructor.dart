@@ -10,6 +10,7 @@ class Instructor extends Equatable {
   final List<dynamic>? courses;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final String? firstname, lastname, bio, occupation, profilePicture;
   final int? v;
 
   const Instructor({
@@ -22,6 +23,11 @@ class Instructor extends Equatable {
     this.createdAt,
     this.updatedAt,
     this.v,
+    this.firstname,
+    this.lastname,
+    this.bio,
+    this.occupation,
+    this.profilePicture,
   });
 
   factory Instructor.fromJson(Map<String, dynamic> json) => Instructor(
@@ -38,6 +44,11 @@ class Instructor extends Equatable {
             ? null
             : DateTime.parse(json['updatedAt'] as String),
         v: json['__v'] as int?,
+        bio: json['bio'],
+        firstname: json['firstname'],
+        lastname: json['lastname'],
+        occupation: json['occupation'],
+        profilePicture: json['profilePicture'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -50,6 +61,11 @@ class Instructor extends Equatable {
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
         '__v': v,
+        'profilePicture': profilePicture,
+        'firstname': firstname,
+        'lastName': lastname,
+        'occupation': occupation,
+        'bio': bio,
       };
 
   Instructor copyWith({
@@ -61,6 +77,11 @@ class Instructor extends Equatable {
     List<dynamic>? courses,
     DateTime? createdAt,
     DateTime? updatedAt,
+    String? firstname,
+    String? lastname,
+    String? bio,
+    String? occupation,
+    String? profilePicture,
     int? v,
   }) {
     return Instructor(
@@ -73,6 +94,11 @@ class Instructor extends Equatable {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       v: v ?? this.v,
+      firstname: firstname ?? this.firstname,
+      lastname: lastname ?? this.lastname,
+      occupation: occupation ?? this.occupation,
+      profilePicture: profilePicture ?? this.profilePicture,
+      bio: bio ?? this.bio,
     );
   }
 
@@ -87,7 +113,11 @@ class Instructor extends Equatable {
       courses,
       createdAt,
       updatedAt,
-      v,
+      firstname,
+      lastname,
+      occupation,
+      profilePicture,
+      bio,
     ];
   }
 }

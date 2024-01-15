@@ -15,6 +15,7 @@ class CourseModel extends Equatable {
   final List<dynamic>? modules;
   final int? points;
   final int? price;
+  final String? image;
   final bool? deleted;
   final dynamic deletedAt;
   final DateTime? createdAt;
@@ -36,6 +37,7 @@ class CourseModel extends Equatable {
     this.createdAt,
     this.updatedAt,
     this.v,
+    this.image,
   });
 
   factory CourseModel.fromJson(Map<String, dynamic> json) => CourseModel(
@@ -62,6 +64,7 @@ class CourseModel extends Equatable {
             ? null
             : DateTime.parse(json['updatedAt'] as String),
         v: json['__v'] as int?,
+        image: json['image'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -79,6 +82,7 @@ class CourseModel extends Equatable {
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
         '__v': v,
+        'image': image,
       };
 
   CourseModel copyWith({
@@ -95,6 +99,7 @@ class CourseModel extends Equatable {
     dynamic deletedAt,
     DateTime? createdAt,
     DateTime? updatedAt,
+    String? image,
     int? v,
   }) {
     return CourseModel(
@@ -112,6 +117,7 @@ class CourseModel extends Equatable {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       v: v ?? this.v,
+      image: image ?? this.image,
     );
   }
 
