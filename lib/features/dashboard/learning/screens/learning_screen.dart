@@ -3,31 +3,39 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gide/core/components/app_enums.dart';
 
 // Project imports:
 import 'package:gide/core/components/search_bar.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
+import 'package:gide/features/dashboard/learning/notifiers/enroll_notifier.dart';
 import 'package:gide/features/dashboard/learning/widgets/learning_courses.dart';
+import 'package:gide/general_widget/app_loader.dart';
 import '../../../../core/components/components.dart';
 import '../../../../core/components/custom_tab_bar.dart';
 import '../widgets/completed_courses.dart';
 
-class LearningScreen extends StatefulWidget {
+class LearningScreen extends ConsumerStatefulWidget {
   static const routeName = "learning_screen";
   const LearningScreen({super.key});
 
   @override
-  State<LearningScreen> createState() => _LearningScreenState();
+  ConsumerState<LearningScreen> createState() => _LearningScreenState();
 }
 
-class _LearningScreenState extends State<LearningScreen>
+class _LearningScreenState extends ConsumerState<LearningScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final notifier = ref.read(enrollProv.notifier);
+      await notifier.getEnrolled();
+    });
   }
 
   final commentController = TextEditingController();
@@ -76,8 +84,27 @@ class _LearningScreenState extends State<LearningScreen>
                     ),
                     SpaceY(10.dy),
                     Expanded(
-                      child: ListView.builder(itemBuilder: (context, index) {
-                        return const LearningCourses();
+                      child: Consumer(builder: (context, ref, _) {
+                        final state = ref.watch(enrollProv);
+
+                        return state.loadState == LoadState.loading
+                            ? const AppLoader(
+                                color: kPrimaryColor,
+                              )
+                            : (state.enrollmentModel?.data ?? []).isEmpty
+                                ? const Center(
+                                    child: Text('No enrolled course yet 😔'))
+                                : ListView.builder(
+                                    itemCount:
+                                        state.enrollmentModel?.data?.length ??
+                                            0,
+                                    itemBuilder: (context, index) {
+                                      final singleData =
+                                          state.enrollmentModel?.data?[index];
+                                      return LearningCourses(
+                                        model: singleData,
+                                      );
+                                    });
                       }),
                     )
                   ],

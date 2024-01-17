@@ -10,7 +10,7 @@ class Course extends Equatable {
   final String? description;
   final bool? featured;
   final List<Instructor>? instructors;
-  final List<String>? modules;
+  final List<dynamic>? modules;
   final int? points;
   final int? price;
   final dynamic image;
@@ -50,7 +50,7 @@ class Course extends Equatable {
         instructors: (json['instructors'] as List<dynamic>?)
             ?.map((e) => Instructor.fromJson(e as Map<String, dynamic>))
             .toList(),
-        modules: json['modules'] as List<String>?,
+        modules: json['modules'] as List<dynamic>?,
         points: json['points'] as int?,
         price: json['price'] as int?,
         image: json['image'] as dynamic,
@@ -90,7 +90,7 @@ class Course extends Equatable {
     String? description,
     bool? featured,
     List<Instructor>? instructors,
-    List<String>? modules,
+    List<dynamic>? modules,
     int? points,
     int? price,
     dynamic image,

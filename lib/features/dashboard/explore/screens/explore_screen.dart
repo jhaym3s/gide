@@ -125,27 +125,30 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                       ? const AppLoader(
                           color: kPrimaryColor,
                         )
-                      : ListView.builder(
-                          padding: const EdgeInsets.all(0),
-                          scrollDirection: Axis.horizontal,
-                          itemCount:
-                              (allCourses.allCoursesModel?.data ?? []).length,
-                          itemBuilder: (context, index) {
-                            final coursemodel =
-                                allCourses.allCoursesModel?.data?[index] ??
-                                    const CourseModel();
-                            return InkWell(
-                                onTap: () {
-                                  moveFromBottomNavBarScreen(
-                                      context: context,
-                                      targetScreen: CourseDetailScreen(
-                                        courseId: coursemodel.id ?? '',
-                                      ));
-                                },
-                                child: Courses(
-                                  coursemodel: coursemodel,
-                                ));
-                          }),
+                      : (allCourses.allCoursesModel?.data ?? []).isEmpty
+                          ? const Center(child: Text('No new course yet 😔'))
+                          : ListView.builder(
+                              padding: const EdgeInsets.all(0),
+                              scrollDirection: Axis.horizontal,
+                              itemCount:
+                                  (allCourses.allCoursesModel?.data ?? [])
+                                      .length,
+                              itemBuilder: (context, index) {
+                                final coursemodel =
+                                    allCourses.allCoursesModel?.data?[index] ??
+                                        const CourseModel();
+                                return InkWell(
+                                    onTap: () {
+                                      moveFromBottomNavBarScreen(
+                                          context: context,
+                                          targetScreen: CourseDetailScreen(
+                                            courseId: coursemodel.id ?? '',
+                                          ));
+                                    },
+                                    child: Courses(
+                                      coursemodel: coursemodel,
+                                    ));
+                              }),
                 ),
                 SpaceY(30.dy),
                 Text("Featured courses",
@@ -164,7 +167,8 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                           color: kPrimaryColor,
                         )
                       : (allCourses.featuredCoursesModel ?? []).isEmpty
-                          ? Center(child: Text('No Featured course yet 😔'))
+                          ? const Center(
+                              child: Text('No Featured course yet 😔'))
                           : ListView.builder(
                               padding: EdgeInsets.zero, // Remove padding
                               scrollDirection: Axis.horizontal,

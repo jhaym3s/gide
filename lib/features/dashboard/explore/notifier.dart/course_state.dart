@@ -30,17 +30,17 @@ class CourseState {
 
   CourseState copyWith({
     AllCoursesModel? allCoursesModel,
-List<CourseModel>? featuredCoursesModel,
+    List<CourseModel>? featuredCoursesModel,
     SingleCourseModel? singleCourseModel,
     String? errorMessage,
     LoadState? loadState,
   }) {
     return CourseState(
-      errorMessage: errorMessage ?? this.errorMessage,
-      loadState: loadState ?? this.loadState,
-      allCoursesModel: allCoursesModel ?? this.allCoursesModel,
-      singleCourseModel: singleCourseModel ?? this.singleCourseModel,
-      featuredCoursesModel: featuredCoursesModel?? this.featuredCoursesModel
-    );
+        errorMessage: errorMessage ?? this.errorMessage,
+        loadState: loadState ?? this.loadState,
+        allCoursesModel: allCoursesModel ?? this.allCoursesModel,
+        singleCourseModel: singleCourseModel ?? this.singleCourseModel,
+        featuredCoursesModel:
+            featuredCoursesModel ?? this.featuredCoursesModel);
   }
 }

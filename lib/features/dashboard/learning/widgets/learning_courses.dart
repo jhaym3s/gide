@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:gide/core/components/components.dart';
 import 'package:gide/core/configs/configs.dart';
+import 'package:gide/features/dashboard/learning/model/enrollment_model/enroll.dart';
+import 'package:gide/general_widget/app_image_view.dart';
 
 class LearningCourses extends StatelessWidget {
+  final Enroll? model;
   const LearningCourses({
     super.key,
+    this.model,
   });
 
   @override
@@ -15,7 +19,7 @@ class LearningCourses extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.dx),
       child: Container(
-        height: 111.dy,
+        height: 131.dy,
         width: 350.dx,
         margin: EdgeInsets.only(bottom: 16.dy),
         decoration: BoxDecoration(
@@ -31,6 +35,12 @@ class LearningCourses extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
                     bottomLeft: Radius.circular(8))),
+            child: AppImageView(
+              url: model?.course?.image ?? '',
+              // height: 121.dy,
+              fit: BoxFit.contain,
+              // imagePath: 'assets/images/empty_learning.png',
+            ),
           ),
           SpaceX(16.dx),
           Expanded(
@@ -39,15 +49,17 @@ class LearningCourses extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Quick steps to Figma",
+                  Text(model?.course?.title ?? "Quick steps to Figma",
                       softWrap: true,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w700,
                           color: kTextColorsLight)),
                   SpaceY(2.dy),
-                  Text("With Tom Lingard",
+                  Text(
+                      "With ${model?.course?.instructors?[0].fullName ?? "Tom Lingard"}",
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -55,11 +67,13 @@ class LearningCourses extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                           color: kGrey)),
                   SpaceY(15.dy),
-                  const CustomProgressIndicator(
-                    progress: 0.3,
+                  CustomProgressIndicator(
+                    progress: double.parse(
+                        (model?.progress?.percentageCompleted ?? 0).toString()),
                   ),
                   SpaceY(6.dy),
-                  Text("5/12 courses covered",
+                  Text(
+                      "${model?.progress?.totalModulesCompleted ?? 0}/${model?.totalModulesEnrolled ?? 0} modules covered",
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(

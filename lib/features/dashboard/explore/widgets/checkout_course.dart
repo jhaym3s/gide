@@ -41,6 +41,7 @@ class CheckoutCourses extends StatelessWidget {
           Container(
             height: 121.dy,
             width: 253.dx,
+            //!pass in course url here
             color: kBlack,
           ),
           SpaceY(12.dy),
@@ -56,12 +57,16 @@ class CheckoutCourses extends StatelessWidget {
           SpaceY(6.dy),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.dx),
-            child: Text(model.title,
-                softWrap: true,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w700,
-                    color: kTextColorsLight)),
+            child: SizedBox(
+              child: Text(model.title,
+                  softWrap: true,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w700,
+                      color: kTextColorsLight)),
+            ),
           ),
           SpaceY(8.dy),
           Padding(

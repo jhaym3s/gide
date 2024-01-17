@@ -6,7 +6,7 @@ class Instructor extends Equatable {
   final String? lastName;
   final String? email;
   final String? accountType;
-  final List<String>? interests;
+  final List<dynamic>? interests;
   final String? bio;
   final String? occupation;
   final DateTime? createdAt;
@@ -37,7 +37,7 @@ class Instructor extends Equatable {
         lastName: json['lastName'] as String?,
         email: json['email'] as String?,
         accountType: json['accountType'] as String?,
-        interests: json['interests'] as List<String>?,
+        interests: json['interests'] as List<dynamic>?,
         bio: json['bio'] as String?,
         occupation: json['occupation'] as String?,
         createdAt: json['createdAt'] == null
@@ -73,7 +73,7 @@ class Instructor extends Equatable {
     String? lastName,
     String? email,
     String? accountType,
-    List<String>? interests,
+    List<dynamic>? interests,
     String? bio,
     String? occupation,
     DateTime? createdAt,

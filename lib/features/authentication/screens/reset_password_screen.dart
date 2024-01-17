@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -11,12 +10,8 @@ import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/helpers/regex_validation.dart';
 import 'package:gide/core/router/router.dart';
-import 'package:gide/core/services/config/exception/logger.dart';
-import 'package:gide/features/authentication/model/signup_model.dart';
 import 'package:gide/features/authentication/notifier/auth_notifier.dart';
 import 'package:gide/features/authentication/notifier/auth_state.dart';
-import 'package:gide/features/authentication/screens/interest_screen.dart';
-import 'package:gide/features/authentication/screens/onboarding.dart';
 import 'package:gide/features/authentication/screens/sign_in_screen.dart';
 import '../../../core/components/components.dart';
 
