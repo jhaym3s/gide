@@ -39,7 +39,7 @@ class LearningCourses extends StatelessWidget {
               url: model?.course?.image ?? '',
               // height: 121.dy,
               fit: BoxFit.contain,
-              // imagePath: 'assets/images/empty_learning.png',
+              imagePath: 'assets/images/empty_learning.png',
             ),
           ),
           SpaceX(16.dx),
@@ -61,6 +61,7 @@ class LearningCourses extends StatelessWidget {
                   Text(
                       "With ${model?.course?.instructors?[0].fullName ?? "Tom Lingard"}",
                       softWrap: true,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 12.sp,

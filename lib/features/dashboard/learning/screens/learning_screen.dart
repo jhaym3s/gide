@@ -42,6 +42,7 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
 
   @override
   Widget build(BuildContext context) {
+    final enrollState = ref.watch(enrollProv);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -123,98 +124,66 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                       color: kBlack.withOpacity(.4),
                     ),
                     SpaceY(10.dy),
-                    Expanded(
-                      child: ListView.builder(itemBuilder: (context, index) {
-                        return GestureDetector(
-                            onTap: () {
-                              showModalSheetWithRadius(
-                                  context: context,
-                                  returnWidget: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 20.dx),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SpaceY(40.dy),
-                                        Center(
-                                          child: Text("Drop a review",
-                                              softWrap: true,
-                                              textAlign: TextAlign.center,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge!
-                                                  .copyWith(
-                                                      fontSize: 20.sp,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: kTextColorsLight)),
-                                        ),
-                                        SpaceY(40.dy),
-                                        CommentTextFormField(
-                                          commentController: commentController,
-                                          hint:
-                                              'Your favorite thing about the course',
-                                          labelText: "Drop a message",
-                                        ),
-                                        SpaceY(24.dy),
-                                        Text("How would you rate the course",
-                                            softWrap: true,
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .copyWith(
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: kTextColorsLight)),
-                                        SpaceY(16.dy),
-                                        RatingBar(
-                                          initialRating: 1,
-                                          minRating: 1,
-                                          maxRating: 5,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: false,
-                                          itemCount: 5,
-                                          ratingWidget: RatingWidget(
-                                            full: const Icon(Icons.star,
-                                                color: kPrimaryColor),
-                                            half: const Icon(Icons.star_half,
-                                                color: kPrimaryColor),
-                                            empty: const Icon(Icons.star_border,
-                                                color: kPrimaryColor),
-                                          ),
-                                          itemSize: 24,
-                                          onRatingUpdate: (rating) {},
-                                        ),
-                                        SpaceY(32.dy),
-                                        CustomElevatedButton(
-                                          buttonText: "Submit Review",
-                                          onPressed: () {
-                                            moveToOldScreen(context: context);
+                    enrollState.loadState == LoadState.loading
+                        ? const AppLoader(
+                            color: kPrimaryColor,
+                          )
+                        : (enrollState.completedCourses ?? []).isEmpty
+                            ? const Center(
+                                child: Text('No course completed yet 😔'))
+                            : Expanded(
+                                child: ListView.builder(
+                                    itemCount:
+                                        (enrollState.completedCourses ?? [])
+                                            .length,
+                                    itemBuilder: (context, index) {
+                                      final singleCourse =
+                                          (enrollState.completedCourses ??
+                                              [])[index];
+                                      return GestureDetector(
+                                          onTap: () {
                                             showModalSheetWithRadius(
-                                              context: context,
-                                              height: 445,
-                                              returnWidget: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 20.dx),
-                                                child: Column(
-                                                  children: [
-                                                    SpaceY(64.dy),
-                                                    Image.asset(
-                                                      AssetsImages
-                                                          .review_success,
-                                                      height: 80.dy,
-                                                      width: 80.dx,
-                                                    ),
-                                                    SpaceY(16.dy),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal:
-                                                                  50.dx),
-                                                      child: Text(
-                                                          "Your response have been recorded successful",
+                                                context: context,
+                                                returnWidget: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 20.dx),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      SpaceY(40.dy),
+                                                      Center(
+                                                        child: Text(
+                                                            "Drop a review",
+                                                            softWrap: true,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .bodyLarge!
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        20.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    color:
+                                                                        kTextColorsLight)),
+                                                      ),
+                                                      SpaceY(40.dy),
+                                                      CommentTextFormField(
+                                                        commentController:
+                                                            commentController,
+                                                        hint:
+                                                            'Your favorite thing about the course',
+                                                        labelText:
+                                                            "Drop a message",
+                                                      ),
+                                                      SpaceY(24.dy),
+                                                      Text(
+                                                          "How would you rate the course",
                                                           softWrap: true,
                                                           textAlign: TextAlign
                                                               .center,
@@ -224,35 +193,113 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                                                               .bodyLarge!
                                                               .copyWith(
                                                                   fontSize:
-                                                                      16.sp,
+                                                                      14.sp,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w400,
                                                                   color:
-                                                                      kGrey)),
-                                                    ),
-                                                    SpaceY(32.dy),
-                                                    CustomElevatedButton(
+                                                                      kTextColorsLight)),
+                                                      SpaceY(16.dy),
+                                                      RatingBar(
+                                                        initialRating: 1,
+                                                        minRating: 1,
+                                                        maxRating: 5,
+                                                        direction:
+                                                            Axis.horizontal,
+                                                        allowHalfRating: false,
+                                                        itemCount: 5,
+                                                        ratingWidget:
+                                                            RatingWidget(
+                                                          full: const Icon(
+                                                              Icons.star,
+                                                              color:
+                                                                  kPrimaryColor),
+                                                          half: const Icon(
+                                                              Icons.star_half,
+                                                              color:
+                                                                  kPrimaryColor),
+                                                          empty: const Icon(
+                                                              Icons.star_border,
+                                                              color:
+                                                                  kPrimaryColor),
+                                                        ),
+                                                        itemSize: 24,
+                                                        onRatingUpdate:
+                                                            (rating) {},
+                                                      ),
+                                                      SpaceY(32.dy),
+                                                      CustomElevatedButton(
+                                                        buttonText:
+                                                            "Submit Review",
                                                         onPressed: () {
                                                           moveToOldScreen(
                                                               context: context);
+                                                          showModalSheetWithRadius(
+                                                            context: context,
+                                                            height: 445,
+                                                            returnWidget:
+                                                                Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          20.dx),
+                                                              child: Column(
+                                                                children: [
+                                                                  SpaceY(64.dy),
+                                                                  Image.asset(
+                                                                    AssetsImages
+                                                                        .review_success,
+                                                                    height:
+                                                                        80.dy,
+                                                                    width:
+                                                                        80.dx,
+                                                                  ),
+                                                                  SpaceY(16.dy),
+                                                                  Padding(
+                                                                    padding: EdgeInsets.symmetric(
+                                                                        horizontal:
+                                                                            50.dx),
+                                                                    child: Text(
+                                                                        "Your response have been recorded successful",
+                                                                        softWrap:
+                                                                            true,
+                                                                        textAlign:
+                                                                            TextAlign
+                                                                                .center,
+                                                                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                                                            fontSize:
+                                                                                16.sp,
+                                                                            fontWeight: FontWeight.w400,
+                                                                            color: kGrey)),
+                                                                  ),
+                                                                  SpaceY(32.dy),
+                                                                  CustomElevatedButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        moveToOldScreen(
+                                                                            context:
+                                                                                context);
+                                                                      },
+                                                                      buttonText:
+                                                                          "Go back to learning")
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          );
                                                         },
-                                                        buttonText:
-                                                            "Go back to learning")
-                                                  ],
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            );
+                                                height: 418);
                                           },
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  height: 418);
-                            },
-                            child: const CompletedCourses());
-                      }),
-                    )
+
+                                          //!HERE
+                                          child: CompletedCourses(
+                                            model: singleCourse,
+                                          ));
+                                    }),
+                              )
                   ],
                 ),
                 //! third tab
