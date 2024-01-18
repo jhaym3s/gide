@@ -1,15 +1,21 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Project imports:
+import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/router/router.dart';
+import 'package:gide/features/dashboard/learning/notifiers/enroll_notifier.dart';
 import '../../../../core/components/components.dart';
 import '../../../../core/configs/configs.dart';
 import 'payment_success_screen.dart';
 
 class PayWithCard extends StatefulWidget {
   static const routeName = "payWithCard";
-  const PayWithCard({super.key});
+  const PayWithCard({super.key, required this.courseId});
+  final String courseId;
 
   @override
   State<PayWithCard> createState() => _PayWithCardState();
@@ -99,15 +105,23 @@ class _PayWithCardState extends State<PayWithCard> {
               ],
             ),
             SpaceY(40.dy),
-            CustomElevatedButton(
-                onPressed: saveCard
-                    ? () {
-                        moveToNextScreen(
-                            context: context,
-                            page: PaymentSuccessScreen.routeName);
-                      }
-                    : null,
-                buttonText: "Proceed To Payment"),
+            Consumer(builder: (context, ref, child) {
+              final state = ref.watch(enrollProv);
+              final notifier = ref.read(enrollProv.notifier);
+              return CustomElevatedButton(
+                  isLoading: state.loadState == LoadState.loading,
+                  onPressed: saveCard
+                      ? () async {
+                          //! update this to only send and nav if payment is was successful
+                          await notifier.createEnroll(
+                              courseId: widget.courseId);
+                          moveToNextScreen(
+                              context: context,
+                              page: PaymentSuccessScreen.routeName);
+                        }
+                      : null,
+                  buttonText: "Proceed To Payment");
+            }),
           ],
         ),
       ),

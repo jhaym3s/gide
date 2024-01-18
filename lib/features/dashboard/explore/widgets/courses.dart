@@ -1,6 +1,5 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:gide/general_widget/app_image_view.dart';
 
 // Package imports:
 import 'package:info_popup/info_popup.dart';
@@ -8,6 +7,7 @@ import 'package:info_popup/info_popup.dart';
 // Project imports:
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/features/dashboard/explore/model/all_courses_model/course_model.dart';
+import 'package:gide/general_widget/app_image_view.dart';
 
 class Courses extends StatelessWidget {
   const Courses({super.key, required this.coursemodel});

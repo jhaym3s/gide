@@ -1,7 +1,12 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Project imports:
+import 'package:gide/core/components/app_enums.dart';
+import 'package:gide/features/dashboard/learning/notifiers/enroll_notifier.dart';
 import '../../../../core/components/components.dart';
 import '../../../../core/configs/configs.dart';
 import '../../../../core/router/router.dart';
@@ -9,8 +14,8 @@ import 'payment_success_screen.dart';
 
 class PayWithEarning extends StatefulWidget {
   static const routeName = "pay_with_earning";
-  const PayWithEarning({super.key});
-
+  const PayWithEarning({super.key, required this.courseId});
+  final String courseId;
   @override
   State<PayWithEarning> createState() => _PayWithEarningState();
 }
@@ -150,12 +155,19 @@ class _PayWithEarningState extends State<PayWithEarning> {
               },
             ),
             SpaceY(40.dy),
-            CustomElevatedButton(
-                onPressed: () {
-                  moveToNextScreen(
-                      context: context, page: PaymentSuccessScreen.routeName);
-                },
-                buttonText: "Proceed to payment")
+            Consumer(builder: (context, ref, child) {
+              final state = ref.watch(enrollProv);
+              final notifier = ref.read(enrollProv.notifier);
+              return CustomElevatedButton(
+                  isLoading: state.loadState == LoadState.loading,
+                  onPressed: () async {
+                    //! update this to only send and nav if payment is was successful
+                    await notifier.createEnroll(courseId: widget.courseId);
+                    moveToNextScreen(
+                        context: context, page: PaymentSuccessScreen.routeName);
+                  },
+                  buttonText: "Proceed to payment");
+            })
           ],
         ),
       ),

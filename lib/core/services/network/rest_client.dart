@@ -1,12 +1,10 @@
 // Package imports:
 import 'package:dio/dio.dart';
-import 'package:gide/domain/model_response/create_enrollment_resp/create_enrollment_resp.dart';
-import 'package:gide/features/dashboard/learning/model/create_enrollment.dart';
-import 'package:gide/features/dashboard/learning/model/enrollment_model/enrollment_model.dart';
 import 'package:retrofit/retrofit.dart';
 
 // Project imports:
 import 'package:gide/core/services/config/response/base_response.dart';
+import 'package:gide/domain/model_response/create_enrollment_resp/create_enrollment_resp.dart';
 import 'package:gide/domain/model_response/forget_password_resp.dart';
 import 'package:gide/domain/model_response/instructor_resp.dart';
 import 'package:gide/domain/model_response/login_response/login_response.dart';
@@ -19,6 +17,8 @@ import 'package:gide/features/authentication/model/signup_model.dart';
 import 'package:gide/features/authentication/model/verify_otp_model.dart';
 import 'package:gide/features/dashboard/explore/model/all_courses_model/all_courses_model.dart';
 import 'package:gide/features/dashboard/explore/model/single_course_model/single_course_model.dart';
+import 'package:gide/features/dashboard/learning/model/create_enrollment.dart';
+import 'package:gide/features/dashboard/learning/model/enrollment_model/enrollment_model.dart';
 import 'package:gide/features/dashboard/profile/become_instructor_model.dart';
 import 'package:gide/features/dashboard/profile/model/change_password_model.dart';
 import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
@@ -79,7 +79,8 @@ abstract class RestClient {
 
   //? courses
   @GET('/courses')
-  Future<BaseResponse<AllCoursesModel>> getAllCourses();
+  Future<BaseResponse<AllCoursesModel>> getAllCourses(
+      @Query('search') String searchQuery);
 
   @GET('/courses/{id}')
   Future<BaseResponse<SingleCourseModel>> getSingleCourse(

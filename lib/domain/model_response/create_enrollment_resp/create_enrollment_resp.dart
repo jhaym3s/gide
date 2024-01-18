@@ -1,5 +1,7 @@
+// Package imports:
 import 'package:equatable/equatable.dart';
 
+// Project imports:
 import 'progress.dart';
 
 class CreateEnrollmentResp extends Equatable {

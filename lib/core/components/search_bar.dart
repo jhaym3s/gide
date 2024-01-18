@@ -8,12 +8,17 @@ import 'package:gide/core/configs/configs.dart';
 class CustomSearchBar extends StatelessWidget {
   const CustomSearchBar({
     super.key,
+    this.controller,
+    this.onChangedFxn,
   });
+  final TextEditingController? controller;
+  final Function(String)? onChangedFxn;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       cursorColor: Colors.grey,
+      controller: controller, onChanged: onChangedFxn,
       //showCursor: ,
       style: const TextStyle(
           fontSize: 17, fontWeight: FontWeight.w400, color: kTextColorsLight),

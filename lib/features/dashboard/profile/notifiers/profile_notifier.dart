@@ -15,8 +15,8 @@ import 'package:gide/features/dashboard/profile/become_instructor_model.dart';
 import 'package:gide/features/dashboard/profile/data/profile_repo_impl.dart';
 import 'package:gide/features/dashboard/profile/model/change_password_model.dart';
 import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
-import 'package:gide/features/dashboard/profile/notifiers/profile_state.dart';
 import 'package:gide/features/dashboard/profile/model/profile.dart';
+import 'package:gide/features/dashboard/profile/notifiers/profile_state.dart';
 
 class ProfileNotifier extends StateNotifier<ProfileState> {
   ProfileNotifier(

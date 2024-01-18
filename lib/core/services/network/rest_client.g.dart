@@ -337,9 +337,10 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<BaseResponse<AllCoursesModel>> getAllCourses() async {
+  Future<BaseResponse<AllCoursesModel>> getAllCourses(
+      String searchQuery) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'search': searchQuery};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(

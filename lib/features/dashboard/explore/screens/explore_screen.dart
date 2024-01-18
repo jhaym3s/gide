@@ -1,3 +1,6 @@
+// Dart imports:
+import 'dart:async';
+
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,16 +32,20 @@ class ExploreScreen extends ConsumerStatefulWidget {
 }
 
 class _ExploreScreenState extends ConsumerState<ExploreScreen> {
+  Timer? _debounce;
+  late TextEditingController controller;
   List<String?> interestList = [];
   @override
   void initState() {
     super.initState();
 
+    controller = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final notifier = ref.read(authProvider.notifier);
       final coursenotifier = ref.read(courseProvider.notifier);
       // await
-      coursenotifier.getallCourses();
+      //!search query
+      coursenotifier.getallCourses(searchQuery: ' ');
       final catListresp = await notifier.getCatergories();
       final catList = (catListresp ?? []).map((e) => e.name);
       interestList = [...catList];
@@ -46,8 +53,15 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
   }
 
   @override
+  void dispose() {
+    _debounce?.cancel();
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final userProfile = ref.watch(currentUserProvider);
+    // final userProfile = ref.watch(currentUserProvider);
     final allCourses = ref.watch(courseProvider);
     final catState = ref.watch(authProvider);
     return Scaffold(
@@ -61,7 +75,17 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                 SpaceY(15.dy),
                 const ExploreAppBar(),
                 SpaceY(21.dy),
-                const CustomSearchBar(),
+                CustomSearchBar(
+                  controller: controller,
+                  onChangedFxn: (String search) {
+                    if (_debounce?.isActive ?? false) _debounce?.cancel();
+                    _debounce = Timer(const Duration(microseconds: 300), () {
+                      ref
+                          .read(courseProvider.notifier)
+                          .getallCourses(searchQuery: search.trim());
+                    });
+                  },
+                ),
                 SpaceY(32.dy),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,15 +125,17 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                       ? const AppLoader(
                           color: kPrimaryColor,
                         )
-                      : ListView.builder(
-                          padding: EdgeInsets.zero, // Remove padding
-                          scrollDirection: Axis.horizontal,
-                          itemCount: interestList.length,
-                          itemBuilder: (context, index) {
-                            return ExploreCategories(
-                              name: interestList[index] ?? '',
-                            );
-                          }),
+                      : interestList.isEmpty
+                          ? const Center(child: Text('No categories yet 😔'))
+                          : ListView.builder(
+                              padding: EdgeInsets.zero, // Remove padding
+                              scrollDirection: Axis.horizontal,
+                              itemCount: interestList.length,
+                              itemBuilder: (context, index) {
+                                return ExploreCategories(
+                                  name: interestList[index] ?? '',
+                                );
+                              }),
                 ),
                 SpaceY(30.dy),
                 Text("New Courses",

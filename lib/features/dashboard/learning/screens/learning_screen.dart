@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gide/core/components/app_enums.dart';
 
 // Project imports:
+import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/components/search_bar.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
@@ -76,7 +76,9 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                     SpaceY(16.dy),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.dx),
-                      child: const CustomSearchBar(),
+                      child:
+                          //! Update the controller and onchange fxn
+                          CustomSearchBar(),
                     ),
                     SpaceY(24.dy),
                     Divider(
@@ -116,7 +118,9 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                     SpaceY(16.dy),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.dx),
-                      child: const CustomSearchBar(),
+                      child:
+                          //!Add the controller and on change
+                          const CustomSearchBar(),
                     ),
                     SpaceY(24.dy),
                     Divider(

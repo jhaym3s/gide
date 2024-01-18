@@ -4,6 +4,7 @@ import 'package:gide/features/dashboard/explore/model/all_courses_model/all_cour
 import 'package:gide/features/dashboard/explore/model/single_course_model/single_course_model.dart';
 
 abstract class CourseRepo {
-  Future<BaseResponse<AllCoursesModel>> getCourses();
+  Future<BaseResponse<AllCoursesModel>> getCourses(
+      {required String searchQuery});
   Future<BaseResponse<SingleCourseModel>> getSingleCourse({String? id});
 }

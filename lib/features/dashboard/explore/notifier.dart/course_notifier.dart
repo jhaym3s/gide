@@ -20,11 +20,11 @@ class CourseNotifier extends StateNotifier<CourseState> {
   final UserRepository userRepository;
   final CourseRepo courseRepo;
 
-  Future<void> getallCourses() async {
+  Future<void> getallCourses({required String searchQuery}) async {
     state = state.copyWith(loadState: LoadState.loading);
     debugLog('Attempting to get all courses');
     try {
-      final response = await courseRepo.getCourses();
+      final response = await courseRepo.getCourses(searchQuery: searchQuery);
       if (response.statusCode == 201 || response.statusCode == 200) {
         state = state.copyWith(
             allCoursesModel: response.data, loadState: LoadState.success);

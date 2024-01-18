@@ -17,31 +17,31 @@ class EnrollState {
   EnrollState(
       {this.errorMessage = '',
       this.loadState,
-      this.createEnrollmentResp,this.completedCourses,
+      this.createEnrollmentResp,
+      this.completedCourses,
       this.enrollmentModel});
 
   factory EnrollState.initialState() {
     return EnrollState(
-      errorMessage: '',
-      loadState: LoadState.idle,
-      createEnrollmentResp: null,
-      enrollmentModel: null,completedCourses: []
-    );
+        errorMessage: '',
+        loadState: LoadState.idle,
+        createEnrollmentResp: null,
+        enrollmentModel: null,
+        completedCourses: []);
   }
 
-  EnrollState copyWith({
-    String? errorMessage,
-    LoadState? loadState,
-    CreateEnrollmentResp? createEnroll,
-    EnrollmentModel? enrollModel,
-     List<Enroll>? completedCourses
-  }) {
+  EnrollState copyWith(
+      {String? errorMessage,
+      LoadState? loadState,
+      CreateEnrollmentResp? createEnroll,
+      EnrollmentModel? enrollModel,
+      List<Enroll>? completedCourses}) {
     return EnrollState(
       errorMessage: errorMessage ?? this.errorMessage,
       loadState: loadState ?? this.loadState,
       createEnrollmentResp: createEnroll ?? createEnrollmentResp,
       enrollmentModel: enrollModel ?? enrollmentModel,
-      completedCourses: completedCourses?? this.completedCourses,
+      completedCourses: completedCourses ?? this.completedCourses,
     );
   }
 }

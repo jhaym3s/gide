@@ -70,13 +70,22 @@ class AppRouter {
       case AddNumber.routeName:
         return MaterialPageRoute(builder: (_) => const AddNumber());
       case PayWithCard.routeName:
-        return MaterialPageRoute(builder: (_) => const PayWithCard());
+        return MaterialPageRoute(
+            builder: (_) => PayWithCard(
+                  courseId: settings.arguments as String,
+                ));
       case PayWithEarning.routeName:
-        return MaterialPageRoute(builder: (_) => const PayWithEarning());
+        return MaterialPageRoute(
+            builder: (_) => PayWithEarning(
+                  courseId: settings.arguments as String,
+                ));
       case BecomeAnInstructor.routeName:
         return MaterialPageRoute(builder: (_) => const BecomeAnInstructor());
       case PayWithSaving.routeName:
-        return MaterialPageRoute(builder: (_) => const PayWithSaving());
+        return MaterialPageRoute(
+            builder: (_) => PayWithSaving(
+                  courseId: settings.arguments as String,
+                ));
       case PaymentSuccessScreen.routeName:
         return MaterialPageRoute(builder: (_) => const PaymentSuccessScreen());
       default:

@@ -7,15 +7,15 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gide/core/components/app_enums.dart';
-import 'package:gide/core/router/router.dart';
-import 'package:gide/features/authentication/notifier/auth_state.dart';
-import 'package:gide/features/authentication/screens/reset_password_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 // Project imports:
+import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/configs/constants.dart';
+import 'package:gide/core/router/router.dart';
 import 'package:gide/features/authentication/notifier/auth_notifier.dart';
+import 'package:gide/features/authentication/notifier/auth_state.dart';
+import 'package:gide/features/authentication/screens/reset_password_screen.dart';
 
 class PinTextField extends ConsumerWidget {
   const PinTextField({super.key, this.errorController, this.pinController});

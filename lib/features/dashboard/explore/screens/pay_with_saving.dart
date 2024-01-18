@@ -2,7 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Project imports:
+import 'package:gide/core/components/app_enums.dart';
+import 'package:gide/features/dashboard/learning/notifiers/enroll_notifier.dart';
 import '../../../../core/components/components.dart';
 import '../../../../core/configs/configs.dart';
 import '../../../../core/router/router.dart';
@@ -10,8 +15,8 @@ import 'payment_success_screen.dart';
 
 class PayWithSaving extends StatefulWidget {
   static const routeName = "payWithSaving";
-  const PayWithSaving({super.key});
-
+  const PayWithSaving({super.key, required this.courseId});
+  final String courseId;
   @override
   State<PayWithSaving> createState() => _PayWithSavingState();
 }
@@ -52,7 +57,7 @@ class _PayWithSavingState extends State<PayWithSaving> {
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Color(0xffF2F4F7)),
+                      color: const Color(0xffF2F4F7)),
                   padding:
                       EdgeInsets.symmetric(horizontal: 18.dx, vertical: 12.dy),
                   child: Row(
@@ -101,24 +106,31 @@ class _PayWithSavingState extends State<PayWithSaving> {
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xffD92D20)),
+                    color: const Color(0xffD92D20)),
                 children: <TextSpan>[
                   TextSpan(
                       text: 'Will be deducted from your balance',
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xff98A2B3))),
+                          color: const Color(0xff98A2B3))),
                 ],
               ),
             ),
             SpaceY(40.dy),
-            CustomElevatedButton(
-                onPressed: () {
-                  moveToNextScreen(
-                      context: context, page: PaymentSuccessScreen.routeName);
-                },
-                buttonText: "Proceed to payment")
+            Consumer(builder: (context, ref, child) {
+              final state = ref.watch(enrollProv);
+              final notifier = ref.read(enrollProv.notifier);
+              return CustomElevatedButton(
+                  isLoading: state.loadState == LoadState.loading,
+                  onPressed: () async {
+                    //! update this to only send and nav if payment is was successful
+                    await notifier.createEnroll(courseId: widget.courseId);
+                    moveToNextScreen(
+                        context: context, page: PaymentSuccessScreen.routeName);
+                  },
+                  buttonText: "Proceed to payment");
+            })
           ],
         ),
       ),

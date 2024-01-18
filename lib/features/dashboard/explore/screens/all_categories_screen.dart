@@ -37,15 +37,19 @@ class AllCategorieScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.only(left: 8.dx),
-        child: Wrap(
-          spacing: 0.0,
-          runSpacing: 16.0,
-          children: cat
-              .map((cat) => ExploreCategories(
-                    name: cat ?? '',
-                  ))
-              .toList(),
-        ),
+        child: cat.isEmpty
+            ? const Center(
+                child: Text('No categories yet 😔'),
+              )
+            : Wrap(
+                spacing: 0.0,
+                runSpacing: 16.0,
+                children: cat
+                    .map((cat) => ExploreCategories(
+                          name: cat ?? '',
+                        ))
+                    .toList(),
+              ),
       ),
     );
   }
