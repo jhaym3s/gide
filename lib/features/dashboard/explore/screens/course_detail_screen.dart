@@ -247,7 +247,16 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                                         ? Icons.arrow_forward_ios
                                         : Icons.lock_outline,
                                     title: lesson?.description ?? '',
-                                    points: lesson?.points ?? 0,
+
+                                    //? 18/01/24, 8:00pm GST (3pts)
+                                    // subtitle: (lesson?.points ?? 0).toString(),
+                                    //todo: Change this hardcoded data to datetime
+                                    //? like this => lesson?.labsesson?.datetime conversion
+                                    subtitle: (lesson?.labSession ?? '')
+                                                .isNotEmpty ||
+                                            (lesson?.labSession) != null
+                                        ? '18/01/24, 8:00pm GST (${(lesson?.points ?? 0)}pts)'
+                                        : '${(lesson?.points ?? 0).toString()} pts',
                                     onTap: () => webService.webLink(
                                         urlLink:
                                             lesson?.virtualSessionUrl ?? ''),
@@ -433,12 +442,12 @@ class CoursesListTile extends StatelessWidget {
     super.key,
     required this.icon,
     required this.title,
-    required this.points,
+    required this.subtitle,
     required this.onTap,
   });
   final IconData icon;
-  final String title;
-  final int points;
+  final String title, subtitle;
+
   final VoidCallback onTap;
 
   @override
@@ -467,10 +476,11 @@ class CoursesListTile extends StatelessWidget {
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
                           color: kTextColorsLight)),
-                  Text("$points points",
+                  Text(subtitle,
                       softWrap: true,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 12.sp,
+                          fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w700,
                           color: kGrey)),
                 ],

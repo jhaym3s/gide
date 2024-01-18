@@ -2,6 +2,7 @@
 import 'package:equatable/equatable.dart';
 
 class Lesson extends Equatable {
+  final String? labSession;
   final String? id;
   final String? description;
   final String? videoUrl;
@@ -13,6 +14,7 @@ class Lesson extends Equatable {
   final int? v;
 
   const Lesson({
+    this.labSession,
     this.id,
     this.description,
     this.videoUrl,
@@ -25,6 +27,7 @@ class Lesson extends Equatable {
   });
 
   factory Lesson.fromJson(Map<String, dynamic> json) => Lesson(
+        labSession: json['labSession'] as String?,
         id: json['_id'] as String?,
         description: json['description'] as String?,
         videoUrl: json['videoUrl'] as String?,
@@ -41,6 +44,7 @@ class Lesson extends Equatable {
       );
 
   Map<String, dynamic> toJson() => {
+        'labSession': labSession,
         '_id': id,
         'description': description,
         'videoUrl': videoUrl,
@@ -53,6 +57,7 @@ class Lesson extends Equatable {
       };
 
   Lesson copyWith({
+    String? labSession,
     String? id,
     String? description,
     String? videoUrl,
@@ -64,6 +69,7 @@ class Lesson extends Equatable {
     int? v,
   }) {
     return Lesson(
+      labSession: labSession ?? this.labSession,
       id: id ?? this.id,
       description: description ?? this.description,
       videoUrl: videoUrl ?? this.videoUrl,
@@ -79,6 +85,7 @@ class Lesson extends Equatable {
   @override
   List<Object?> get props {
     return [
+      labSession,
       id,
       description,
       videoUrl,
