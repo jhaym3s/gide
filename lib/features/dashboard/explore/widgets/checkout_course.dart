@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gide/core/configs/configs.dart';
 
 class CheckOutCourseModel {
-  final String category, title, instructor;
+  final String category, title, instructor, courseId;
   final int hours, minutes, lessons, price;
 
   CheckOutCourseModel(
@@ -15,6 +15,7 @@ class CheckOutCourseModel {
       required this.hours,
       required this.price,
       required this.minutes,
+      required this.courseId,
       required this.lessons});
 }
 

@@ -386,6 +386,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                           moveToNextScreen(
                               context: context,
                               arguments: CheckOutCourseModel(
+                                  courseId: singleCourse?.id ?? '',
                                   category: 'Design',
                                   hours: singleCourse?.courseLength?.hours ?? 0,
                                   minutes:

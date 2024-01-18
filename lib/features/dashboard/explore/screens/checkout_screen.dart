@@ -64,6 +64,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 showPaymentOption(
                     context: context,
                     onPressed: () {},
+                    courseId: (widget.model.courseId),
                     price: (widget.model.price).toString());
               },
               buttonText: "Pay now - \$${widget.model.price}")

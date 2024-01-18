@@ -48,7 +48,9 @@ void generalDialog({
 void showPaymentOption(
     {required BuildContext context,
     required VoidCallback onPressed,
-    required String price}) {
+    required String price,
+    required String courseId,
+    }) {
   generalDialog(
       context: context,
       children: Container(
@@ -77,8 +79,9 @@ void showPaymentOption(
             SpaceY(24.dy),
             GestureDetector(
                 onTap: () {
+                  //! Here
                   moveToNextScreen(
-                      context: context, page: PayWithCard.routeName);
+                      context: context, page: PayWithCard.routeName, arguments: courseId,) ;
                 },
                 child: const PaymentListTile(
                   option: "Pay with card",
@@ -86,7 +89,7 @@ void showPaymentOption(
             GestureDetector(
                 onTap: () {
                   moveToNextScreen(
-                      context: context, page: PayWithEarning.routeName);
+                      context: context, page: PayWithEarning.routeName,arguments: courseId,);
                 },
                 child: const PaymentListTile(
                   option: "Pay with earnings",
@@ -94,7 +97,7 @@ void showPaymentOption(
             GestureDetector(
                 onTap: () {
                   moveToNextScreen(
-                      context: context, page: PayWithSaving.routeName);
+                      context: context, page: PayWithSaving.routeName,arguments: courseId,);
                 },
                 child: const PaymentListTile(
                   option: "Pay with savings",
