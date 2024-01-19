@@ -10,6 +10,8 @@ import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/components/search_bar.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
+import 'package:gide/core/services/config/exception/logger.dart';
+import 'package:gide/features/dashboard/learning/model/enrollment_model/enroll.dart';
 import 'package:gide/features/dashboard/learning/notifiers/enroll_notifier.dart';
 import 'package:gide/features/dashboard/learning/widgets/learning_courses.dart';
 import 'package:gide/general_widget/app_loader.dart';
@@ -28,14 +30,47 @@ class LearningScreen extends ConsumerStatefulWidget {
 class _LearningScreenState extends ConsumerState<LearningScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+
+  List<Enroll>? _searchedCourses = [];
+  late final TextEditingController _textEditingController;
+
+  void _searchListener() {
+    final state = ref.watch(enrollProv);
+    if (_textEditingController.text.trim().isNotEmpty) {
+      String searchQuery = _textEditingController.text.trim().toLowerCase();
+      List<Enroll> tempList = [];
+
+      for (int i = 0; i < (state.enrollmentModel?.data ?? []).length; i++) {
+        final singleItem = (state.enrollmentModel?.data ?? [])[i];
+
+        if ((singleItem.course?.title ?? '')
+                .toLowerCase()
+                .contains(searchQuery) ||
+            (singleItem.course?.instructors?.first.fullName ?? '')
+                .toLowerCase()
+                .contains(searchQuery)) {
+          tempList.add(singleItem);
+        }
+      }
+
+      setState(() {
+        _searchedCourses = tempList;
+      });
+    } else {
+      // debugLog('controller is empty');
+    }
+  }
+
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
     super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    _textEditingController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final notifier = ref.read(enrollProv.notifier);
       await notifier.getEnrolled();
     });
+    _textEditingController.addListener(_searchListener);
   }
 
   final commentController = TextEditingController();
@@ -76,9 +111,10 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                     SpaceY(16.dy),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.dx),
-                      child:
-                          //! Update the controller and onchange fxn
-                          CustomSearchBar(),
+                      child: CustomSearchBar(
+                        controller: _textEditingController,
+                        onChangedFxn: (p0) {},
+                      ),
                     ),
                     SpaceY(24.dy),
                     Divider(
@@ -97,17 +133,35 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                             : (state.enrollmentModel?.data ?? []).isEmpty
                                 ? const Center(
                                     child: Text('No enrolled course yet 😔'))
-                                : ListView.builder(
-                                    itemCount:
-                                        state.enrollmentModel?.data?.length ??
-                                            0,
-                                    itemBuilder: (context, index) {
-                                      final singleData =
-                                          state.enrollmentModel?.data?[index];
-                                      return LearningCourses(
-                                        model: singleData,
-                                      );
-                                    });
+                                : (_searchedCourses ?? []).isEmpty &&
+                                        _textEditingController.text.isNotEmpty
+                                    ? const Center(
+                                        child: Text(
+                                            'Searched course not found 😔'))
+                                    : _textEditingController.text.isNotEmpty
+                                        ? ListView.builder(
+                                            itemCount:
+                                                (_searchedCourses ?? []).length,
+                                            itemBuilder: (context, index) {
+                                              final singleData =
+                                                  (_searchedCourses ??
+                                                      [])[index];
+                                              return LearningCourses(
+                                                model: singleData,
+                                              );
+                                            })
+                                        : ListView.builder(
+                                            itemCount: state.enrollmentModel
+                                                    ?.data?.length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              final singleData = state
+                                                  .enrollmentModel
+                                                  ?.data?[index];
+                                              return LearningCourses(
+                                                model: singleData,
+                                              );
+                                            });
                       }),
                     )
                   ],
