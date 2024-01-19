@@ -34,6 +34,9 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
   List<Enroll>? _searchedCourses = [];
   late final TextEditingController _textEditingController;
 
+  List<Enroll>? _searchedEnrolled = [];
+  late final TextEditingController _enrolltextEditingController;
+
   void _searchListener() {
     final state = ref.watch(enrollProv);
     if (_textEditingController.text.trim().isNotEmpty) {
@@ -60,17 +63,45 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
       // debugLog('controller is empty');
     }
   }
+  void _searchEnrolledListener() {
+    final state = ref.watch(enrollProv);
+    if (_enrolltextEditingController.text.trim().isNotEmpty) {
+      String searchQuery = _enrolltextEditingController.text.trim().toLowerCase();
+      List<Enroll> tempList = [];
+
+      for (int i = 0; i < (state.completedCourses ?? []).length; i++) {
+        final singleItem = (state.completedCourses ?? [])[i];
+
+        if ((singleItem.course?.title ?? '')
+                .toLowerCase()
+                .contains(searchQuery) ||
+            (singleItem.course?.instructors?.first.fullName ?? '')
+                .toLowerCase()
+                .contains(searchQuery)) {
+          tempList.add(singleItem);
+        }
+      }
+
+      setState(() {
+        _searchedEnrolled = tempList;
+      });
+    } else {
+      // debugLog('controller is empty');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     _textEditingController = TextEditingController();
+    _enrolltextEditingController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final notifier = ref.read(enrollProv.notifier);
       await notifier.getEnrolled();
     });
     _textEditingController.addListener(_searchListener);
+    _enrolltextEditingController.addListener(_searchEnrolledListener);
   }
 
   final commentController = TextEditingController();
@@ -174,7 +205,12 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                       padding: EdgeInsets.symmetric(horizontal: 20.dx),
                       child:
                           //!Add the controller and on change
-                          const CustomSearchBar(),
+                           CustomSearchBar(
+                            controller: _enrolltextEditingController ,
+                            onChangedFxn: (p0) {
+                              
+                            },
+                          ),
                     ),
                     SpaceY(24.dy),
                     Divider(
@@ -189,7 +225,27 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                         : (enrollState.completedCourses ?? []).isEmpty
                             ? const Center(
                                 child: Text('No course completed yet 😔'))
-                            : Expanded(
+                            :
+                        (_searchedEnrolled ?? []).isEmpty &&
+                                        _enrolltextEditingController.text.isNotEmpty
+                                    ? const Center(
+                                        child: Text(
+                                            'Searched course not found 😔'))
+                                    : _enrolltextEditingController.text.isNotEmpty
+                                        ? ListView.builder(
+                                            itemCount:
+                                                (_searchedEnrolled ?? []).length,
+                                            itemBuilder: (context, index) {
+                                              final singleData =
+                                                  (_searchedEnrolled ??
+                                                      [])[index];
+                                              return LearningCourses(
+                                                model: singleData,
+                                              );
+                                            })
+                                        :    
+                            
+                             Expanded(
                                 child: ListView.builder(
                                     itemCount:
                                         (enrollState.completedCourses ?? [])
