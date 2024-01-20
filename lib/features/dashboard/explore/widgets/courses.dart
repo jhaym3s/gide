@@ -65,7 +65,7 @@ class Courses extends StatelessWidget {
                     SpaceX(4.dx),
                     const InfoPopupWidget(
                       contentTitle:
-                          'Points are litte token of rewards awarded whenever you comlete a task',
+                          'Points are litte token of rewards awarded whenever you complete a task',
                       dismissTriggerBehavior:
                           PopupDismissTriggerBehavior.anyWhere,
                       child: Icon(

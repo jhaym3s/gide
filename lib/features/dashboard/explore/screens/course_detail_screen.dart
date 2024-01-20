@@ -130,7 +130,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                             SpaceX(4.dx),
                             const InfoPopupWidget(
                               contentTitle:
-                                  'Points are litte token of rewards awarded whenever you comlete a task',
+                                  'Points are litte token of rewards awarded whenever you complete a task',
                               dismissTriggerBehavior:
                                   PopupDismissTriggerBehavior.anyWhere,
                               child: Icon(
@@ -470,17 +470,21 @@ class CoursesListTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,
-                      softWrap: true,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: kTextColorsLight)),
+                  SizedBox(
+                    width: 240,
+                    child: Text(title,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 14.sp,
+                            overflow: TextOverflow.ellipsis,
+                            fontWeight: FontWeight.w500,
+                            color: kTextColorsLight)),
+                  ),
                   Text(subtitle,
                       softWrap: true,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 12.sp,
-                          fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w700,
                           color: kGrey)),
                 ],
