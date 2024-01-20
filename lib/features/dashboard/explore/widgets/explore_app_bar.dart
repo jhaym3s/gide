@@ -15,6 +15,18 @@ class ExploreAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String getGreeting() {
+      var hour = DateTime.now().hour;
+
+      if (hour < 12) {
+        return 'Good Morning';
+      } else if (hour < 17) {
+        return 'Good Afternoon';
+      } else {
+        return 'Good Evening';
+      }
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,7 +34,7 @@ class ExploreAppBar extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Good morning",
+            Text(getGreeting(),
                 textAlign: TextAlign.left,
                 softWrap: true,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
