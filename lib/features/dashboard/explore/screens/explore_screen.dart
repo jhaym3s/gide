@@ -204,8 +204,17 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                                 final coursemodel =
                                     allCourses.featuredCoursesModel?[index] ??
                                         const CourseModel();
-                                return Courses(
-                                  coursemodel: coursemodel,
+                                return InkWell(
+                                  onTap: () {
+                                    moveFromBottomNavBarScreen(
+                                        context: context,
+                                        targetScreen: CourseDetailScreen(
+                                          courseId: coursemodel.id ?? '',
+                                        ));
+                                  },
+                                  child: Courses(
+                                    coursemodel: coursemodel,
+                                  ),
                                 );
                               }),
                 )
