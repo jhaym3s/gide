@@ -13,7 +13,9 @@ import 'package:gide/core/router/router.dart';
 import 'package:gide/core/services/config/exception/logger.dart';
 import 'package:gide/features/dashboard/learning/model/enrollment_model/enroll.dart';
 import 'package:gide/features/dashboard/learning/notifiers/enroll_notifier.dart';
+import 'package:gide/features/dashboard/learning/widgets/empty_learning.dart';
 import 'package:gide/features/dashboard/learning/widgets/learning_courses.dart';
+import 'package:gide/features/dashboard/learning/widgets/submit_review_bottomsheet.dart';
 import 'package:gide/general_widget/app_loader.dart';
 import '../../../../core/components/components.dart';
 import '../../../../core/components/custom_tab_bar.dart';
@@ -21,7 +23,8 @@ import '../widgets/completed_courses.dart';
 
 class LearningScreen extends ConsumerStatefulWidget {
   static const routeName = "learning_screen";
-  const LearningScreen({super.key});
+  const LearningScreen( {required this.onItemClicked, super.key, });
+  final Function(int index)? onItemClicked;
 
   @override
   ConsumerState<LearningScreen> createState() => _LearningScreenState();
@@ -168,8 +171,10 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                                 color: kPrimaryColor,
                               )
                             : (state.enrollmentModel?.data ?? []).isEmpty
-                                ? const Center(
-                                    child: Text('No enrolled course yet 😔'))
+                                ? 
+                                 EmptyLearningScreen(onItemClicked: widget.onItemClicked,)
+                                // const Center(
+                                //     child: Text('No enrolled course yet 😔'))
                                 : (_searchedCourses ?? []).isEmpty &&
                                         _textEditingController.text.isNotEmpty
                                     ? const Center(
@@ -226,8 +231,11 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                             color: kPrimaryColor,
                           )
                         : (enrollState.completedCourses ?? []).isEmpty
-                            ? const Center(
-                                child: Text('No course completed yet 😔'))
+                            ? EmptyLearningScreen(
+                                onItemClicked: widget.onItemClicked,
+                              )
+                            // const Center(
+                            //     child: Text('No course completed yet 😔'))
                             : (_searchedEnrolled ?? []).isEmpty &&
                                     _enrolltextEditingController.text.isNotEmpty
                                 ? const Center(
@@ -279,7 +287,7 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                                                         height: 418);
                                                   },
 
-                                                  //!HERE
+                                                  
                                                   child: CompletedCourses(
                                                     model: singleCourse,
                                                   ));
@@ -291,157 +299,6 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                 Container(),
               ]),
             )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SendReviewBottomSheet extends StatelessWidget {
-  const SendReviewBottomSheet({
-    super.key,
-    required this.commentController,
-  });
-
-  final TextEditingController commentController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.dx),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SpaceY(40.dy),
-          Center(
-            child: Text("Drop a review",
-                softWrap: true,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w700,
-                    color: kTextColorsLight)),
-          ),
-          SpaceY(40.dy),
-          CommentTextFormField(
-            commentController: commentController,
-            hint: 'Your favorite thing about the course',
-            labelText: "Drop a message",
-          ),
-          SpaceY(24.dy),
-          Text("How would you rate the course",
-              softWrap: true,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: kTextColorsLight)),
-          SpaceY(16.dy),
-          RatingBar(
-            initialRating: 1,
-            minRating: 1,
-            maxRating: 5,
-            direction: Axis.horizontal,
-            allowHalfRating: false,
-            itemCount: 5,
-            ratingWidget: RatingWidget(
-              full: const Icon(Icons.star, color: kPrimaryColor),
-              half: const Icon(Icons.star_half, color: kPrimaryColor),
-              empty: const Icon(Icons.star_border, color: kPrimaryColor),
-            ),
-            itemSize: 24,
-            onRatingUpdate: (rating) {},
-          ),
-          SpaceY(32.dy),
-          CustomElevatedButton(
-            buttonText: "Submit Review",
-            onPressed: () {
-              moveToOldScreen(context: context);
-              showModalSheetWithRadius(
-                context: context,
-                height: 445,
-                returnWidget: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.dx),
-                  child: Column(
-                    children: [
-                      SpaceY(64.dy),
-                      Image.asset(
-                        AssetsImages.review_success,
-                        height: 80.dy,
-                        width: 80.dx,
-                      ),
-                      SpaceY(16.dy),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 50.dx),
-                        child: Text(
-                            "Your response have been recorded successful",
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: kGrey)),
-                      ),
-                      SpaceY(32.dy),
-                      CustomElevatedButton(
-                          onPressed: () {
-                            moveToOldScreen(context: context);
-                          },
-                          buttonText: "Go back to learning")
-                    ],
-                  ),
-                ),
-              );
-            },
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class EmptyLearningScreen extends StatelessWidget {
-  const EmptyLearningScreen({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.dx),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              AssetsImages.emptyLearning,
-              height: 120.dy,
-              width: 120.dx,
-            ),
-            SpaceY(16.dy),
-            Text("Nothing yet",
-                softWrap: true,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w700,
-                    color: kTextColorsLight)),
-            SpaceY(8.dy),
-            Text(
-                "You have not started any course yet. Keep browsing to and learn.",
-                softWrap: true,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w400,
-                    color: kGrey)),
-            SpaceY(16.dy),
-            CustomElevatedButton(
-                onPressed: () {}, buttonText: "Explore Courses")
           ],
         ),
       ),

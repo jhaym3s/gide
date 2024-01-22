@@ -1,6 +1,7 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gide/core/services/config/exception/logger.dart';
 
 // Package imports:
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
@@ -26,7 +27,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   List<Widget> _children() {
     return [
       const ExploreScreen(),
-      const LearningScreen(),
+      LearningScreen(onItemClicked: _onItemTapped),
       const WalletScreen(),
       const ProfileScreen(),
     ];
@@ -35,6 +36,10 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
+        onPressed: (p0) {
+          debugLog('Item presses');
+          _onItemTapped(selectedPageIndex);
+        },
         contentPadding: 0,
         //iconSize: 24,
         activeColorPrimary: kPrimaryColor,
@@ -98,6 +103,18 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     super.initState();
   }
 
+  void _onItemTapped(int index) {
+    //? addPostFrame is used by the navigator
+    //? to set initial route and indicates active screen
+    
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _pageController.jumpToTab(index);
+      setState(() {
+        selectedPageIndex = index;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
@@ -132,6 +149,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         duration: Duration(milliseconds: 200),
       ),
       navBarHeight: 92.dy,
+      onItemSelected: _onItemTapped,
       navBarStyle:
           NavBarStyle.simple, // Choose the nav bar style with this property.
     );
