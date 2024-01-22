@@ -18,28 +18,20 @@ class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CustomNavigationBarState createState() => _CustomNavigationBarState();
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
   late PersistentTabController _pageController;
-
+  List<Widget> pages = [];
   List<Widget> _children() {
-    return [
-      const ExploreScreen(),
-      LearningScreen(onItemClicked: _onItemTapped),
-      const WalletScreen(),
-      const ProfileScreen(),
-    ];
+    return pages;
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        onPressed: (p0) {
-          debugLog('Item presses');
-          _onItemTapped(selectedPageIndex);
-        },
         contentPadding: 0,
         //iconSize: 24,
         activeColorPrimary: kPrimaryColor,
@@ -88,30 +80,22 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     ];
   }
 
-  late List<Map<Object, Object>> pages;
-
-  int selectedPageIndex = 0;
-  void selectPage(int index) {
-    setState(() {
-      selectedPageIndex = index;
-    });
-  }
-
   @override
   void initState() {
     _pageController = PersistentTabController(initialIndex: 0);
+    pages = [
+      const ExploreScreen(),
+      LearningScreen(onItemClicked: _onItemTapped),
+      const WalletScreen(),
+      const ProfileScreen(),
+    ];
+
     super.initState();
   }
 
   void _onItemTapped(int index) {
-    //? addPostFrame is used by the navigator
-    //? to set initial route and indicates active screen
-    
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _pageController.jumpToTab(index);
-      setState(() {
-        selectedPageIndex = index;
-      });
     });
   }
 

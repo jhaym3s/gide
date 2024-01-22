@@ -217,7 +217,8 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                                   ),
                                 );
                               }),
-                )
+                ),
+                SpaceY(14.dy),
               ],
             ),
           ),
