@@ -52,6 +52,7 @@ class _ExpandableContainerState extends State<ExpandableContainer>
         width: 396,
         margin: EdgeInsets.only(bottom: 16.dy),
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [

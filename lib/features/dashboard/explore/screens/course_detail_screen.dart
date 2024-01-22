@@ -226,8 +226,9 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                     ),
                     SpaceY(16.dy),
                     SizedBox(
-                      height: 250.dy,
+                      // height: 300.dy,
                       child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: (singleCourse?.modules ?? []).length,
                         itemBuilder: (context, index) {
@@ -240,6 +241,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                               child: ListView.builder(
                                 itemCount: (moduleData?.lessons ?? []).length,
                                 shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   final lesson = moduleData?.lessons?[index];
                                   return CoursesListTile(
