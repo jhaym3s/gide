@@ -40,15 +40,18 @@ class _EditPersonalDetailsScreenState extends State<EditPersonalDetailsScreen> {
             SpaceY(46.dy),
             GestureDetector(
                 onTap: () {
-                  moveToNextScreen(
-                      context: context, page: ChangePassword.routeName);
+                  moveFromBottomNavBarScreen(
+                      context: context, targetScreen: const ChangePassword());
+                  
                 },
                 child: const EditListTile(
                   title: "Change Password",
                 )),
             GestureDetector(
                 onTap: () {
-                  moveToNextScreen(context: context, page: AddNumber.routeName);
+                         moveFromBottomNavBarScreen(
+                      context: context, targetScreen: const AddNumber());
+                  // moveToNextScreen(context: context, page: AddNumber.routeName);
                 },
                 child: const EditListTile(
                   title: "Add Phone Number",

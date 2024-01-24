@@ -19,7 +19,7 @@ class CompletedCourses extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.dx),
       child: Container(
-        height: 131.dy,
+        height: 140.dy,
         width: 350.dx,
         margin: EdgeInsets.only(bottom: 16.dy),
         decoration: BoxDecoration(
@@ -28,7 +28,7 @@ class CompletedCourses extends StatelessWidget {
         ),
         child: Row(children: [
           Container(
-            height: 131.dy,
+            height: 140.dy,
             width: 122.dx,
             decoration: const BoxDecoration(
                 color: kBlack,

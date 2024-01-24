@@ -394,22 +394,28 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                     ),
                     CustomElevatedButton(
                         onPressed: () {
-                          moveToNextScreen(
+                          moveFromBottomNavBarScreen(
                               context: context,
-                              arguments: CheckOutCourseModel(
-                                  courseId: singleCourse?.id ?? '',
-                                  category: 'Design',
-                                  hours: singleCourse?.courseLength?.hours ?? 0,
-                                  minutes:
-                                      singleCourse?.courseLength?.minutes ?? 0,
-                                  instructor: (singleCourse?.instructors ?? [])
-                                          .first
-                                          .fullName ??
-                                      '',
-                                  lessons: (singleCourse?.modules ?? []).length,
-                                  price: singleCourse?.price ?? 0,
-                                  title: singleCourse?.title ?? ''),
-                              page: CheckoutScreen.routeName);
+                              targetScreen: CheckoutScreen(
+                                model: CheckOutCourseModel(
+                                    courseId: singleCourse?.id ?? '',
+                                    category: 'Design',
+                                    hours:
+                                        singleCourse?.courseLength?.hours ?? 0,
+                                    minutes:
+                                        singleCourse?.courseLength?.minutes ??
+                                            0,
+                                    instructor:
+                                        (singleCourse?.instructors ?? [])
+                                                .first
+                                                .fullName ??
+                                            '',
+                                    lessons:
+                                        (singleCourse?.modules ?? []).length,
+                                    price: singleCourse?.price ?? 0,
+                                    title: singleCourse?.title ?? ''),
+                              ));
+                     
                         },
                         buttonText:
                             "Enroll Now for - \$${singleCourse?.price ?? 0}"),

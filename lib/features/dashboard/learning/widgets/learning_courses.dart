@@ -28,7 +28,7 @@ class LearningCourses extends StatelessWidget {
         ),
         child: Row(children: [
           Container(
-            height: 111.dy,
+            height: 131.dy,
             width: 122.dx,
             decoration: const BoxDecoration(
                 color: kBlack,
