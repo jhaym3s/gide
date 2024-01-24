@@ -23,7 +23,10 @@ import '../widgets/completed_courses.dart';
 
 class LearningScreen extends ConsumerStatefulWidget {
   static const routeName = "learning_screen";
-  const LearningScreen( {required this.onItemClicked, super.key, });
+  const LearningScreen({
+    required this.onItemClicked,
+    super.key,
+  });
   final Function(int index)? onItemClicked;
 
   @override
@@ -171,8 +174,9 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                                 color: kPrimaryColor,
                               )
                             : (state.enrollmentModel?.data ?? []).isEmpty
-                                ? 
-                                 EmptyLearningScreen(onItemClicked: widget.onItemClicked,)
+                                ? EmptyLearningScreen(
+                                    onItemClicked: widget.onItemClicked,
+                                  )
                                 // const Center(
                                 //     child: Text('No enrolled course yet 😔'))
                                 : (_searchedCourses ?? []).isEmpty &&
@@ -249,15 +253,20 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                                               final singleData =
                                                   (_searchedEnrolled ??
                                                       [])[index];
-                                           
+
                                               return GestureDetector(
                                                 onTap: () {
                                                   showModalSheetWithRadius(
                                                       context: context,
                                                       returnWidget:
                                                           SendReviewBottomSheet(
-                                                              commentController:
-                                                                  commentController),
+                                                        commentController:
+                                                            commentController,
+                                                        // onItemClicked: widget
+                                                        //     .onItemClicked,
+                                                        enrollID:
+                                                            singleData.id ?? '',
+                                                      ),
                                                       height: 418);
                                                 },
                                                 child: CompletedCourses(
@@ -282,12 +291,16 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                                                         context: context,
                                                         returnWidget:
                                                             SendReviewBottomSheet(
-                                                                commentController:
-                                                                    commentController),
+                                                          commentController:
+                                                              commentController,
+                                                          // onItemClicked: widget
+                                                          //     .onItemClicked,
+                                                          enrollID:
+                                                              singleCourse.id ??
+                                                                  '',
+                                                        ),
                                                         height: 418);
                                                   },
-
-                                                  
                                                   child: CompletedCourses(
                                                     model: singleCourse,
                                                   ));

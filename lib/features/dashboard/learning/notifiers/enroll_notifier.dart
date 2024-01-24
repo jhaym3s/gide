@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/helpers/helper_fxn.dart';
 import 'package:gide/core/services/config/exception/logger.dart';
+import 'package:gide/domain/model_response/create_review.dart';
 import 'package:gide/domain/repositories/learning_repo.dart';
 import 'package:gide/features/dashboard/learning/data/learning_repo_impl.dart';
 import 'package:gide/features/dashboard/learning/model/create_enrollment.dart';
@@ -49,7 +50,7 @@ class EnrollNotifier extends StateNotifier<EnrollState> {
     }
   }
 
-  Future createEnroll({required String courseId}) async {
+  Future<bool> createEnroll({required String courseId}) async {
     state = state.copyWith(loadState: LoadState.loading);
     debugLog('Attempting to create enrollment');
     try {
@@ -59,6 +60,28 @@ class EnrollNotifier extends StateNotifier<EnrollState> {
         state = state.copyWith(
             createEnroll: response.data, loadState: LoadState.success);
         toastMessage(response.message ?? 'Success');
+        return true;
+      }
+    } catch (e) {
+      state = state.copyWith(
+        loadState: LoadState.error,
+        errorMessage: e.toString(),
+      );
+    } finally {
+      state = state.copyWith(loadState: LoadState.done);
+    }
+    return false;
+  }
+
+  Future createReview({required CreateReview createReview}) async {
+    state = state.copyWith(loadState: LoadState.loading);
+    debugLog('Attempting to create review');
+    try {
+      final response = await learningRepo.review(createReview);
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        state = state.copyWith(loadState: LoadState.success);
+        toastMessage(response.message ?? 'Success');
+        return response.status ?? true;
       }
     } catch (e) {
       state = state.copyWith(

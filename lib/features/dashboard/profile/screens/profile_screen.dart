@@ -10,10 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
-import 'package:gide/features/authentication/screens/onboarding.dart';
-import 'package:gide/features/authentication/screens/sign_in_screen.dart';
-import 'package:gide/features/authentication/screens/sign_up_screen.dart';
-import 'package:gide/features/authentication/screens/splash_screen.dart';
+import 'package:gide/core/services/third_party_services/web_link.dart';
 import 'package:gide/features/dashboard/profile/notifiers/profile_notifier.dart';
 import 'package:gide/features/dashboard/profile/screens/become_an_instructor.dart';
 import 'package:gide/features/dashboard/profile/screens/edit_personal_details_screen.dart';
@@ -44,7 +41,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget build(BuildContext context) {
     final userProfile = ref.watch(currentUserProvider);
     final notifer = ref.read(profileProvider.notifier);
-
+    final webService = ref.read(webLinkProvider);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -130,7 +127,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       onTap: () {
                         moveFromBottomNavBarScreen(
                             context: context,
-                            targetScreen: BecomeAnInstructor());
+                            targetScreen: const BecomeAnInstructor());
                       },
                       child: const SupportListTile(
                         title: "Become an Instructor",
@@ -141,20 +138,28 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         ),
                       ),
                     ),
-                    const SupportListTile(
-                      title: "About Us",
-                      image: AssetsImages.info,
-                      suffixWidget: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 18,
+                    GestureDetector(
+                      onTap: () => webService.webLink(
+                          urlLink: 'https://shorturl.at/knAB9'),
+                      child: const SupportListTile(
+                        title: "Privacy Policy",
+                        image: AssetsImages.info,
+                        suffixWidget: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 18,
+                        ),
                       ),
                     ),
-                    const SupportListTile(
-                      title: "Contact Us",
-                      image: AssetsImages.message,
-                      suffixWidget: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 18,
+                    GestureDetector(
+                      onTap: () => webService.webLink(
+                          urlLink: 'https://www.gide.com/en/contact'),
+                      child: const SupportListTile(
+                        title: "Contact Us",
+                        image: AssetsImages.message,
+                        suffixWidget: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 18,
+                        ),
                       ),
                     ),
                   ],
@@ -172,7 +177,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         title: "Video Loop",
                         image: AssetsImages.videoLoop,
                         suffixWidget: CustomSwitch(
-                          isActive: isLoopActive,
+                          // isActive: isLoopActive,
+                          isActive: false,
                           onChanged: (p0) {
                             setState(() {
                               isLoopActive = !isLoopActive;
@@ -183,7 +189,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       title: "Video Subtitle",
                       image: AssetsImages.videoSubtitle,
                       suffixWidget: CustomSwitch(
-                          isActive: isSubtitleActive,
+                          // isActive: isSubtitleActive,
+                          isActive: false,
                           onChanged: (p0) {
                             setState(() {
                               isSubtitleActive = !isSubtitleActive;
@@ -196,7 +203,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 GestureDetector(
                   onTap: () {
                     notifer.logout();
-                    //!last option
+                    //!last option Changes
                     SystemChannels.platform.invokeMethod('SystemNavigator.pop');
                     print('in the logout button');
                     // Navigator.of(context).popUntil((route) => route.isFirst);

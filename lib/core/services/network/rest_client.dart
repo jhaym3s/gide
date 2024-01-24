@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:gide/domain/model_response/create_review.dart';
 import 'package:retrofit/retrofit.dart';
 
 // Project imports:
@@ -93,4 +94,9 @@ abstract class RestClient {
   @POST('/enrollments')
   Future<BaseResponse<CreateEnrollmentResp>> createEnrollment(
       @Body() CreateEnrollment createEnrollment);
+
+  //? Review completed
+  @POST('/review')
+  Future<BaseResponse> createReview(
+      @Body() CreateReview createReview);
 }
