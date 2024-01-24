@@ -14,6 +14,7 @@ import 'package:gide/core/services/third_party_services/web_link.dart';
 import 'package:gide/features/dashboard/profile/notifiers/profile_notifier.dart';
 import 'package:gide/features/dashboard/profile/screens/become_an_instructor.dart';
 import 'package:gide/features/dashboard/profile/screens/edit_personal_details_screen.dart';
+import 'package:gide/general_widget/web_view_scaffold.dart';
 import '../widgets/profile_list_tile.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
@@ -30,7 +31,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final notifer = ref.read(profileProvider.notifier);
-
       await notifer.getProfile();
     });
   }
@@ -41,7 +41,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget build(BuildContext context) {
     final userProfile = ref.watch(currentUserProvider);
     final notifer = ref.read(profileProvider.notifier);
-    final webService = ref.read(webLinkProvider);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -139,8 +139,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => webService.webLink(
-                          urlLink: 'https://shorturl.at/knAB9'),
+                      onTap: () {
+                        moveFromBottomNavBarScreen(
+                          context: context,
+                          targetScreen: const WebViewScaffold(
+                              titile: 'Privacy Policies',
+                              webLink: 'https://shorturl.at/knAB9'),
+                        );
+                        // onTap: () => webService.webLink(
+                        //     urlLink: 'https://shorturl.at/knAB9'),
+                      },
                       child: const SupportListTile(
                         title: "Privacy Policy",
                         image: AssetsImages.info,
@@ -151,8 +159,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => webService.webLink(
-                          urlLink: 'https://www.gide.com/en/contact'),
+                      onTap: () {
+                        moveFromBottomNavBarScreen(
+                          context: context,
+                          targetScreen: const WebViewScaffold(
+                              titile: 'Contact Us',
+                              webLink: 'https://www.gide.com/en/contact'),
+                        );
+                      },
                       child: const SupportListTile(
                         title: "Contact Us",
                         image: AssetsImages.message,

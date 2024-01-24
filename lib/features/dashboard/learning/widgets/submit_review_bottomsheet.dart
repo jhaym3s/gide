@@ -1,6 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
 import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/components/custom_comment_box.dart';
 import 'package:gide/core/components/custom_elevated_button.dart';

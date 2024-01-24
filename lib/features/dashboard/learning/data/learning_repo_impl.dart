@@ -44,7 +44,7 @@ class LearningImpl extends LearningRepo {
   }
 
   @override
-  Future<BaseResponse> review( CreateReview createReview) async {
+  Future<BaseResponse> review(CreateReview createReview) async {
     try {
       final resp = await _client.createReview(createReview);
       return resp;

@@ -1,11 +1,11 @@
 // Package imports:
 import 'package:dio/dio.dart';
-import 'package:gide/domain/model_response/create_review.dart';
 import 'package:retrofit/retrofit.dart';
 
 // Project imports:
 import 'package:gide/core/services/config/response/base_response.dart';
 import 'package:gide/domain/model_response/create_enrollment_resp/create_enrollment_resp.dart';
+import 'package:gide/domain/model_response/create_review.dart';
 import 'package:gide/domain/model_response/forget_password_resp.dart';
 import 'package:gide/domain/model_response/instructor_resp.dart';
 import 'package:gide/domain/model_response/login_response/login_response.dart';
@@ -97,6 +97,5 @@ abstract class RestClient {
 
   //? Review completed
   @POST('/review')
-  Future<BaseResponse> createReview(
-      @Body() CreateReview createReview);
+  Future<BaseResponse> createReview(@Body() CreateReview createReview);
 }

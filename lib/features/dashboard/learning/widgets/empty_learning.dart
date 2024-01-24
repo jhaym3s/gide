@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:gide/core/components/custom_elevated_button.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/configs/images.dart';
