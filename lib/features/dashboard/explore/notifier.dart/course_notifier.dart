@@ -66,6 +66,14 @@ class CourseNotifier extends StateNotifier<CourseState> {
       state = state.copyWith(loadState: LoadState.done);
     }
   }
+
+  String formatTime(DateTime dateTime) {
+    String period = dateTime.hour >= 12 ? 'pm' : 'am';
+    int formattedHour = dateTime.hour % 12 == 0 ? 12 : dateTime.hour % 12;
+    String formattedMinute = dateTime.minute.toString().padLeft(2, '0');
+
+    return '$formattedHour:$formattedMinute$period';
+  }
 }
 
 final courseProvider = StateNotifierProvider<CourseNotifier, CourseState>(

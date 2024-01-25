@@ -46,6 +46,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(courseProvider);
+    final notifier = ref.read(courseProvider.notifier);
     final singleCourse = state.singleCourseModel;
     final webService = ref.read(webLinkProvider);
     return Scaffold(
@@ -245,20 +246,24 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                                 itemBuilder: (context, index) {
                                   final lesson = moduleData?.lessons?[index];
 
+                                  String inputDateString = lesson?.labSession ??
+                                      "2024-02-19T20:00:11.765Z";
+
+                                  DateTime dateTime =
+                                      DateTime.parse(inputDateString);
+
+                                  String formattedDateTime =
+                                      "${dateTime.day}/${dateTime.month}/${dateTime.year % 100}, ${notifier.formatTime(dateTime)} GST";
+
                                   return CoursesListTile(
                                     icon: widget.hasEnrolled ?? false
                                         ? Icons.arrow_forward_ios
                                         : Icons.lock_outline,
                                     title: lesson?.description ?? '',
-
-                                    //? 18/01/24, 8:00pm GST (3pts)
-                                    // subtitle: (lesson?.points ?? 0).toString(),
-                                    //todo: Change this hardcoded data to datetime
-                                    //? like this => lesson?.labsesson?.datetime conversion
                                     subtitle: (lesson?.labSession ?? '')
                                                 .isNotEmpty ||
                                             (lesson?.labSession) != null
-                                        ? '18/01/24, 8:00pm GST (${(lesson?.points ?? 0)}pts)'
+                                        ? '$formattedDateTime (${(lesson?.points ?? 0)}pts)'
                                         : '${(lesson?.points ?? 0).toString()} pts',
                                     onTap: widget.hasEnrolled ?? false
                                         ? () => webService.webLink(
@@ -400,6 +405,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                                     context: context,
                                     targetScreen: CheckoutScreen(
                                       model: CheckOutCourseModel(
+                                          image: singleCourse?.image ?? '',
                                           courseId: singleCourse?.id ?? '',
                                           category: 'Design',
                                           hours: singleCourse
