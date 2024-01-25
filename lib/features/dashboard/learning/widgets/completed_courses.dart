@@ -9,9 +9,11 @@ import 'package:gide/general_widget/app_image_view.dart';
 
 class CompletedCourses extends StatelessWidget {
   final Enroll? model;
+  final VoidCallback? onTap;
   const CompletedCourses({
     super.key,
     this.model,
+    this.onTap
   });
 
   @override
@@ -83,22 +85,25 @@ class CompletedCourses extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                         color: kGrey)),
                 SpaceY(16.dy),
-                Row(
-                  children: [
-                    Image.asset(
-                      AssetsImages.commentIcon,
-                      height: 16.dy,
-                      width: 16.dx,
-                    ),
-                    SpaceX(4.dx),
-                    Text("Drop a review",
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: kGrey)),
-                  ],
+                GestureDetector(
+                  onTap: onTap,
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        AssetsImages.commentIcon,
+                        height: 16.dy,
+                        width: 16.dx,
+                      ),
+                      SpaceX(4.dx),
+                      Text("Drop a review",
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                              color: kGrey)),
+                    ],
+                  ),
                 )
               ],
             ),

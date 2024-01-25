@@ -11,6 +11,7 @@ import 'package:gide/core/components/search_bar.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/core/services/config/exception/logger.dart';
+import 'package:gide/features/dashboard/explore/screens/course_detail_screen.dart';
 import 'package:gide/features/dashboard/learning/model/enrollment_model/enroll.dart';
 import 'package:gide/features/dashboard/learning/notifiers/enroll_notifier.dart';
 import 'package:gide/features/dashboard/learning/widgets/empty_learning.dart';
@@ -192,8 +193,21 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                                               final singleData =
                                                   (_searchedCourses ??
                                                       [])[index];
-                                              return LearningCourses(
-                                                model: singleData,
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  moveFromBottomNavBarScreen(
+                                                      context: context,
+                                                      targetScreen:
+                                                          CourseDetailScreen(
+                                                        courseId: singleData
+                                                                .course?.id ??
+                                                            "",
+                                                        hasEnrolled: true,
+                                                      ));
+                                                },
+                                                child: LearningCourses(
+                                                  model: singleData,
+                                                ),
                                               );
                                             })
                                         : ListView.builder(
@@ -204,8 +218,21 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                                               final singleData = state
                                                   .enrollmentModel
                                                   ?.data?[index];
-                                              return LearningCourses(
-                                                model: singleData,
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  moveFromBottomNavBarScreen(
+                                                      context: context,
+                                                      targetScreen:
+                                                          CourseDetailScreen(
+                                                        courseId: singleData
+                                                                ?.course?.id ??
+                                                            "",
+                                                        hasEnrolled: true,
+                                                      ));
+                                                },
+                                                child: LearningCourses(
+                                                  model: singleData,
+                                                ),
                                               );
                                             });
                       }),
@@ -256,21 +283,33 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
 
                                               return GestureDetector(
                                                 onTap: () {
-                                                  showModalSheetWithRadius(
+                                                  moveFromBottomNavBarScreen(
                                                       context: context,
-                                                      returnWidget:
-                                                          SendReviewBottomSheet(
-                                                        commentController:
-                                                            commentController,
-                                                        // onItemClicked: widget
-                                                        //     .onItemClicked,
-                                                        enrollID:
-                                                            singleData.id ?? '',
-                                                      ),
-                                                      height: 418);
+                                                      targetScreen:
+                                                          CourseDetailScreen(
+                                                        courseId: singleData
+                                                                .course?.id ??
+                                                            "",
+                                                        hasEnrolled: true,
+                                                      ));
                                                 },
                                                 child: CompletedCourses(
                                                   model: singleData,
+                                                  onTap: () {
+                                                    showModalSheetWithRadius(
+                                                        context: context,
+                                                        returnWidget:
+                                                            SendReviewBottomSheet(
+                                                          commentController:
+                                                              commentController,
+                                                          // onItemClicked: widget
+                                                          //     .onItemClicked,
+                                                          enrollID:
+                                                              singleData.id ??
+                                                                  '',
+                                                        ),
+                                                        height: 418);
+                                                  },
                                                 ),
                                               );
                                             }),
@@ -287,22 +326,34 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                                                   [])[index];
                                               return GestureDetector(
                                                   onTap: () {
-                                                    showModalSheetWithRadius(
+                                                    moveFromBottomNavBarScreen(
                                                         context: context,
-                                                        returnWidget:
-                                                            SendReviewBottomSheet(
-                                                          commentController:
-                                                              commentController,
-                                                          // onItemClicked: widget
-                                                          //     .onItemClicked,
-                                                          enrollID:
-                                                              singleCourse.id ??
-                                                                  '',
-                                                        ),
-                                                        height: 418);
+                                                        targetScreen:
+                                                            CourseDetailScreen(
+                                                          courseId: singleCourse
+                                                                  .course?.id ??
+                                                              "",
+                                                          hasEnrolled: true,
+                                                        ));
                                                   },
                                                   child: CompletedCourses(
                                                     model: singleCourse,
+                                                    onTap: () {
+                                                      showModalSheetWithRadius(
+                                                          context: context,
+                                                          returnWidget:
+                                                              SendReviewBottomSheet(
+                                                            commentController:
+                                                                commentController,
+                                                            // onItemClicked: widget
+                                                            //     .onItemClicked,
+                                                            enrollID:
+                                                                singleCourse
+                                                                        .id ??
+                                                                    '',
+                                                          ),
+                                                          height: 418);
+                                                    },
                                                   ));
                                             }),
                                       )

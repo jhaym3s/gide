@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_expandable_text/flutter_expandable_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gide/core/services/config/exception/logger.dart';
 import 'package:info_popup/info_popup.dart';
 
 // Project imports:
@@ -22,11 +23,10 @@ import 'package:gide/general_widget/app_loader.dart';
 
 class CourseDetailScreen extends ConsumerStatefulWidget {
   static const routeName = "course_detail_screen";
-  const CourseDetailScreen({
-    super.key,
-    required this.courseId,
-  });
+  const CourseDetailScreen(
+      {super.key, required this.courseId, this.hasEnrolled});
   final String courseId;
+  final bool? hasEnrolled;
 
   @override
   ConsumerState<CourseDetailScreen> createState() => _CourseDetailScreenState();
@@ -224,11 +224,11 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                                     color: kTextColorsLight)),
                       ],
                     ),
-                    SpaceY(16.dy),
+                    // SpaceY(4.dy),
                     SizedBox(
                       // height: 300.dy,
                       child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: (singleCourse?.modules ?? []).length,
                         itemBuilder: (context, index) {
@@ -241,11 +241,12 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                               child: ListView.builder(
                                 itemCount: (moduleData?.lessons ?? []).length,
                                 shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
+                                physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   final lesson = moduleData?.lessons?[index];
+
                                   return CoursesListTile(
-                                    icon: index == 0
+                                    icon: widget.hasEnrolled ?? false
                                         ? Icons.arrow_forward_ios
                                         : Icons.lock_outline,
                                     title: lesson?.description ?? '',
@@ -259,23 +260,19 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                                             (lesson?.labSession) != null
                                         ? '18/01/24, 8:00pm GST (${(lesson?.points ?? 0)}pts)'
                                         : '${(lesson?.points ?? 0).toString()} pts',
-                                    onTap: () => webService.webLink(
-                                        urlLink:
-                                            lesson?.virtualSessionUrl ?? ''),
+                                    onTap: widget.hasEnrolled ?? false
+                                        ? () => webService.webLink(
+                                            urlLink:
+                                                lesson?.virtualSessionUrl ?? '')
+                                        : () {
+                                            debugLog('Has not enrolled');
+                                          },
                                   );
                                 },
                               ),
                             ),
                             text: moduleData?.name ?? '',
                           );
-                          // CoursesListTile(
-                          //   icon: index == 0
-                          //       ? Icons.arrow_forward_ios
-                          //       : Icons.lock_outline,
-                          //   title: moduleData?.name ?? '',
-                          //   hours: moduleData?.length?.hours ?? 0,
-                          //   minutes: moduleData?.length?.minutes ?? 0,
-                          // );
                         },
                       ),
                     ),
@@ -291,7 +288,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                           border: Border.all(
-                            color: Color(0XFFEAECF0),
+                            color: const Color(0XFFEAECF0),
                           ),
                           borderRadius: BorderRadius.circular(8),
                           color: kWhite),
@@ -393,32 +390,38 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                       height: 1.dy,
                     ),
                     CustomElevatedButton(
-                        onPressed: () {
-                          moveFromBottomNavBarScreen(
-                              context: context,
-                              targetScreen: CheckoutScreen(
-                                model: CheckOutCourseModel(
-                                    courseId: singleCourse?.id ?? '',
-                                    category: 'Design',
-                                    hours:
-                                        singleCourse?.courseLength?.hours ?? 0,
-                                    minutes:
-                                        singleCourse?.courseLength?.minutes ??
-                                            0,
-                                    instructor:
-                                        (singleCourse?.instructors ?? [])
-                                                .first
-                                                .fullName ??
-                                            '',
-                                    lessons:
-                                        (singleCourse?.modules ?? []).length,
-                                    price: singleCourse?.price ?? 0,
-                                    title: singleCourse?.title ?? ''),
-                              ));
-                     
-                        },
-                        buttonText:
-                            "Enroll Now for - \$${singleCourse?.price ?? 0}"),
+                        color: (widget.hasEnrolled ?? false)
+                            ? kPrimaryColor.withOpacity(0.4)
+                            : kPrimaryColor,
+                        onPressed: (widget.hasEnrolled ?? false)
+                            ? () {}
+                            : () {
+                                moveFromBottomNavBarScreen(
+                                    context: context,
+                                    targetScreen: CheckoutScreen(
+                                      model: CheckOutCourseModel(
+                                          courseId: singleCourse?.id ?? '',
+                                          category: 'Design',
+                                          hours: singleCourse
+                                                  ?.courseLength?.hours ??
+                                              0,
+                                          minutes: singleCourse
+                                                  ?.courseLength?.minutes ??
+                                              0,
+                                          instructor:
+                                              (singleCourse?.instructors ?? [])
+                                                      .first
+                                                      .fullName ??
+                                                  '',
+                                          lessons: (singleCourse?.modules ?? [])
+                                              .length,
+                                          price: singleCourse?.price ?? 0,
+                                          title: singleCourse?.title ?? ''),
+                                    ));
+                              },
+                        buttonText: (widget.hasEnrolled ?? false)
+                            ? 'Already enrolled'
+                            : "Enroll Now for - \$${singleCourse?.price ?? 0}"),
                     SpaceY(21.dy),
                     Align(
                       alignment: Alignment.center,
@@ -483,17 +486,18 @@ class CoursesListTile extends StatelessWidget {
                     child: Text(title,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
+                        // softWrap: true,
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 14.sp,
-                            overflow: TextOverflow.ellipsis,
+                            fontSize: 15.sp,
                             fontWeight: FontWeight.w500,
                             color: kTextColorsLight)),
                   ),
+                  const SpaceY(4),
                   Text(subtitle,
                       softWrap: true,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
                           color: kGrey)),
                 ],
               ),
@@ -503,7 +507,7 @@ class CoursesListTile extends StatelessWidget {
                 icon: Icon(
                   icon,
                   size: 12,
-                  color: Color(0xff292D32),
+                  color: const Color(0xff292D32),
                 )),
           ],
         ),

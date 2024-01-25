@@ -48,7 +48,7 @@ class _ExpandableContainerState extends State<ExpandableContainer>
           ],
         ),
         duration: const Duration(milliseconds: 300),
-        height: _isExpanded ? 350 : 64,
+        height: _isExpanded ? 350 : 70,
         width: 396,
         margin: EdgeInsets.only(bottom: 16.dy),
         child: SingleChildScrollView(
@@ -57,7 +57,8 @@ class _ExpandableContainerState extends State<ExpandableContainer>
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
+                padding: const EdgeInsets.only(
+                    top: 16, right: 16, left: 16, bottom: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -73,6 +74,7 @@ class _ExpandableContainerState extends State<ExpandableContainer>
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
                                     color: kTextColorsLight)),
+                        const SpaceY(4),
                         Text("${widget.hour}hrs:${widget.minutes}mins",
                             softWrap: true,
                             style: Theme.of(context)

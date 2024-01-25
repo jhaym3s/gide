@@ -54,6 +54,7 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => CourseDetailScreen(
                   courseId: settings.arguments as String,
+                  hasEnrolled: false,
                 ));
       case CheckoutScreen.routeName:
         return MaterialPageRoute(
