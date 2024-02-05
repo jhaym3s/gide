@@ -108,13 +108,30 @@ class Courses extends StatelessWidget {
           SpaceY(8.dy),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.dx),
-            child: Text(
-                "${coursemodel.courseLength?.hours ?? 0}h:${coursemodel.courseLength?.minutes ?? 00}mins . ${(coursemodel.modules ?? []).length} Lessons",
-                softWrap: true,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    color: kGrey)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                    "${coursemodel.courseLength?.hours ?? 0}h:${coursemodel.courseLength?.minutes ?? 00}mins . ${(coursemodel.modules ?? []).length} Lessons",
+                    softWrap: true,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                        color: kGrey)),
+                Row(
+                  children: [
+                    Text(
+                        double.parse(coursemodel.cummulativeRating.toString()).toStringAsFixed(1),
+                        softWrap: true,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            color: kGrey)),
+                    const Icon(Icons.star, color: kPrimaryColor),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

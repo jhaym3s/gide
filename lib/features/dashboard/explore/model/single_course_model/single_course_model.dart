@@ -12,6 +12,7 @@ class SingleCourseModel extends Equatable {
   final String? id;
   final String? title;
   final String? description;
+  final dynamic cummulativeRating;
   final bool? featured;
   final List<Instructor>? instructors;
   final List<Module>? modules;
@@ -38,6 +39,7 @@ class SingleCourseModel extends Equatable {
     this.deletedAt,
     this.createdAt,
     this.updatedAt,
+    this.cummulativeRating,
     this.v,
   });
 
@@ -51,6 +53,7 @@ class SingleCourseModel extends Equatable {
       title: json['title'] as String?,
       description: json['description'] as String?,
       featured: json['featured'] as bool?,
+      cummulativeRating: json['cummulativeRating'] as dynamic,
       instructors: (json['instructors'] as List<dynamic>?)
           ?.map((e) => Instructor.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -75,6 +78,7 @@ class SingleCourseModel extends Equatable {
         'courseLength': courseLength?.toJson(),
         '_id': id,
         'image': image,
+        'cummulativeRating': cummulativeRating,
         'title': title,
         'description': description,
         'featured': featured,
@@ -95,6 +99,7 @@ class SingleCourseModel extends Equatable {
     String? image,
     String? title,
     String? description,
+    dynamic cummulativeRating,
     bool? featured,
     List<Instructor>? instructors,
     List<Module>? modules,
@@ -111,6 +116,7 @@ class SingleCourseModel extends Equatable {
       image: image ?? this.image,
       id: id ?? this.id,
       title: title ?? this.title,
+      cummulativeRating: cummulativeRating ?? this.cummulativeRating,
       description: description ?? this.description,
       featured: featured ?? this.featured,
       instructors: instructors ?? this.instructors,
@@ -132,6 +138,7 @@ class SingleCourseModel extends Equatable {
       image,
       id,
       title,
+      cummulativeRating,
       description,
       featured,
       instructors,

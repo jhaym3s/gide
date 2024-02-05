@@ -1,8 +1,6 @@
 // Project imports:
 import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/domain/model_response/login_response/login_response.dart';
-import 'package:gide/domain/model_response/signup_response/category_resp.dart';
-import 'package:gide/features/authentication/model/signup_model.dart';
 
 class ProfileState {
   final LoadState? loadState;

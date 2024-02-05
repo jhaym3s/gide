@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:gide/core/components/alerts.dart';
 import 'package:gide/core/components/components.dart';
-import 'package:gide/core/components/custom_back_button.dart';
 import 'package:gide/core/configs/configs.dart';
-import 'package:gide/core/configs/constants.dart';
 
 class FundAccountScreen extends StatefulWidget {
   static const routeName = "fund_account_screen";

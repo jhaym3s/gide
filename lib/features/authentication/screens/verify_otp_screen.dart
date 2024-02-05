@@ -12,8 +12,6 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/components/custom_back_button.dart';
 import 'package:gide/core/components/custom_elevated_button.dart';
-import 'package:gide/core/components/normal_text_form_field.dart';
-import 'package:gide/core/helpers/regex_validation.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/features/authentication/notifier/auth_notifier.dart';
 import 'package:gide/features/authentication/notifier/auth_state.dart';

@@ -78,9 +78,9 @@ class Dims {
 
   // give responsive font sizes [based on device size and design size]
   static double sp(num x) {
-    final _dxQuotient = dxQuotient();
-    final _dyQuotient = dyQuotient();
-    final ratio = min(_dxQuotient, _dyQuotient);
+    final dxQuotientM = dxQuotient();
+    final dyQuotientM = dyQuotient();
+    final ratio = min(dxQuotientM, dyQuotientM);
 
     return ratio * x;
   }

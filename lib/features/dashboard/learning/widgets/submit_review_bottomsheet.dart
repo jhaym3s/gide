@@ -12,8 +12,6 @@ import 'package:gide/core/components/custom_elevated_button.dart';
 import 'package:gide/core/components/pop_up.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/helpers/helper_fxn.dart';
-import 'package:gide/core/router/router.dart';
-import 'package:gide/core/services/config/exception/logger.dart';
 import 'package:gide/domain/model_response/create_review.dart';
 import 'package:gide/features/dashboard/learning/notifiers/enroll_notifier.dart';
 
@@ -130,7 +128,7 @@ class _SendReviewBottomSheetState extends State<SendReviewBottomSheet> {
           children: [
             SpaceY(64.dy),
             Image.asset(
-              AssetsImages.review_success,
+              AssetsImages.reviewSuccess,
               height: 80.dy,
               width: 80.dx,
             ),

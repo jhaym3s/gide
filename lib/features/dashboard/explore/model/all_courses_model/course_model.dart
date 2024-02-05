@@ -18,6 +18,7 @@ class CourseModel extends Equatable {
   final String? image;
   final bool? deleted;
   final dynamic deletedAt;
+  final dynamic cummulativeRating;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final int? v;
@@ -37,6 +38,7 @@ class CourseModel extends Equatable {
     this.createdAt,
     this.updatedAt,
     this.v,
+    this.cummulativeRating,
     this.image,
   });
 
@@ -54,6 +56,7 @@ class CourseModel extends Equatable {
             .toList(),
         modules: json['modules'] as List<dynamic>?,
         points: json['points'] as int?,
+        cummulativeRating: json['cummulativeRating'] as dynamic,
         price: json['price'] as int?,
         deleted: json['deleted'] as bool?,
         deletedAt: json['deletedAt'] as dynamic,
@@ -75,6 +78,7 @@ class CourseModel extends Equatable {
         'featured': featured,
         'instructors': instructors?.map((e) => e.toJson()).toList(),
         'modules': modules,
+        'cummulativeRating': cummulativeRating,
         'points': points,
         'price': price,
         'deleted': deleted,
@@ -97,6 +101,7 @@ class CourseModel extends Equatable {
     int? price,
     bool? deleted,
     dynamic deletedAt,
+    dynamic cummulativeRating,
     DateTime? createdAt,
     DateTime? updatedAt,
     String? image,
@@ -107,6 +112,7 @@ class CourseModel extends Equatable {
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
+      cummulativeRating: cummulativeRating ?? this.cummulativeRating,
       featured: featured ?? this.featured,
       instructors: instructors ?? this.instructors,
       modules: modules ?? this.modules,
@@ -133,6 +139,7 @@ class CourseModel extends Equatable {
       modules,
       points,
       price,
+      cummulativeRating,
       deleted,
       deletedAt,
       createdAt,

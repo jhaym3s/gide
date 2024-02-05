@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_expandable_text/flutter_expandable_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gide/core/services/config/exception/logger.dart';
 import 'package:info_popup/info_popup.dart';
 
 // Project imports:
@@ -12,6 +11,7 @@ import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/components/custom_elevated_button.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
+import 'package:gide/core/services/config/exception/logger.dart';
 import 'package:gide/core/services/third_party_services/web_link.dart';
 import 'package:gide/features/dashboard/explore/notifier.dart/course_notifier.dart';
 import 'package:gide/features/dashboard/explore/screens/checkout_screen.dart';
@@ -159,13 +159,48 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                             fontWeight: FontWeight.w400,
                             color: kGrey)),
                     SpaceY(8.dy),
-                    Text(
-                        "${singleCourse?.courseLength?.hours ?? 0}h:${singleCourse?.courseLength?.minutes ?? 00}mins . ${(singleCourse?.modules ?? []).length} Lessons",
-                        softWrap: true,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: kGrey)),
+                    // Text(
+                    //     "${singleCourse?.courseLength?.hours ?? 0}h:${singleCourse?.courseLength?.minutes ?? 00}mins . ${(singleCourse?.modules ?? []).length} Lessons",
+                    //     softWrap: true,
+                    //     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    //         fontSize: 14.sp,
+                    //         fontWeight: FontWeight.w400,
+                    //         color: kGrey)),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.dx),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                              "${singleCourse?.courseLength?.hours ?? 0}h:${singleCourse?.courseLength?.minutes ?? 00}mins . ${(singleCourse?.modules ?? []).length} Lessons",
+                              softWrap: true,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: kGrey)),
+                          Row(
+                            children: [
+                              Text(
+                                  double.parse(singleCourse!.cummulativeRating
+                                          .toString())
+                                      .toStringAsFixed(1),
+                                  softWrap: true,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: kGrey)),
+                              const Icon(Icons.star, color: kPrimaryColor),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     SpaceY(32.dy),
                     Divider(
                       height: 1.dy,
@@ -179,7 +214,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                             color: kTextColorsLight)),
                     SpaceY(8.dy),
                     ExpandableText(
-                      singleCourse?.description ?? '',
+                      singleCourse.description ?? '',
 
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 14.sp,
@@ -214,7 +249,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.w500,
                                     color: kTextColorsLight)),
-                        Text("${(singleCourse?.modules ?? []).length} in total",
+                        Text("${(singleCourse.modules ?? []).length} in total",
                             softWrap: true,
                             style: Theme.of(context)
                                 .textTheme
@@ -231,9 +266,9 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                       child: ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: (singleCourse?.modules ?? []).length,
+                        itemCount: (singleCourse.modules ?? []).length,
                         itemBuilder: (context, index) {
-                          final moduleData = singleCourse?.modules?[index];
+                          final moduleData = singleCourse.modules?[index];
                           return ExpandableContainer(
                             hour: moduleData?.length?.hours ?? 0,
                             minutes: moduleData?.length?.minutes ?? 0,
@@ -307,7 +342,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                                 width: 40,
                                 fit: BoxFit.cover,
                                 radius: BorderRadius.circular(20),
-                                url: (singleCourse?.instructors ?? [])
+                                url: (singleCourse.instructors ?? [])
                                         .first
                                         .profilePicture ??
                                     '',
@@ -320,7 +355,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                      (singleCourse?.instructors ?? [])
+                                      (singleCourse.instructors ?? [])
                                               .first
                                               .fullName ??
                                           kDummyName,
@@ -333,18 +368,18 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                                               fontWeight: FontWeight.w700,
                                               color: kTextColorsLight)),
                                   Text(
-                                      ((singleCourse?.instructors ?? [])
+                                      ((singleCourse.instructors ?? [])
                                                           .first
                                                           .occupation ??
                                                       '')
                                                   .isEmpty ||
-                                              ((singleCourse?.instructors ?? [])
+                                              ((singleCourse.instructors ?? [])
                                                           .first
                                                           .occupation ??
                                                       '') ==
                                                   ''
                                           ? "Author role"
-                                          : (singleCourse?.instructors ?? [])
+                                          : (singleCourse.instructors ?? [])
                                                   .first
                                                   .occupation ??
                                               "Author role",
@@ -364,16 +399,16 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                                ((singleCourse?.instructors ?? []).first.bio ??
+                                ((singleCourse.instructors ?? []).first.bio ??
                                                 '')
                                             .isEmpty ||
-                                        ((singleCourse?.instructors ?? [])
+                                        ((singleCourse.instructors ?? [])
                                                     .first
                                                     .bio ??
                                                 '') ==
                                             ''
                                     ? "Author bio"
-                                    : (singleCourse?.instructors ?? [])
+                                    : (singleCourse.instructors ?? [])
                                             .first
                                             .bio ??
                                         "Author bio",
@@ -405,34 +440,34 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                                     context: context,
                                     targetScreen: CheckoutScreen(
                                       model: CheckOutCourseModel(
-                                          image: singleCourse?.image ?? '',
-                                          courseId: singleCourse?.id ?? '',
+                                          image: singleCourse.image ?? '',
+                                          courseId: singleCourse.id ?? '',
                                           category: 'Design',
                                           hours: singleCourse
-                                                  ?.courseLength?.hours ??
+                                                  .courseLength?.hours ??
                                               0,
                                           minutes: singleCourse
-                                                  ?.courseLength?.minutes ??
+                                                  .courseLength?.minutes ??
                                               0,
                                           instructor:
-                                              (singleCourse?.instructors ?? [])
+                                              (singleCourse.instructors ?? [])
                                                       .first
                                                       .fullName ??
                                                   '',
-                                          lessons: (singleCourse?.modules ?? [])
+                                          lessons: (singleCourse.modules ?? [])
                                               .length,
-                                          price: singleCourse?.price ?? 0,
-                                          title: singleCourse?.title ?? ''),
+                                          price: singleCourse.price ?? 0,
+                                          title: singleCourse.title ?? ''),
                                     ));
                               },
                         buttonText: (widget.hasEnrolled ?? false)
                             ? 'Already enrolled'
-                            : "Enroll Now for - \$${singleCourse?.price ?? 0}"),
+                            : "Enroll Now for - \$${singleCourse.price ?? 0}"),
                     SpaceY(21.dy),
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                          "Get ${singleCourse?.points ?? 0} reward point at the end of the course.",
+                          "Get ${singleCourse.points ?? 0} reward point at the end of the course.",
                           softWrap: true,
                           textAlign: TextAlign.center,
                           style: Theme.of(context)

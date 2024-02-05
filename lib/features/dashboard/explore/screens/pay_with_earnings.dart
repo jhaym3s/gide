@@ -56,7 +56,7 @@ class _PayWithEarningState extends State<PayWithEarning> {
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Color(0xffF2F4F7)),
+                      color: const Color(0xffF2F4F7)),
                   padding:
                       EdgeInsets.symmetric(horizontal: 7.5.dx, vertical: 8.dy),
                   child: Row(
@@ -100,7 +100,7 @@ class _PayWithEarningState extends State<PayWithEarning> {
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xffD0D5DD))),
+                        color: const Color(0xffD0D5DD))),
               ),
               hintText: "Enter the amount",
               controller: amountController,
@@ -143,7 +143,7 @@ class _PayWithEarningState extends State<PayWithEarning> {
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xffD0D5DD))),
+                        color: const Color(0xffD0D5DD))),
               ),
               hintText: "Processed amount",
               controller: processAmountController,

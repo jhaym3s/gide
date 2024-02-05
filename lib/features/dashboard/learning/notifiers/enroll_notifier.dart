@@ -10,7 +10,6 @@ import 'package:gide/domain/repositories/learning_repo.dart';
 import 'package:gide/features/dashboard/learning/data/learning_repo_impl.dart';
 import 'package:gide/features/dashboard/learning/model/create_enrollment.dart';
 import 'package:gide/features/dashboard/learning/model/enrollment_model/enroll.dart';
-import 'package:gide/features/dashboard/learning/model/enrollment_model/enrollment_model.dart';
 import 'package:gide/features/dashboard/learning/notifiers/enroll_state.dart';
 
 class EnrollNotifier extends StateNotifier<EnrollState> {

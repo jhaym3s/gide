@@ -1,10 +1,8 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:gide/core/configs/configs.dart';
-import 'package:gide/core/configs/images.dart';
 import '../../../../core/components/components.dart';
 import '../../../../core/router/router.dart';
 import '../../custom_navigation_bar.dart';

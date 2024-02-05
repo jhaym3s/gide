@@ -4,7 +4,6 @@ import 'dart:io';
 // Project imports:
 import 'package:gide/core/services/config/response/base_response.dart';
 import 'package:gide/domain/model_response/instructor_resp.dart';
-import 'package:gide/domain/model_response/login_response/login_response.dart';
 import 'package:gide/domain/model_response/upload_file_resp.dart';
 import 'package:gide/features/dashboard/profile/become_instructor_model.dart';
 import 'package:gide/features/dashboard/profile/model/change_password_model.dart';

@@ -10,11 +10,7 @@ import 'package:gide/general_widget/app_image_view.dart';
 class CompletedCourses extends StatelessWidget {
   final Enroll? model;
   final VoidCallback? onTap;
-  const CompletedCourses({
-    super.key,
-    this.model,
-    this.onTap
-  });
+  const CompletedCourses({super.key, this.model, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -98,10 +94,13 @@ class CompletedCourses extends StatelessWidget {
                       Text("Drop a review",
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: kGrey)),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: kGrey)),
                     ],
                   ),
                 )

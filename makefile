@@ -4,5 +4,8 @@ auto_generate:
 format: ## Formats the code
 	@echo "╠ Formatting the code"
 	@dart format lib .
+	@echo Done with the formate lib
 	@flutter pub run import_sorter:main
-	@flutter format lib
+	@echo Done with format import_sorter
+	@dart fix --apply
+	@echo Done with format lib

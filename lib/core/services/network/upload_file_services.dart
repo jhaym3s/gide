@@ -13,10 +13,10 @@ import 'package:gide/domain/model_response/upload_file_resp.dart';
 
 class ImagePartConverter extends Converter<File, MultipartFile> {
   @override
-  MultipartFile convert(File file) {
+  MultipartFile convert(File input) {
     return MultipartFile.fromFileSync(
-      file.path,
-      filename: file.path.split('/').last,
+      input.path,
+      filename: input.path.split('/').last,
       contentType: MediaType('image', 'png'), // Specific MIME type
     );
   }
@@ -26,28 +26,28 @@ class UploadFileApiServices {
   Future<BaseResponse<UploadFileResp>> uploadFiles(
       File file, dio, String baseUrl) async {
     debugLog('In the custom class for uploading only files');
-    const _extra = <String, dynamic>{};
+    const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.files.add(MapEntry(
+    final headers = <String, dynamic>{};
+    final data = FormData();
+    data.files.add(MapEntry(
       'file',
       MultipartFile.fromFileSync(file.path,
           filename: file.path.split(Platform.pathSeparator).last,
           contentType: MediaType('image', 'png')),
     ));
-    final _result = await dio.fetch<Map<String, dynamic>>(
+    final result = await dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<UploadFileResp>>(Options(
       method: 'POST',
-      headers: _headers,
-      extra: _extra,
+      headers: headers,
+      extra: extra,
       contentType: 'multipart/form-data',
     )
             .compose(
               dio.options,
               '/media/upload',
               queryParameters: queryParameters,
-              data: _data,
+              data: data,
             )
             .copyWith(
                 baseUrl: _combineBaseUrls(
@@ -55,7 +55,7 @@ class UploadFileApiServices {
               baseUrl,
             ))));
     final value = BaseResponse<UploadFileResp>.fromJson(
-      _result.data!,
+      result.data!,
       (json) => UploadFileResp.fromJson(json as Map<String, dynamic>),
     );
     return value;

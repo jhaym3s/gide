@@ -116,7 +116,7 @@ class RewardBalanceCard extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Color(0xffF9FAFB)),
+                color: const Color(0xffF9FAFB)),
             padding: EdgeInsets.symmetric(horizontal: 20.dx, vertical: 6.dy),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

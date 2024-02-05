@@ -10,7 +10,6 @@ import 'package:gide/core/services/local_database/hive_keys.dart';
 import 'package:gide/features/authentication/screens/splash_screen.dart';
 import 'core/configs/configs.dart';
 import 'core/router/app_route.dart';
-import 'features/dashboard/custom_navigation_bar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

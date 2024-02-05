@@ -200,38 +200,38 @@ class AppTheme {
 
 lightModeAppTextTheme() {
   return const TextTheme(
-    headline1: TextStyle(
+    displayLarge: TextStyle(
         color: kTextColorsLight,
         fontSize: 64,
         fontFamily: kFontFamily,
         fontWeight: FontWeight.normal),
-    headline2: TextStyle(
+    displayMedium: TextStyle(
         color: kTextColorsLight,
         fontFamily: kFontFamily,
         fontSize: 48,
         fontWeight: FontWeight.normal),
-    headline3: TextStyle(
+    displaySmall: TextStyle(
       color: kTextColorsLight,
       fontSize: 36,
       fontWeight: FontWeight.normal,
       fontFamily: kFontFamily,
     ),
-    headline4: TextStyle(
+    headlineMedium: TextStyle(
         color: kTextColorsLight,
         fontSize: 30,
         fontFamily: kFontFamily,
         fontWeight: FontWeight.normal),
-    headline5: TextStyle(
+    headlineSmall: TextStyle(
         color: kTextColorsLight,
         fontSize: 25,
         fontFamily: kFontFamily,
         fontWeight: FontWeight.normal),
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
         color: kTextColorsLight,
         fontSize: 20,
         fontFamily: kFontFamily,
         fontWeight: FontWeight.normal),
-    bodyText2: TextStyle(
+    bodyMedium: TextStyle(
         color: kTextColorsLight,
         fontFamily: kFontFamily,
         fontWeight: FontWeight.normal),

@@ -15,7 +15,8 @@ class CheckOutCourseModel {
       required this.instructor,
       required this.hours,
       required this.price,
-      required this.minutes,required this.image,
+      required this.minutes,
+      required this.image,
       required this.courseId,
       required this.lessons});
 }
@@ -43,17 +44,16 @@ class CheckoutCourses extends StatelessWidget {
           Container(
             height: 121.dy,
             width: 253.dx,
-            
             color: kBlack,
-            child:    AppImageView(
-                                height: 121,
-                                // width: 40,
-                                fit: BoxFit.contain,
-                                radius: BorderRadius.circular(20),
-                                url: model.image,
-                                // imagePath: 'assets/images/active_learning.png',
-                                imagePath: 'assets/images/active_profile.png',
-                              ),
+            child: AppImageView(
+              height: 121,
+              // width: 40,
+              fit: BoxFit.contain,
+              radius: BorderRadius.circular(20),
+              url: model.image,
+              // imagePath: 'assets/images/active_learning.png',
+              imagePath: 'assets/images/active_profile.png',
+            ),
           ),
           SpaceY(12.dy),
           Padding(

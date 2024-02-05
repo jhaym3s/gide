@@ -26,7 +26,6 @@ class _ChangePasswordState extends ConsumerState<ChangePassword> {
   final oldPassWord = TextEditingController();
   final newPassWord = TextEditingController();
   final confirmPassWord = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey();
   bool showPassword = true;
   bool showNewPassWord = true;
   bool showConfPassWord = true;

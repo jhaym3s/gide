@@ -40,7 +40,7 @@ class ExploreAppBar extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
-                    color: Color(0xff667085))),
+                    color: const Color(0xff667085))),
             SpaceY(2.dy),
             Consumer(builder: (context, ref, _) {
               final userData = ref.watch(currentUserProvider);

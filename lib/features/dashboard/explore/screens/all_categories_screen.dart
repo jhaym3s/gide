@@ -2,17 +2,11 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
-import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/components/components.dart';
 import 'package:gide/core/configs/configs.dart';
-import 'package:gide/core/helpers/helper_fxn.dart';
 import 'package:gide/features/dashboard/explore/screens/explore_screen.dart';
-import 'package:gide/features/dashboard/profile/model/phone_numer_model.dart';
-import 'package:gide/features/dashboard/profile/notifiers/profile_notifier.dart';
-import 'package:gide/features/dashboard/profile/notifiers/profile_state.dart';
 import '../../../../core/router/router.dart';
 
 class AllCategorieScreen extends StatelessWidget {

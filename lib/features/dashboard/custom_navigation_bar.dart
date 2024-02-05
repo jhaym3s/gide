@@ -1,12 +1,10 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 // Project imports:
-import 'package:gide/core/services/config/exception/logger.dart';
 import 'package:gide/features/dashboard/explore/screens/explore_screen.dart';
 import 'package:gide/features/dashboard/learning/screens/learning_screen.dart';
 import 'package:gide/features/dashboard/profile/screens/profile_screen.dart';

@@ -73,7 +73,7 @@ class PasswordTextFormField extends StatelessWidget {
                     ),
                   ),
               hintText: hintText,
-              hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+              hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: const Color(0xFFB7B7B9),
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:gide/core/components/custom_back_button.dart';
 import 'package:gide/core/configs/configs.dart';
-import 'package:gide/core/configs/constants.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/features/dashboard/profile/screens/add_number.dart';
 import 'package:gide/features/dashboard/profile/screens/change_password.dart';
@@ -42,14 +41,13 @@ class _EditPersonalDetailsScreenState extends State<EditPersonalDetailsScreen> {
                 onTap: () {
                   moveFromBottomNavBarScreen(
                       context: context, targetScreen: const ChangePassword());
-                  
                 },
                 child: const EditListTile(
                   title: "Change Password",
                 )),
             GestureDetector(
                 onTap: () {
-                         moveFromBottomNavBarScreen(
+                  moveFromBottomNavBarScreen(
                       context: context, targetScreen: const AddNumber());
                   // moveToNextScreen(context: context, page: AddNumber.routeName);
                 },
@@ -75,7 +73,7 @@ class EditListTile extends StatelessWidget {
       height: 56.dy,
       width: kScreenWidth(context),
       decoration: BoxDecoration(
-        color: Color(0xffF2F4F7),
+        color: const Color(0xffF2F4F7),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(

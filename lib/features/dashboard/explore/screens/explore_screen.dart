@@ -2,7 +2,6 @@
 import 'dart:async';
 
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -12,7 +11,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/core/components/search_bar.dart';
 import 'package:gide/core/router/router.dart';
-import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/features/authentication/notifier/auth_notifier.dart';
 import 'package:gide/features/dashboard/explore/model/all_courses_model/course_model.dart';
 import 'package:gide/features/dashboard/explore/notifier.dart/course_notifier.dart';
@@ -146,7 +144,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                         color: kTextColorsLight)),
                 SpaceY(14.dy),
                 SizedBox(
-                  height: 260.dy,
+                  height: 270.dy,
                   child: allCourses.loadState == LoadState.loading
                       ? const AppLoader(
                           color: kPrimaryColor,
@@ -185,7 +183,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                         color: kTextColorsLight)),
                 SpaceY(14.dy),
                 Container(
-                  height: 260.dy,
+                  height: 270.dy,
                   margin: EdgeInsets.zero, // Remove margin
                   padding: EdgeInsets.zero, // Remove padding
                   child: allCourses.loadState == LoadState.loading

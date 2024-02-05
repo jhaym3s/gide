@@ -18,7 +18,7 @@ class CustomProgressIndicator extends StatelessWidget {
       decoration: BoxDecoration(
           //border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(10),
-          color: Color(0xffD0D5DD)),
+          color: const Color(0xffD0D5DD)),
       child: Stack(
         children: [
           Container(

@@ -10,7 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gide/core/configs/configs.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
-import 'package:gide/core/services/third_party_services/web_link.dart';
 import 'package:gide/features/dashboard/profile/notifiers/profile_notifier.dart';
 import 'package:gide/features/dashboard/profile/screens/become_an_instructor.dart';
 import 'package:gide/features/dashboard/profile/screens/edit_personal_details_screen.dart';

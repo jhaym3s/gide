@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:gide/core/components/custom_elevated_button.dart';
 import 'package:gide/core/configs/configs.dart';
-import 'package:gide/core/configs/images.dart';
-import 'package:gide/core/router/router.dart';
-import 'package:gide/features/dashboard/custom_navigation_bar.dart';
 
 class EmptyLearningScreen extends StatelessWidget {
   const EmptyLearningScreen({

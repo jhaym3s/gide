@@ -1,9 +1,6 @@
 // Project imports:
 import 'package:gide/core/components/app_enums.dart';
 import 'package:gide/domain/model_response/create_enrollment_resp/create_enrollment_resp.dart';
-import 'package:gide/features/dashboard/explore/model/all_courses_model/all_courses_model.dart';
-import 'package:gide/features/dashboard/explore/model/all_courses_model/course_model.dart';
-import 'package:gide/features/dashboard/explore/model/single_course_model/single_course_model.dart';
 import 'package:gide/features/dashboard/learning/model/enrollment_model/enroll.dart';
 import 'package:gide/features/dashboard/learning/model/enrollment_model/enrollment_model.dart';
 
