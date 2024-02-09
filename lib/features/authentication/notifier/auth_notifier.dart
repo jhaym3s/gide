@@ -77,6 +77,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
         state = state.copyWith(
           loadState: LoadState.success,
         );
+           saveDetails(response.data!.user ?? const Profile(),
+            response.data!.token!, CurrentState.loggedIn);
+        
         toastMessage('${response.message}');
         return response.message;
       } else {
@@ -97,7 +100,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-//!used to store ref temporarily
+//!used to store ref temporarily in forgetting password fxn
   String refCode = '';
   String email = '';
   Future forgetPass(ForgetPasswordModel data) async {

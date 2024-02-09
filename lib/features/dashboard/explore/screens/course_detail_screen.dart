@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_expandable_text/flutter_expandable_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gide/features/dashboard/custom_navigation_bar.dart';
 import 'package:gide/features/dashboard/learning/notifiers/enroll_notifier.dart';
 import 'package:gide/features/dashboard/learning/screens/learning_screen.dart';
 import 'package:gide/features/dashboard/learning/widgets/learning_courses.dart';
@@ -442,7 +443,12 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                                   final success = await notifier.createEnroll(
                                       courseId: widget.courseId);
                                   if (success) {
-                                    moveToOldScreen(context: context);
+                                    // moveToOldScreen(context: context);
+                                           moveAndClearStack(
+                                        context: context,
+                                        page: CustomNavigationBar.routeName, 
+                                        arg: 1
+                                        );
                                   }
                                   //!Remove all payment getway for v1 release
                                   // moveFromBottomNavBarScreen(

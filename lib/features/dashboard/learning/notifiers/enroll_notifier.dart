@@ -35,7 +35,7 @@ class EnrollNotifier extends StateNotifier<EnrollState> {
             tempCourses.add(model);
           }
         }
-        state = state.copyWith(completedCourses: [...tempCourses]);
+        state = state.copyWith(completedCourses: [...tempCourses.reversed]);
         debugLog(
             'Completed courses list length : ${state.completedCourses?.length ?? 0}');
       }

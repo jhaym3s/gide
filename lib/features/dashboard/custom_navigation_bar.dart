@@ -13,7 +13,8 @@ import '../../core/configs/configs.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   static const routeName = "custom_nav_bar";
-  const CustomNavigationBar({Key? key}) : super(key: key);
+  const CustomNavigationBar({Key? key, this.index}) : super(key: key);
+  final int? index;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -81,7 +82,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
 
   @override
   void initState() {
-    _pageController = PersistentTabController(initialIndex: 0);
+    _pageController = PersistentTabController(initialIndex: widget.index?? 0);
+
     pages = [
       const ExploreScreen(),
       LearningScreen(onItemClicked: _onItemTapped),
@@ -104,7 +106,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     return PersistentTabView(
       context,
       controller: _pageController,
-      screens: _children(), 
+      screens: pages,
       items: _navBarsItems(),
       confineInSafeArea: true,
       backgroundColor: Colors.white, // Default is Colors.white.

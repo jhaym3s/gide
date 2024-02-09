@@ -47,6 +47,7 @@ class _AddNumberState extends State<AddNumber> {
                 hintText: "",
                 labelText: "Phone Number",
                 controller: numberController,
+                keyboardType: TextInputType.number,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter some text';

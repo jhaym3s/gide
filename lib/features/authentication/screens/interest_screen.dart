@@ -36,16 +36,7 @@ class _InterestScreenState extends State<InterestScreen> {
     interestList = [...catList];
   }
 
-  List<String?> interestList = [
-    // "UI/UX Design",
-    // "Product Management",
-    // "Mobile",
-    // "Frontend Development",
-    // "Digital Marketing",
-    // "Backend Development",
-    // "Copy Writing",
-    // "Data Science",
-  ];
+  List<String?> interestList = [];
   final List<int> selectedItems = [];
   final List<String> selectedInterest = [];
 

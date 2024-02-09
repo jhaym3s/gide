@@ -29,7 +29,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
   //!todo fetch user profile and update it on setting screen
 
   Future getProfile() async {
-    try {
+  try {
       final response = await profileRepo.getProfile();
       if (response.statusCode == 201 || response.statusCode == 200) {
         // debugLog('Profile Details: ${response.data.toString()}');

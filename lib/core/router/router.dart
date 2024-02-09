@@ -7,9 +7,10 @@ import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 void moveAndClearStack({
   required BuildContext context,
   required String page,
+  Object? arg
 }) {
   Navigator.of(context)
-      .pushNamedAndRemoveUntil(page, (Route<dynamic> route) => false);
+      .pushNamedAndRemoveUntil(page, (Route<dynamic> route) => false, arguments: arg);
 }
 
 void moveToNextScreen(

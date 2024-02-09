@@ -34,7 +34,7 @@ class CourseNotifier extends StateNotifier<CourseState> {
             featured.add(singleData);
           }
         }
-        state = state.copyWith(featuredCoursesModel: [...featured]);
+        state = state.copyWith(featuredCoursesModel: [...featured.reversed]);
         debugLog(
             'Updated featured list length : ${state.featuredCoursesModel?.length ?? 0}');
       }

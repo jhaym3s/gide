@@ -45,7 +45,11 @@ class AppRouter {
                 categoryList: settings.arguments as List<CategoryResp>?));
 
       case CustomNavigationBar.routeName:
-        return MaterialPageRoute(builder: (_) => const CustomNavigationBar());
+        return MaterialPageRoute(
+          builder: (_) => CustomNavigationBar(
+            index: settings.arguments as int?,
+          ),
+        );
       case VerifyOTPScreen.routeName:
         return MaterialPageRoute(builder: (_) => const VerifyOTPScreen());
       case ResetPasswordScreen.routeName:

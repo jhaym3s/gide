@@ -63,7 +63,7 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
       }
 
       setState(() {
-        _searchedCourses = tempList;
+        _searchedCourses = tempList.reversed.toList();
       });
     } else {
       // debugLog('controller is empty');
@@ -214,9 +214,13 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                                                     ?.data?.length ??
                                                 0,
                                             itemBuilder: (context, index) {
-                                              final singleData = state
-                                                  .enrollmentModel
-                                                  ?.data?[index];
+                                              final singleData = ((state
+                                                          .enrollmentModel
+                                                          ?.data
+                                                          ?.reversed ??
+                                                      [])
+                                                  .toList())[index];
+
                                               return GestureDetector(
                                                 onTap: () {
                                                   moveFromBottomNavBarScreen(
@@ -224,7 +228,7 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                                                       targetScreen:
                                                           CourseDetailScreen(
                                                         courseId: singleData
-                                                                ?.course?.id ??
+                                                                .course?.id ??
                                                             "",
                                                         hasEnrolled: true,
                                                       ));
@@ -359,7 +363,8 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
                   ],
                 ),
                 //! third tab
-                Container(),
+                //!update then third tab in the v2
+                // Container(),
               ]),
             )
           ],

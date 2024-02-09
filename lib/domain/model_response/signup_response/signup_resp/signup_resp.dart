@@ -1,12 +1,13 @@
 // Package imports:
 import 'package:equatable/equatable.dart';
+import 'package:gide/features/dashboard/profile/model/profile.dart';
 
 // Project imports:
-import 'user.dart';
+// import 'user.dart';
 
 class SignupResp extends Equatable {
   final String? token;
-  final User? user;
+  final Profile? user;
 
   const SignupResp({this.token, this.user});
 
@@ -14,7 +15,7 @@ class SignupResp extends Equatable {
         token: json['token'] as String?,
         user: json['user'] == null
             ? null
-            : User.fromJson(json['user'] as Map<String, dynamic>),
+            : Profile.fromJson(json['user'] as Map<String, dynamic>),
       );
 
   Map<String, dynamic> toJson() => {
