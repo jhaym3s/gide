@@ -7,6 +7,7 @@ import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/core/services/config/exception/app_exception.dart';
 import 'package:gide/core/services/config/response/base_response.dart';
 import 'package:gide/core/services/network/rest_client.dart';
+import 'package:gide/domain/model_response/query_filters.dart';
 import 'package:gide/domain/repositories/courses_repo.dart';
 import 'package:gide/features/dashboard/explore/model/all_courses_model/all_courses_model.dart';
 import 'package:gide/features/dashboard/explore/model/single_course_model/single_course_model.dart';
@@ -20,7 +21,7 @@ class CoursesImpl extends CourseRepo {
   Future<BaseResponse<AllCoursesModel>> getCourses(
       {required String searchQuery}) async {
     try {
-      final resp = await _client.getAllCourses(searchQuery);
+      final resp = await _client.getAllCourses(FilterParams(search: searchQuery));
       return resp;
     } on DioException catch (ex) {
       return AppException.handleError(ex);

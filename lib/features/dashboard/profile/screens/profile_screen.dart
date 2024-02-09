@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
 import 'package:gide/core/configs/configs.dart';
+import 'package:gide/core/helpers/helper_fxn.dart';
 import 'package:gide/core/router/router.dart';
 import 'package:gide/core/services/config/configure_dependencies.dart';
 import 'package:gide/features/dashboard/profile/notifiers/profile_notifier.dart';
@@ -184,33 +185,36 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         fontWeight: FontWeight.w500,
                         color: kPrimaryColor)),
                 SpaceY(8.dy),
-                ProfileCard(
-                  children: [
-                    SupportListTile(
-                        title: "Video Loop",
-                        image: AssetsImages.videoLoop,
+                GestureDetector(
+                  onTap: () => toastMessage('Coming soon'),
+                  child: ProfileCard(
+                    children: [
+                      SupportListTile(
+                          title: "Video Loop",
+                          image: AssetsImages.videoLoop,
+                          suffixWidget: CustomSwitch(
+                            // isActive: isLoopActive,
+                            isActive: false,
+                            onChanged: (p0) {
+                              setState(() {
+                                isLoopActive = !isLoopActive;
+                              });
+                            },
+                          )),
+                      SupportListTile(
+                        title: "Video Subtitle",
+                        image: AssetsImages.videoSubtitle,
                         suffixWidget: CustomSwitch(
-                          // isActive: isLoopActive,
-                          isActive: false,
-                          onChanged: (p0) {
-                            setState(() {
-                              isLoopActive = !isLoopActive;
-                            });
-                          },
-                        )),
-                    SupportListTile(
-                      title: "Video Subtitle",
-                      image: AssetsImages.videoSubtitle,
-                      suffixWidget: CustomSwitch(
-                          // isActive: isSubtitleActive,
-                          isActive: false,
-                          onChanged: (p0) {
-                            setState(() {
-                              isSubtitleActive = !isSubtitleActive;
-                            });
-                          }),
-                    ),
-                  ],
+                            // isActive: isSubtitleActive,
+                            isActive: false,
+                            onChanged: (p0) {
+                              setState(() {
+                                isSubtitleActive = !isSubtitleActive;
+                              });
+                            }),
+                      ),
+                    ],
+                  ),
                 ),
                 SpaceY(24.dy),
                 GestureDetector(

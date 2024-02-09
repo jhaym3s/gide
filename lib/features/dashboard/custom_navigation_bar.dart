@@ -52,16 +52,17 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             height: 24.dy, width: 24.dx),
         title: ("Learning"),
       ),
-      PersistentBottomNavBarItem(
-        contentPadding: 0,
-        //iconSize: 80,
-        activeColorPrimary: kPrimaryColor,
-        icon:
-            Image.asset(AssetsImages.activeWallet, height: 24.dy, width: 24.dx),
-        inactiveIcon: Image.asset(AssetsImages.inactiveWallet,
-            height: 24.dy, width: 24.dx),
-        title: ("Wallet"),
-      ),
+      //!Coming up in v2 devolpment
+      // PersistentBottomNavBarItem(
+      //   contentPadding: 0,
+      //   //iconSize: 80,
+      //   activeColorPrimary: kPrimaryColor,
+      //   icon:
+      //       Image.asset(AssetsImages.activeWallet, height: 24.dy, width: 24.dx),
+      //   inactiveIcon: Image.asset(AssetsImages.inactiveWallet,
+      //       height: 24.dy, width: 24.dx),
+      //   title: ("Wallet"),
+      // ),
       PersistentBottomNavBarItem(
           contentPadding: 0,
           //iconSize: 80,
@@ -84,7 +85,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     pages = [
       const ExploreScreen(),
       LearningScreen(onItemClicked: _onItemTapped),
-      const WalletScreen(),
+      //!Coming up in v2 devolpment
+      // const WalletScreen(),
       const ProfileScreen(),
     ];
 
@@ -102,7 +104,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     return PersistentTabView(
       context,
       controller: _pageController,
-      screens: _children(),
+      screens: _children(), 
       items: _navBarsItems(),
       confineInSafeArea: true,
       backgroundColor: Colors.white, // Default is Colors.white.

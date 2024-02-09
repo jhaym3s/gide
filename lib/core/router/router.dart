@@ -18,7 +18,7 @@ void moveToNextScreen(
 }
 
 void moveToOldScreen({required BuildContext context, Object? arguments}) {
-  Navigator.of(context).pop();
+  Navigator.of(context).pop(arguments);
 }
 
 void moveFromBottomNavBarScreen(

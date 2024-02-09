@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_expandable_text/flutter_expandable_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gide/features/dashboard/learning/notifiers/enroll_notifier.dart';
+import 'package:gide/features/dashboard/learning/screens/learning_screen.dart';
+import 'package:gide/features/dashboard/learning/widgets/learning_courses.dart';
 import 'package:info_popup/info_popup.dart';
 
 // Project imports:
@@ -166,40 +169,37 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                     //         fontSize: 14.sp,
                     //         fontWeight: FontWeight.w400,
                     //         color: kGrey)),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.dx),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                              "${singleCourse?.courseLength?.hours ?? 0}h:${singleCourse?.courseLength?.minutes ?? 00}mins . ${(singleCourse?.modules ?? []).length} Lessons",
-                              softWrap: true,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: kGrey)),
-                          Row(
-                            children: [
-                              Text(
-                                  double.parse(singleCourse!.cummulativeRating
-                                          .toString())
-                                      .toStringAsFixed(1),
-                                  softWrap: true,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w400,
-                                          color: kGrey)),
-                              const Icon(Icons.star, color: kPrimaryColor),
-                            ],
-                          ),
-                        ],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                            "${singleCourse?.courseLength?.hours ?? 0}h:${singleCourse?.courseLength?.minutes ?? 00}mins . ${(singleCourse?.modules ?? []).length} Lessons",
+                            softWrap: true,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: kGrey)),
+                        Row(
+                          children: [
+                            Text(
+                                double.parse(singleCourse!.cummulativeRating
+                                        .toString())
+                                    .toStringAsFixed(1),
+                                softWrap: true,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: kGrey)),
+                            const Icon(Icons.star, color: kPrimaryColor),
+                          ],
+                        ),
+                      ],
                     ),
                     SpaceY(32.dy),
                     Divider(
@@ -429,40 +429,58 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                     Divider(
                       height: 1.dy,
                     ),
-                    CustomElevatedButton(
-                        color: (widget.hasEnrolled ?? false)
-                            ? kPrimaryColor.withOpacity(0.4)
-                            : kPrimaryColor,
-                        onPressed: (widget.hasEnrolled ?? false)
-                            ? () {}
-                            : () {
-                                moveFromBottomNavBarScreen(
-                                    context: context,
-                                    targetScreen: CheckoutScreen(
-                                      model: CheckOutCourseModel(
-                                          image: singleCourse.image ?? '',
-                                          courseId: singleCourse.id ?? '',
-                                          category: 'Design',
-                                          hours: singleCourse
-                                                  .courseLength?.hours ??
-                                              0,
-                                          minutes: singleCourse
-                                                  .courseLength?.minutes ??
-                                              0,
-                                          instructor:
-                                              (singleCourse.instructors ?? [])
-                                                      .first
-                                                      .fullName ??
-                                                  '',
-                                          lessons: (singleCourse.modules ?? [])
-                                              .length,
-                                          price: singleCourse.price ?? 0,
-                                          title: singleCourse.title ?? ''),
-                                    ));
-                              },
-                        buttonText: (widget.hasEnrolled ?? false)
-                            ? 'Already enrolled'
-                            : "Enroll Now for - \$${singleCourse.price ?? 0}"),
+                    Consumer(builder: (context, ref, child) {
+                      final enrollState = ref.watch(enrollProv);
+                      final notifier = ref.read(enrollProv.notifier);
+                      return CustomElevatedButton(
+                          color: (widget.hasEnrolled ?? false)
+                              ? kPrimaryColor.withOpacity(0.4)
+                              : kPrimaryColor,
+                          onPressed: (widget.hasEnrolled ?? false)
+                              ? () {}
+                              : () async {
+                                  final success = await notifier.createEnroll(
+                                      courseId: widget.courseId);
+                                  if (success) {
+                                    moveToOldScreen(context: context);
+                                  }
+                                  //!Remove all payment getway for v1 release
+                                  // moveFromBottomNavBarScreen(
+                                  //     context: context,
+                                  //     targetScreen: CheckoutScreen(
+                                  //       model:
+                                  //           CheckOutCourseModel(
+                                  //               image: singleCourse.image ?? '',
+                                  //               courseId: singleCourse.id ?? '',
+                                  //               category: 'Design',
+                                  //               hours: singleCourse
+                                  //                       .courseLength?.hours ??
+                                  //                   0,
+                                  //               minutes: singleCourse
+                                  //                       .courseLength?.minutes ??
+                                  //                   0,
+                                  //               instructor: (singleCourse
+                                  //                               .instructors ??
+                                  //                           [])
+                                  //                       .first
+                                  //                       .fullName ??
+                                  //                   '',
+                                  //               lessons:
+                                  //                   (singleCourse.modules ?? [])
+                                  //                       .length,
+                                  //               price: singleCourse.price ?? 0,
+                                  //               title: singleCourse.title ?? ''),
+                                  //     ));
+                                },
+                          isLoading: enrollState.loadState == LoadState.loading,
+                          buttonText: (widget.hasEnrolled ?? false)
+                              ? 'Already enrolled'
+                              : "Enroll Now"
+                          //!Remove all payment getway for v1 release
+                          //  "Enroll Now for - \$${singleCourse.price ?? 0} "
+
+                          );
+                    }),
                     SpaceY(21.dy),
                     Align(
                       alignment: Alignment.center,

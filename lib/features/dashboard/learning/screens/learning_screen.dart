@@ -105,7 +105,7 @@ class _LearningScreenState extends ConsumerState<LearningScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     _textEditingController = TextEditingController();
     _enrolltextEditingController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {

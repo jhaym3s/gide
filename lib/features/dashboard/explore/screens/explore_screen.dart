@@ -166,7 +166,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                                       moveFromBottomNavBarScreen(
                                           context: context,
                                           targetScreen: CourseDetailScreen(
-                                            courseId: coursemodel.id ?? '',
+                                            courseId: coursemodel.id ?? ''
                                           ));
                                     },
                                     child: Courses(

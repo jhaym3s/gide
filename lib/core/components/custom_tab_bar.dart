@@ -46,9 +46,9 @@ class CustomThreeTabBar extends StatelessWidget {
           Tab(
             text: label2,
           ),
-          Tab(
-            text: label3,
-          ),
+          // Tab(
+          //   text: label3,
+          // ),
         ],
       ),
     );

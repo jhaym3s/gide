@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:gide/domain/model_response/query_filters.dart';
 import 'package:retrofit/retrofit.dart';
 
 // Project imports:
@@ -81,7 +82,9 @@ abstract class RestClient {
   //? courses
   @GET('/courses')
   Future<BaseResponse<AllCoursesModel>> getAllCourses(
-      @Query('search') String searchQuery);
+    // @Query('search') String searchQuery,
+    @Queries() FilterParams? filters
+  );
 
   @GET('/courses/{id}')
   Future<BaseResponse<SingleCourseModel>> getSingleCourse(
