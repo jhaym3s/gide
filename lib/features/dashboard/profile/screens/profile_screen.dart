@@ -1,9 +1,10 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 
 // Package imports:
+import 'package:gide/features/authentication/screens/sign_in_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
@@ -220,17 +221,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 GestureDetector(
                   onTap: () {
                     notifer.logout();
-                    //!last option Changes
-                    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                    // !last option Changes
+                    // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
                     print('in the logout button');
                     // Navigator.of(context).popUntil((route) => route.isFirst);
-                    // Navigator.pushNamedAndRemoveUntil(
-                    //   context,
-                    //   OnboardingScreen.routeName,
-                    //   ModalRoute.withName(
-                    //   OnboardingScreen.routeName
-                    //   ),
-                    // );
+                      Navigator.of(context, rootNavigator: true)
+                          .pushNamedAndRemoveUntil(
+                              SignInScreen.routeName, (route) => false);
+                  
                   },
                   child: Row(
                     children: [
